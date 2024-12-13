@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Fonctionaire;
+use App\Models\Departement;
+use Illuminate\Http\Request;
+
+class FonctionaireController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('fonctionaires.index', [
+            'fonctionaires' => Fonctionaire::paginate(10),
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $departements = Departement::all();
+        return view('fonctionaires.create', compact('departements'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'nom' => 'required|alpha|min:3|max:20',
+            'prenom' => 'required|alpha|min:3|max:20',
+            'email' => 'required|email',
+            'telephone' => 'required|numeric',
+            'departement_id' => 'required|numeric|exists:departements,id',
+        ]);
+
+        Fonctionaire::create($request->all());
+
+        return redirect()->route('fonctionaires.index')
+            ->with('success', 'Fonctionaire created successfully.');
+
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Fonctionaire $fonctionaire)
+    {
+        return view('fonctionaires.show', ['fonctionnaire'=>$fonctionaire]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Fonctionaire $fonctionaire)
+    {
+        $departements = Departement::all();
+        return view('fonctionaires.edit', compact('fonctionaire', 'departements'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Fonctionaire $fonctionaire)
+    {
+        $request->validate([
+            'nom' => 'required|alpha|min:3|max:20',
+            'prenom' => 'required|alpha|min:3|max:20',
+            'email' => 'required|email',
+            'telephone' => 'required|numeric',
+            'departement_id' => 'required|numeric|exists:departements,id',
+        ]);
+
+        $fonctionaire->update($request->all());
+
+        return redirect()->route('fonctionaires.index')
+            ->with('success', 'Fonctionaire updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Fonctionaire $fonctionaire)
+    {
+        $fonctionaire->delete();
+
+        return redirect()->route('fonctionaires.index')
+            ->with('success', 'Fonctionaire deleted successfully');
+    }
+}

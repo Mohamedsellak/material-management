@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') - USMBA Inventory</title>
+    <title>@yield('title') - FSDM Inventory</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -25,7 +25,7 @@
                                 </svg>
                             </div>
                             <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                                USMBA Inventory
+                                FSDM Inventory
                             </span>
                         </a>
                     </div>
@@ -104,7 +104,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <span class="text-sm text-gray-500 dark:text-gray-400">
-                        © {{ date('Y') }} USMBA - Université Sidi Mohamed Ben Abdellah de Fès
+                        © {{ date('Y') }} FSDM - La Faculté des Sciences Dhar El Mahraz de Fès
                     </span>
                 </div>
             </div>

@@ -8,4 +8,9 @@ class Departement extends Model
 {
     //
     protected $fillable = ['name'];
+
+    public function fonctionnaires()
+    {
+        return $this->hasMany(Fonctionnaire::class);
+    }
 }

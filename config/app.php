@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Gestion des Matériels - USMBA'),
+    'name' => env('APP_NAME', 'Gestion des Matériels - FSDM'),
 
     /*
     |--------------------------------------------------------------------------

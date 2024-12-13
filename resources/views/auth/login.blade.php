@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Connexion - USMBA Inventory</title>
+    <title>Connexion - FSDM Inventory</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,9 +20,9 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <span class="mt-4 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                        USMBA Inventory
+                        FSDM Inventory
                     </span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Université Sidi Mohamed Ben Abdellah</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">La Faculté des Sciences Dhar El Mahraz</span>
                 </div>
             </a>
         </div>
@@ -37,7 +37,7 @@
                         Connectez-vous à votre compte
                     </p>
                 </div>
-                
+
                 @if (session('error'))
                     <div class="relative px-4 py-3 mb-4 border border-red-200 rounded-lg bg-red-50 dark:bg-red-900/50 dark:border-red-800/50">
                         <div class="flex items-center">
@@ -53,7 +53,7 @@
 
                 <form class="space-y-6" action="#" method="POST">
                     @csrf
-                    
+
                     <div class="space-y-2">
                         <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Adresse email
@@ -64,12 +64,12 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
                                 </svg>
                             </div>
-                            <input id="email" name="email" type="email" autocomplete="email" required 
+                            <input id="email" name="email" type="email" autocomplete="email" required
                                 class="block w-full pl-10 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700/50 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:text-white sm:text-sm transition duration-200"
                                 placeholder="vous@exemple.com">
                         </div>
                     </div>
-            
+
                     <div class="space-y-2">
                         <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Mot de passe
@@ -80,12 +80,12 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                                 </svg>
                             </div>
-                            <input id="password" name="password" type="password" autocomplete="current-password" required 
+                            <input id="password" name="password" type="password" autocomplete="current-password" required
                                 class="block w-full pl-10 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700/50 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:text-white sm:text-sm transition duration-200"
                                 placeholder="••••••••">
                         </div>
                     </div>
-            
+
                     <div>
                         <button type="submit" class="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-[1.02] transition-all duration-200">
                             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -97,7 +97,7 @@
                         </button>
                     </div>
                 </form>
-            
+
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>

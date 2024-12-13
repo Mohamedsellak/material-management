@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Page Non Trouvée - USMBA Inventory</title>
+    <title>Page Non Trouvée - FSDM Inventory</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -21,9 +21,9 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <span class="mt-4 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                        USMBA Inventory
+                        FSDM Inventory
                     </span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Université Sidi Mohamed Ben Abdellah</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">La Faculté des Sciences Dhar El Mahraz</span>
                 </div>
             </a>
         </div>
@@ -58,14 +58,14 @@
 
                 <!-- Action Buttons -->
                 <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="{{ route('welcome') }}" 
+                    <a href="{{ route('welcome') }}"
                        class="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group">
                         <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         Retour à l'accueil
                     </a>
-                    <button onclick="window.history.back()" 
+                    <button onclick="window.history.back()"
                             class="inline-flex items-center px-6 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200">
                         Page précédente
                     </button>

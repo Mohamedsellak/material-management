@@ -7,6 +7,7 @@ use App\Http\Controllers\TypeLocalController;
 use App\Http\Controllers\TypeMaterialController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\FonctionaireController;
 
 // Public routes
 Route::get('/', function () {
@@ -22,19 +23,23 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route::middleware(['auth'])->group(function () {
     // Departements management
     Route::resource('departements', DepartementController::class);
-    
+
     // Etats (States) management
     Route::resource('etats', EtatController::class);
-    
+
     // Type Locals management
     Route::resource('type-locals', TypeLocalController::class);
-    
+
     // Type Materials management
     Route::resource('type-materials', TypeMaterialController::class);
-    
+
     // Fournisseurs (Suppliers) management
     Route::resource('fournisseurs', FournisseurController::class);
+
+    // Fonctionaires management
+    Route::resource('fonctionaires', FonctionaireController::class);
 // });
+
 
 // Fallback route for 404
 Route::fallback(function () {

@@ -22,10 +22,10 @@
                             <label for="nom" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Nom du fournisseur
                             </label>
-                            <input type="text" name="nom" id="nom" 
+                            <input type="text" name="name" id="nom" 
                                    class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                                   value="{{ old('nom') }}" required>
-                            @error('nom')
+                                   value="{{ old('name') }}" required>
+                            @error('name')
                                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>

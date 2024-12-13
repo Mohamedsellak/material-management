@@ -12,7 +12,7 @@
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
                         Liste des Départements
                     </h2>
-                    <a href="{{ route('departements.create') }}" 
+                    <a href="{{ route('departements.create') }}"
                        class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md shadow-sm transition-colors">
                         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -20,6 +20,13 @@
                         Ajouter un Département
                     </a>
                 </div>
+
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <strong class="font-bold">Succès!</strong>
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                    </div>
+                @endif
 
                 <!-- Table -->
                 <div class="overflow-x-auto">
@@ -48,7 +55,14 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end space-x-2">
-                                            <a href="{{ route('departements.edit', $departement) }}" 
+                                            <a href="{{ route('departements.show', $departement) }}"
+                                               class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                </svg>
+                                            </a>
+                                            <a href="{{ route('departements.edit', $departement) }}"
                                                class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -57,7 +71,7 @@
                                             <form action="{{ route('departements.destroy', $departement) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" 
+                                                <button type="submit"
                                                         class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce département ?')">
                                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,4 +101,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

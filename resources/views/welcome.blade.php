@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Gestion des Matériels - USMBA Fès</title>
+    <title>Gestion des Matériels - FSDM Fès</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -24,9 +24,9 @@
                             </div>
                             <div class="flex flex-col">
                                 <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                                    USMBA Inventory
+                                    FSDM Inventory
                                 </span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">Université Sidi Mohamed Ben Abdellah</span>
+                                <span class="text-sm text-gray-500 dark:text-gray-400">La Faculté des Sciences Dhar El Mahraz</span>
                             </div>
                         </a>
                     </div>
@@ -56,10 +56,10 @@
                 <div class="mx-auto max-w-2xl text-center">
                     <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
                         Gestion des Matériels
-                        <span class="block text-blue-600 dark:text-blue-400">USMBA Fès</span>
+                        <span class="block text-blue-600 dark:text-blue-400">FSDM Fès</span>
                     </h1>
                     <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                        Système intégré de gestion du matériel pour l'Université Sidi Mohamed Ben Abdellah de Fès.
+                        Système intégré de gestion du matériel pour La Faculté des Sciences Dhar El Mahraz de Fès.
                         Une solution complète pour le suivi, la maintenance et l'inventaire.
                     </p>
                     <div class="mt-10 flex items-center justify-center gap-x-6">
@@ -230,13 +230,13 @@
     <footer class="bg-white/80 backdrop-blur-xl dark:bg-gray-800/80 border-t border-gray-100 dark:border-gray-700">
         <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
             <div class="flex justify-center space-x-6 md:order-2">
-                <a href="http://www.usmba.ac.ma/" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400">
-                    Site USMBA
+                <a href="http://www.FSDM.ac.ma/" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400">
+                    Site FSDM
                 </a>
             </div>
             <div class="mt-8 md:order-1 md:mt-0">
                 <p class="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-                    &copy; {{ date('Y') }} USMBA - Université Sidi Mohamed Ben Abdellah de Fès. Tous droits réservés.
+                    &copy; {{ date('Y') }} FSDM - La Faculté des Sciences Dhar El Mahraz de Fès. Tous droits réservés.
                 </p>
             </div>
         </div>
