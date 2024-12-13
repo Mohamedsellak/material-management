@@ -13,7 +13,7 @@ class TypeMaterialController extends Controller
     public function index()
     {
         $typeMaterials = TypeMaterial::paginate(10);
-        return view('typeMaterials.index', compact('typeMaterials'));
+        return view('type-materials.index', compact('typeMaterials'));
     }
 
     /**
@@ -21,7 +21,7 @@ class TypeMaterialController extends Controller
      */
     public function create()
     {
-        return view('typeMaterials.create');
+        return view('type-materials.create');
     }
 
     /**
@@ -33,7 +33,7 @@ class TypeMaterialController extends Controller
             'name' => 'required|string|max:255|min:3',
         ]);
         TypeMaterial::create($request->all());
-        return to_route('typeMaterials.index')->with('success', 'Type de matériel créé avec succès');
+        return to_route('type-materials.index')->with('success', 'Type de matériel créé avec succès');
     }
 
     /**
@@ -41,7 +41,7 @@ class TypeMaterialController extends Controller
      */
     public function show(TypeMaterial $typeMaterial)
     {
-        return view('typeMaterials.show', compact('typeMaterial'));
+        return view('type-materials.show', compact('typeMaterial'));
     }
 
     /**
@@ -49,7 +49,7 @@ class TypeMaterialController extends Controller
      */
     public function edit(TypeMaterial $typeMaterial)
     {
-        return view('typeMaterials.edit', compact('typeMaterial'));
+        return view('type-materials.edit', compact('typeMaterial'));
     }
 
     /**
@@ -61,7 +61,7 @@ class TypeMaterialController extends Controller
             'name' => 'required|string|max:255|min:3',
         ]);
         $typeMaterial->update($request->all());
-        return to_route('typeMaterials.index')->with('success', 'Type de matériel modifié avec succès');
+        return to_route('type-materials.index')->with('success', 'Type de matériel modifié avec succès');
     }
 
     /**
@@ -70,6 +70,6 @@ class TypeMaterialController extends Controller
     public function destroy(TypeMaterial $typeMaterial)
     {
         $typeMaterial->delete();
-        return to_route('typeMaterials.index')->with('success', 'Type de matériel supprimé avec succès');
+        return to_route('type-materials.index')->with('success', 'Type de matériel supprimé avec succès');
     }
 }
