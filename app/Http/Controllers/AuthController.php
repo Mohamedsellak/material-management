@@ -26,11 +26,13 @@ class AuthController extends Controller
         if (!$user) {
             return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
         }
+
         if (Hash::check($request->password, $user->password)) {
             session()->put('user', $user);
-            return to_route('home');
+            return to_route('dashboard');
+            dd('here');
         }
-        return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
+        return redirect()->back()->with('Error', 'Email ou mot de passe incorrect');
     }
 
 

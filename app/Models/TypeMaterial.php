@@ -8,5 +8,9 @@ class TypeMaterial extends Model
 {
     //
     protected $fillable = ['name'];
-    
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
+    }
 }

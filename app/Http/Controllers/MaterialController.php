@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\TypeMaterial;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
@@ -12,7 +13,8 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
+        $materials = Material::paginate(10);
+        return view('materials.index', compact('materials'));
     }
 
     /**
@@ -20,7 +22,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        //
+        $typeMaterials = TypeMaterial::all();
+        return view('materials.create', compact('typeMaterials'));
     }
 
     /**
@@ -28,7 +31,17 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:2|max:255',
+            'description' => 'required|string|min:2|max:255',
+            'quantity' => 'required|numeric|min:1',
+            'type_material_id' => 'required|exists:type_materials,id',
+        ]);
+
+        Material::create($request->all());
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material created successfully.');
     }
 
     /**
@@ -36,7 +49,7 @@ class MaterialController extends Controller
      */
     public function show(Material $material)
     {
-        //
+        return view('materials.show', compact('material'));
     }
 
     /**
@@ -44,7 +57,8 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        //
+        $typeMaterials = TypeMaterial::all();
+        return view('materials.edit', compact('material', 'typeMaterials'));
     }
 
     /**
@@ -52,7 +66,17 @@ class MaterialController extends Controller
      */
     public function update(Request $request, Material $material)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:3|max:255',
+            'quantity' => 'required|numeric|min:1',
+            'type_material_id' => 'required|exists:type_materials,id',
+        ]);
+
+        $material->update($request->all());
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material updated successfully');
     }
 
     /**
@@ -60,6 +84,9 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
-        //
+        $material->delete();
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material deleted successfully');
     }
 }

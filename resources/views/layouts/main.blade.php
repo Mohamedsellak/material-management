@@ -14,7 +14,7 @@
     <!-- Top Navigation -->
     <nav class="bg-white/80 backdrop-blur-xl dark:bg-gray-800/80 border-b border-gray-100 dark:border-gray-700 fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex">
                     <div class="shrink-0 flex items-center">
@@ -30,6 +30,8 @@
                         </a>
                     </div>
                 </div>
+
+
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:flex sm:space-x-8">
@@ -62,33 +64,48 @@
                         </div>
                     </div>
 
-                    <!-- Reports -->
-                    <a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
-                        Rapports
+                    <!-- Fonctionnaire -->
+                    <a href="{{ route('fonctionaires.index') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        fonctionaires
                     </a>
 
-                    <!-- Settings -->
-                    <a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
-                        Paramètres
+                    <!-- Fonctionnaire -->
+                    <a href="{{ route('materials.index') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        materials
                     </a>
-                </div>
 
-                <!-- Right Side -->
-                <div class="flex items-center space-x-4">
-                    <!-- User Menu -->
-                    <div class="relative group">
-                        <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <div class="py-1">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    Profile
-                                </a>
-                                <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    Déconnexion
-                                </a>
+                    <!-- Entrees -->
+                    <a href="{{ route("entrees.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        Entrees
+                    </a>
+
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="flex items-center space-x-4">
+                        <!-- User Menu -->
+                        <div class="relative group">
+                            <!-- Add trigger button -->
+                            <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span class="text-sm font-medium">Mon Compte</span>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="py-1">
+                                    <a href="{{ route('profile.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        Profile
+                                    </a>
+                                    <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        Déconnexion
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </nav>
