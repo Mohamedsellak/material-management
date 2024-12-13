@@ -25,7 +25,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['customAuth'])->group(function () {
     // Departements management
     Route::resource('departements', DepartementController::class);
 
