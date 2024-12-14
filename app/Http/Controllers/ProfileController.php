@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -40,24 +40,30 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
 
+        // Update the session with the new user data
+        session()->put('user', $user);
+
         return redirect()->route('profile.index')->with('success', 'Email updated successfully');
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'old_password' => 'required|min:4',
+            'old_password' => 'required',
             'password' => 'required|min:4|confirmed',
         ]);
 
-        $user = User::where('email', $request->session('user')->email )->first();
+        $user = User::where('email', session('user')->email)->first();
 
-        if (!Hash::check($request->old_password, $user->password)) {
+        if (!$user || !Hash::check($request->old_password, $user->password)) {
             return back()->with('error', 'Your Current Password Incorrect');
         }
 
         $user->password = Hash::make($request->password);
         $user->save();
+
+        // Update the session with the new user data
+        session()->put('user', $user);
 
         return redirect()->route('profile.index')->with('success', 'Password updated successfully');
     }

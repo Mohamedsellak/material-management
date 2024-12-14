@@ -12,7 +12,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\EntreeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Middleware\AuthMiddlewar;
 
 // Public routes
 Route::get('/', function () {
@@ -25,35 +25,20 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
-Route::middleware(['customAuth'])->group(function () {
+Route::middleware(AuthMiddlewar::class)->group(function () {
+
     // Departements management
     Route::resource('departements', DepartementController::class);
-
-    // Etats (States) management
     Route::resource('etats', EtatController::class);
-
-    // Type Locals management
     Route::resource('type-locals', TypeLocalController::class);
-
-    // Type Materials management
     Route::resource('type-materials', TypeMaterialController::class);
-
-    // Fournisseurs (Suppliers) management
     Route::resource('fournisseurs', FournisseurController::class);
-
-    // Fonctionaires management
     Route::resource('fonctionaires', FonctionaireController::class);
-
-    // materials management
     Route::resource('materials', MaterialController::class);
-
-    // // Entrees management
     Route::resource('entrees', EntreeController::class);
-
-    // Dashboard
+    
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
 
-    // // Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit-email', [ProfileController::class, 'editEmail'])->name('profile.editEmail');
     Route::put('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');

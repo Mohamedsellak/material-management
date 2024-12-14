@@ -16,8 +16,9 @@
                         </div>
                     @endif
 
-                    <form method="PUT" action="{{ route('profile.updatePassword') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('profile.updatePassword') }}" class="space-y-6">
                         @csrf
+                        @method("PUT")
 
                         <div>
                             <label for="old_password" class="block text-sm font-medium text-gray-700">Current Password</label>
