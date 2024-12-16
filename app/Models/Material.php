@@ -12,7 +12,7 @@ class Material extends Model
 
     public function typeMaterial()
     {
-        return $this->belongsTo(TypeMaterial::class);
+        return $this->belongsTo(TypeMaterial::class, 'type_material_id');
     }
 
     public function entrees()
