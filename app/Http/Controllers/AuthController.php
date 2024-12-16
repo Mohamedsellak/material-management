@@ -32,7 +32,7 @@ class AuthController extends Controller
             return to_route('dashboard');
             dd('here');
         }
-        return redirect()->back()->with('Error', 'Email ou mot de passe incorrect');
+        return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
     }
 
 

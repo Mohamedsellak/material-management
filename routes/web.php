@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AuthMiddlewar;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\TypeLocalController;
@@ -12,7 +13,9 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\EntreeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\AuthMiddlewar;
+use App\Http\Controllers\LocalController;
+use App\Http\Controllers\CommandController;
+use App\Http\Controllers\CommandLineController;
 
 // Public routes
 Route::get('/', function () {
@@ -36,15 +39,20 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     Route::resource('fonctionaires', FonctionaireController::class);
     Route::resource('materials', MaterialController::class);
     Route::resource('entrees', EntreeController::class);
+    Route::resource('locals', LocalController::class);
+    Route::resource('commands', CommandController::class);
+    Route::resource('command_lines', CommandLineController::class);
+
     
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit-email', [ProfileController::class, 'editEmail'])->name('profile.editEmail');
-    Route::put('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
-    Route::get('/profile/edit-password', [ProfileController::class, 'editPassword'])->name('profile.editPassword');
-    Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('profile.editEmail');
+        Route::put('/update-email', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
+        Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('profile.editPassword');
+        Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    });
 
 });
 

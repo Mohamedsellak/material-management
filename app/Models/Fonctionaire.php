@@ -14,4 +14,9 @@ class Fonctionaire extends Model
     {
         return $this->belongsTo(Departement::class);
     }
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
+    }
 }

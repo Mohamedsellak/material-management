@@ -13,4 +13,9 @@ class Departement extends Model
     {
         return $this->hasMany(Fonctionnaire::class);
     }
+
+    public function locals()
+    {
+        return $this->hasMany(Local::class);
+    }
 }

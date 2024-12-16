@@ -79,6 +79,21 @@
                         Entrees
                     </a>
 
+                    <!-- Locals -->
+                    <a href="{{ route("locals.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        Locals
+                    </a>
+
+                    <!-- Commands -->
+                    <a href="{{ route("commands.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        Commands
+                    </a>
+
+                    <!-- Command Lines -->
+                    <a href="{{ route("command_lines.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        Command Lines
+                    </a>
+
                     </div>
 
                     <!-- Right Side -->
