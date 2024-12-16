@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="py-12 bg-gray-50">
+<div class="py-12 bg-gray-50 dark:bg-gray-900">
     <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-xl">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-xl">
             <div class="p-8">
                 <!-- Header Section -->
                 <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900">Change Password</h2>
-                    <p class="mt-2 text-gray-600">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Change Password</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">
                         Keep your account secure by using a strong password that includes numbers, letters, and special characters.
                     </p>
                 </div>
@@ -36,7 +36,7 @@
 
                     <!-- Current Password -->
                     <div class="space-y-2">
-                        <label for="old_password" class="block text-sm font-medium text-gray-900">
+                        <label for="old_password" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
                             Current Password
                         </label>
                         <div class="relative">
@@ -45,16 +45,16 @@
                                    name="old_password" 
                                    id="old_password" 
                                    required
-                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
+                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
                         </div>
                         @error('old_password')
-                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- New Password -->
                     <div class="space-y-2">
-                        <label for="password" class="block text-sm font-medium text-gray-900">
+                        <label for="password" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
                             New Password
                         </label>
                         <div class="relative">
@@ -63,16 +63,16 @@
                                    name="password" 
                                    id="password" 
                                    required
-                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
+                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
                         </div>
                         @error('password')
-                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Confirm New Password -->
                     <div class="space-y-2">
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-900">
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
                             Confirm New Password
                         </label>
                         <div class="relative">
@@ -81,14 +81,14 @@
                                    name="password_confirmation" 
                                    id="password_confirmation" 
                                    required
-                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
+                                   class="block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
                         </div>
                     </div>
 
                     <!-- Form Actions -->
-                    <div class="flex items-center justify-end gap-4 pt-4 mt-8 border-t border-gray-200">
+                    <div class="flex items-center justify-end gap-4 pt-4 mt-8 border-t border-gray-200 dark:border-gray-700">
                         <a href="{{ route('profile.index') }}" 
-                           class="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                           class="px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
                             Cancel
                         </a>
                         <button type="submit"
