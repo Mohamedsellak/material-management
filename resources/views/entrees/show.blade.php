@@ -7,11 +7,16 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6">
-                <!-- Header -->
+                <!-- Header with Status Badge -->
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
-                        Détails de l'Entrée
-                    </h2>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                            Détails de l'Entrée #{{ $entree->id }}
+                        </h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            Créé le {{ \Carbon\Carbon::parse($entree->created_at)->format('d/m/Y à H:i') }}
+                        </p>
+                    </div>
                     <div class="flex space-x-3">
                         <a href="{{ route('entrees.edit', $entree) }}" 
                            class="inline-flex items-center px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-medium rounded-md shadow-sm transition-colors">
@@ -35,71 +40,82 @@
                     </div>
                 </div>
 
-                <!-- Details -->
-                <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
-                    <div class="px-4 py-5 sm:px-6">
-                        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Date d'entrée
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
+                <!-- Details Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Material Info Card -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            Information du Matériel
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Matériel:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ $entree->material->name }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Type:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ $entree->material->typeMaterial->name ?? 'N/A' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Supplier Info Card -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            Information du Fournisseur
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Nom:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ $entree->fournisseur->name }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Contact:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ $entree->fournisseur->telephone ?? 'N/A' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Details Card -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            Détails de la Transaction
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Date d'entrée:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">
                                     {{ \Carbon\Carbon::parse($entree->date)->format('d/m/Y') }}
-                                </dd>
+                                </span>
                             </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Quantité:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ number_format($entree->quantity, 0) }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">Prix Unitaire:</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ number_format($entree->unit_price, 2) }} DH</span>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Matériel
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
-                                    {{ $entree->material->name }}
-                                </dd>
-                            </div>
-
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Quantité
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
-                                    {{ number_format($entree->quantity, 0) }}
-                                </dd>
-                            </div>
-
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Prix Unitaire
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
-                                    {{ number_format($entree->unit_price, 2) }} DH
-                                </dd>
-                            </div>
-
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Prix Total
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
-                                    {{ number_format($entree->quantity * $entree->unit_price, 2) }} DH
-                                </dd>
-                            </div>
-
-                            <div class="sm:col-span-1">
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    Fournisseur
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-gray-200">
-                                    {{ $entree->fournisseur->name }}
-                                </dd>
-                            </div>
-                        </dl>
+                    <!-- Total Amount Card -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            Montant Total
+                        </h3>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-gray-900 dark:text-white">
+                                {{ number_format($entree->quantity * $entree->unit_price, 2) }} DH
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Back Button -->
                 <div class="mt-6">
                     <a href="{{ route('entrees.index') }}" 
-                       class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400">
+                       class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
@@ -116,10 +132,6 @@
 <style>
     .card {
         box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .table th {
-        width: 150px;
-        background-color: #f8f9fa;
     }
 </style>
 @endpush

@@ -25,11 +25,10 @@ Route::get('/', function () {
 // Authentication routes
 Route::get('/login', [AuthController::class, 'loginView'])->name('loginView');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
 Route::middleware(AuthMiddlewar::class)->group(function () {
-
+    
     // Departements management
     Route::resource('departements', DepartementController::class);
     Route::resource('etats', EtatController::class);
@@ -44,8 +43,10 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     Route::resource('command_lines', CommandLineController::class);
     Route::resource('affectations', AffectationController::class);
     
+    Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
+    
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-
+    
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('profile.editEmail');
@@ -53,11 +54,9 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('profile.editPassword');
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     });
-
-    // Add these routes within your existing affectations resource group
-    Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
-    Route::get('/affectations/export', [AffectationController::class, 'export'])->name('affectations.export');
-
+    
+    
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 
