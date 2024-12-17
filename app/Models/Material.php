@@ -17,6 +17,6 @@ class Material extends Model
 
     public function entrees()
     {
-        return $this->hasMany(Entree::class);
+        return $this->hasMany(Entree::class)->orderBy('created_at', 'desc');
     }
 }

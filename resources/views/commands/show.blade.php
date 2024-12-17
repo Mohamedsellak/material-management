@@ -31,7 +31,7 @@
                     <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div class="flex flex-col">
                             <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Fonctionnaire</dt>
-                            <dd class="mt-1 text-lg font-semibold text-gray-900 dark:text-white">{{ $command->fonctionaire->nom }}</dd>
+                            <dd class="mt-1 text-lg font-semibold text-gray-900 dark:text-white">{{ $command->fonctionaire->nom . ' ' . $command->fonctionaire->prenom }}</dd>
                         </div>
 
                         <div class="flex flex-col">

@@ -17,4 +17,9 @@ class Local extends Model
     {
         return $this->belongsTo(Departement::class);
     } 
+
+    public function affectations()
+    {
+        return $this->hasMany(Affectation::class);
+    }
 }

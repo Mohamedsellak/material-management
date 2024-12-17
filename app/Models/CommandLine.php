@@ -17,4 +17,9 @@ class CommandLine extends Model
     {
         return $this->belongsTo(Material::class);
     }
+
+    public function affectations()
+    {
+        return $this->hasMany(Affectation::class);
+    }
 }

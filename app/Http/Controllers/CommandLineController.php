@@ -41,9 +41,8 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
-        // dd($request->all());
         $commandLine = CommandLine::create($request->all());
-        // dd($commandLine->command_id);
+
         return redirect()->route('commands.show', $commandLine->command)
             ->with('success', 'Ligne de commande créée avec succès.');
     }

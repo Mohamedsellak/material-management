@@ -9,9 +9,9 @@ class Departement extends Model
     //
     protected $fillable = ['name'];
 
-    public function fonctionnaires()
+    public function fonctionaires()
     {
-        return $this->hasMany(Fonctionnaire::class);
+        return $this->hasMany(Fonctionaire::class);
     }
 
     public function locals()

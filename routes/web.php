@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\CommandLineController;
-
+use App\Http\Controllers\AffectationController;
 // Public routes
 Route::get('/', function () {
     return view('welcome');
@@ -42,7 +42,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     Route::resource('locals', LocalController::class);
     Route::resource('commands', CommandController::class);
     Route::resource('command_lines', CommandLineController::class);
-
+    Route::resource('affectations', AffectationController::class);
     
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
 
@@ -53,6 +53,10 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('profile.editPassword');
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     });
+
+    // Add these routes within your existing affectations resource group
+    Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
+    Route::get('/affectations/export', [AffectationController::class, 'export'])->name('affectations.export');
 
 });
 
