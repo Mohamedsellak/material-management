@@ -15,8 +15,30 @@ class AffectationController extends Controller
 {
     public function index()
     {
-        $affectations = Affectation::with(['etat', 'local', 'commandLine'])->get();
-        return view('affectations.index', compact('affectations'));
+        $query = Affectation::with(['etat', 'local', 'commandLine']);
+
+        // Search by numero_inventaire
+        if (request('search')) {
+            $query->where('numero_inventaire', 'like', '%' . request('search') . '%');
+        }
+
+        // Filter by etat
+        if (request('etat')) {
+            $query->where('etat_id', request('etat'));
+        }
+
+        // Filter by local
+        if (request('local')) {
+            $query->where('local_id', request('local'));
+        }
+
+        $affectations = $query->latest()->paginate(10)->withQueryString();
+        
+        // Get all etats and locals for the filter dropdowns
+        $etats = Etat::all();
+        $locals = Local::all();
+
+        return view('affectations.index', compact('affectations', 'etats', 'locals'));
     }
 
     public function create()

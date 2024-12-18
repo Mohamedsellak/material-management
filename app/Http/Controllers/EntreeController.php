@@ -37,7 +37,7 @@ class EntreeController extends Controller
         //
         $request->validate([
             'date' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|min:1',
             'fournisseur_id' => 'required',
             'material_id' => 'required',
         ]);
@@ -78,7 +78,7 @@ class EntreeController extends Controller
     {
         $request->validate([
             'date' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|min:1',
             'fournisseur_id' => 'required',
             'material_id' => 'required',
         ]);

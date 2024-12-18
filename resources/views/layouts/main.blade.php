@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="font-sans antialiased bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
     <!-- Top Navigation -->
@@ -73,6 +74,11 @@
                         fonctionaires
                     </a>
 
+                    <!-- Locals -->
+                    <a href="{{ route("locals.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                        Locals
+                    </a>
+                    
                     <!-- Fonctionnaire -->
                     <a href="{{ route('materials.index') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
                         materials
@@ -83,10 +89,6 @@
                         Entrees
                     </a>
 
-                    <!-- Locals -->
-                    <a href="{{ route("locals.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
-                        Locals
-                    </a>
 
                     <!-- Commands -->
                     <a href="{{ route("commands.index") }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">

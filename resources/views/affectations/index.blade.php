@@ -22,6 +22,69 @@
         </div>
     </div>
 
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <form action="{{ route('affectations.index') }}" method="GET" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-search mr-1"></i> Numéro Inventaire
+                    </label>
+                    <input type="text" 
+                           name="search" 
+                           id="search" 
+                           value="{{ request('search') }}"
+                           placeholder="Rechercher..."
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                </div>
+                
+                <div>
+                    <label for="etat" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-tag mr-1"></i> État
+                    </label>
+                    <select name="etat" 
+                            id="etat" 
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="">Tous les états</option>
+                        @foreach($etats as $etat)
+                            <option value="{{ $etat->id }}" {{ request('etat') == $etat->id ? 'selected' : '' }}>
+                                {{ $etat->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label for="local" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-building mr-1"></i> Local
+                    </label>
+                    <select name="local" 
+                            id="local" 
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="">Tous les locaux</option>
+                        @foreach($locals as $local)
+                            <option value="{{ $local->id }}" {{ request('local') == $local->id ? 'selected' : '' }}>
+                                {{ $local->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200">
+                <a href="{{ route('affectations.index') }}" 
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <i class="fas fa-undo mr-2"></i>
+                    Réinitialiser
+                </a>
+                <button type="submit" 
+                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <i class="fas fa-filter mr-2"></i>
+                    Appliquer les filtres
+                </button>
+            </div>
+        </form>
+    </div>
+
     <div class="bg-white shadow-md rounded-lg overflow-x-auto">
         <table id="affectationsTable" class="min-w-full table-auto">
             <thead class="bg-gray-50">
