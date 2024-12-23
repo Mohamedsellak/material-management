@@ -66,7 +66,7 @@
                             <option value="">Sélectionnez un matériel</option>
                             @foreach($materials as $material)
                                 <option value="{{ $material->id }}" {{ old('material_id') == $material->id ? 'selected' : '' }}>
-                                    {{ $material->name }}
+                                    {{ $material->name . ' - ' . $material->quantity}}
                                 </option>
                             @endforeach
                         </select>

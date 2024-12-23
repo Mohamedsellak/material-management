@@ -10,6 +10,18 @@
             @method('PUT')
 
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                    Numéro d'inventaire ?
+                </label>
+                <div class="flex items-center">
+                    <label for="is_numero_inventaire_yes" class="mr-2">Oui</label>
+                    <input type="radio" name="is_numero_inventaire" id="is_numero_inventaire_yes" value="1" {{ $affectation->numero_inventaire ? 'checked' : '' }}>
+                    <label for="is_numero_inventaire_no" class="ml-4 mr-2">Non</label>
+                    <input type="radio" name="is_numero_inventaire" id="is_numero_inventaire_no" value="0" {{ !$affectation->numero_inventaire ? 'checked' : '' }}>
+                </div>
+            </div>
+
+            <div class="mb-4" id="numero_inventaire_container" {{ !$affectation->numero_inventaire ? 'class=hidden' : '' }}>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="numero_inventaire">
                     Numéro d'inventaire
                 </label>
@@ -17,8 +29,7 @@
                        id="numero_inventaire"
                        type="number"
                        name="numero_inventaire"
-                       value="{{ old('numero_inventaire', $affectation->numero_inventaire) }}"
-                       required>
+                       value="{{ old('numero_inventaire', $affectation->numero_inventaire) }}">
                 @error('numero_inventaire')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -97,4 +108,27 @@
         </form>
     </div>
 </div>
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const radioButtons = document.querySelectorAll('input[name="is_numero_inventaire"]');
+        const numeroInventaireContainer = document.getElementById('numero_inventaire_container');
+        const numeroInventaireInput = document.getElementById('numero_inventaire');
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === '1') {
+                    numeroInventaireContainer.classList.remove('hidden');
+                    numeroInventaireInput.required = true;
+                } else {
+                    numeroInventaireContainer.classList.add('hidden');
+                    numeroInventaireInput.required = false;
+                    numeroInventaireInput.value = '';
+                }
+            });
+        });
+    });
+</script>
+@endpush 

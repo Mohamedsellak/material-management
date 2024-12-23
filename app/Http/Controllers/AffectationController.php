@@ -42,23 +42,33 @@ class AffectationController extends Controller
     }
 
     public function create()
-    {
+    {   
         $etats = Etat::all();
         $locals = Local::all();
+        
+        $command_line_id = request('command_line_id') ?? null;
+        
+        if ($command_line_id) {
+            $commandLine = CommandLine::find($command_line_id);
+            if ($commandLine) {
+                return view('affectations.create', compact('commandLine', 'etats', 'locals'));
+            }
+        }
+        
         $commandLines = CommandLine::all();
         return view('affectations.create', compact('etats', 'locals', 'commandLines'));
     }
 
     public function store(Request $request)
-    {
+    {   
+        // dd($request->all());
         $validated = $request->validate([
-            'numero_inventaire' => 'required|integer|unique:affectations',
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
         ]);
 
-        Affectation::create($validated);
+        Affectation::create($request->all());
 
         return redirect()->route('affectations.index')
             ->with('success', 'Affectation créée avec succès.');
@@ -75,13 +85,12 @@ class AffectationController extends Controller
     public function update(Request $request, Affectation $affectation)
     {
         $validated = $request->validate([
-            'numero_inventaire' => 'required|integer|unique:affectations,numero_inventaire,' . $affectation->id,
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
         ]);
 
-        $affectation->update($validated);
+        $affectation->update($request->all());
 
         return redirect()->route('affectations.index')
             ->with('success', 'Affectation mise à jour avec succès.');
