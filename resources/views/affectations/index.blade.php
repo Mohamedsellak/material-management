@@ -12,7 +12,7 @@
                 </svg>
                 Exporter Excel
             </button>
-            <a href="{{ route('affectations.create') }}" 
+            <a href="{{ route('command_lines.index') }}" 
                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -22,68 +22,23 @@
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow mb-6">
-        <form action="{{ route('affectations.index') }}" method="GET" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                    <label for="search" class="block text-sm font-medium text-gray-700 mb-1">
-                        <i class="fas fa-search mr-1"></i> Numéro Inventaire
-                    </label>
-                    <input type="text" 
-                           name="search" 
-                           id="search" 
-                           value="{{ request('search') }}"
-                           placeholder="Rechercher..."
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg class="h-5 w-5 text-green-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <p>{{ session('success') }}</p>
                 </div>
-                
-                <div>
-                    <label for="etat" class="block text-sm font-medium text-gray-700 mb-1">
-                        <i class="fas fa-tag mr-1"></i> État
-                    </label>
-                    <select name="etat" 
-                            id="etat" 
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <option value="">Tous les états</option>
-                        @foreach($etats as $etat)
-                            <option value="{{ $etat->id }}" {{ request('etat') == $etat->id ? 'selected' : '' }}>
-                                {{ $etat->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label for="local" class="block text-sm font-medium text-gray-700 mb-1">
-                        <i class="fas fa-building mr-1"></i> Local
-                    </label>
-                    <select name="local" 
-                            id="local" 
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <option value="">Tous les locaux</option>
-                        @foreach($locals as $local)
-                            <option value="{{ $local->id }}" {{ request('local') == $local->id ? 'selected' : '' }}>
-                                {{ $local->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200">
-                <a href="{{ route('affectations.index') }}" 
-                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <i class="fas fa-undo mr-2"></i>
-                    Réinitialiser
-                </a>
-                <button type="submit" 
-                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <i class="fas fa-filter mr-2"></i>
-                    Appliquer les filtres
+                <button class="text-green-700 hover:text-green-900" onclick="this.parentElement.parentElement.remove()">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
                 </button>
             </div>
-        </form>
-    </div>
+        </div>
+    @endif
 
     <div class="bg-white shadow-md rounded-lg overflow-x-auto">
         <table id="affectationsTable" class="min-w-full table-auto">
@@ -91,6 +46,9 @@
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         N° Inventaire
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Matériel
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         État
@@ -110,7 +68,10 @@
                 @foreach($affectations as $affectation)
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $affectation->numero_inventaire }}
+                        {{ $affectation->numero_inventaire ?? 'N/A' }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ $affectation->commandLine->material->name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $affectation->etat->name }}

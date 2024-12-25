@@ -41,16 +41,6 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
-        
-        $material = Material::find($request->material_id);
-
-        if ($material->quantity < $request->quantity) {
-            return back()->with('error', 'La quantité de matériel est insuffisante.')
-                ->withInput();
-        }
-
-        $material->decrement('quantity', $request->quantity);
-
         $commandLine = CommandLine::create($request->all());
 
         return redirect()->route('commands.show', $commandLine->command)
@@ -89,21 +79,7 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
-
-        $material = Material::find($request->material_id);
-        $oldQuantity = $commandLine->quantity;
-        $newQuantity = $request->quantity;
-        
-        
-        if ($material->quantity + $oldQuantity < $request->quantity) {
-            return back()->with('error', 'La quantité de matériel est insuffisante.')
-                ->withInput();
-        }
-        
         $commandLine->update($request->all());
-        $material->increment('quantity', $oldQuantity);
-        $material->decrement('quantity', $newQuantity);
-
         return redirect()->route('commands.show', $commandLine->command_id)
             ->with('success', 'Ligne de commande modifiée avec succès.');
     }
@@ -114,9 +90,6 @@ class CommandLineController extends Controller
     public function destroy(CommandLine $commandLine)
     {
         //
-        $material = Material::find($commandLine->material_id);
-        $material->increment('quantity', $commandLine->quantity);
-        
         $commandLine->delete();
         return redirect()->route('commands.show', $commandLine->command_id)
             ->with('success', 'Ligne de commande supprimée avec succès.');

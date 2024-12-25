@@ -19,14 +19,6 @@
                         Retour à la liste
                     </a>
                 </div>
-                @if (session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                        <strong class="font-bold">Erreurs!</strong>
-                        <ul>
-                            <li>{{ session('error') }}</li>
-                        </ul>
-                    </div>
-                @endif
 
                 @if ($errors->any())
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -66,7 +58,7 @@
                             <option value="">Sélectionnez un matériel</option>
                             @foreach($materials as $material)
                                 <option value="{{ $material->id }}" {{ old('material_id') == $material->id ? 'selected' : '' }}>
-                                    {{ $material->name . ' - ' . $material->quantity}}
+                                    {{ $material->name }}
                                 </option>
                             @endforeach
                         </select>

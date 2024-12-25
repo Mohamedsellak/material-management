@@ -82,10 +82,4 @@ class CommandController extends Controller
         $command->delete();
         return redirect()->route('commands.index')->with('success', 'Commande supprimée avec succès');
     }
-
-    function generatePDF(Command $command)
-    {
-        $pdf = PDF::loadView('commands.pdf', compact('command'));
-        return $pdf->download('commande-' . $command->numero_commande . '.pdf');
-    }
 }

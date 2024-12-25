@@ -15,82 +15,60 @@ class AffectationController extends Controller
 {
     public function index()
     {
-        $query = Affectation::with(['etat', 'local', 'commandLine']);
-
-        // Search by numero_inventaire
-        if (request('search')) {
-            $query->where('numero_inventaire', 'like', '%' . request('search') . '%');
-        }
-
-        // Filter by etat
-        if (request('etat')) {
-            $query->where('etat_id', request('etat'));
-        }
-
-        // Filter by local
-        if (request('local')) {
-            $query->where('local_id', request('local'));
-        }
-
-        $affectations = $query->latest()->paginate(10)->withQueryString();
-        
-        // Get all etats and locals for the filter dropdowns
-        $etats = Etat::all();
-        $locals = Local::all();
-
-        return view('affectations.index', compact('affectations', 'etats', 'locals'));
+        $affectations = Affectation::with(['etat', 'local', 'commandLine'])->get();
+        return view('affectations.index', compact('affectations'));
     }
 
     public function create()
-    {   
+    {
+        $commandLine = request()->commandLine ?? null;
+        $commandLine = CommandLine::findOrFail($commandLine);
         $etats = Etat::all();
         $locals = Local::all();
-        
-        $command_line_id = request('command_line_id') ?? null;
-        
-        if ($command_line_id) {
-            $commandLine = CommandLine::find($command_line_id);
-            if ($commandLine) {
-                return view('affectations.create', compact('commandLine', 'etats', 'locals'));
-            }
-        }
-        
-        $commandLines = CommandLine::all();
-        return view('affectations.create', compact('etats', 'locals', 'commandLines'));
+        return view('affectations.create', compact('commandLine', 'etats', 'locals'));
     }
 
     public function store(Request $request)
-    {   
-        // dd($request->all());
+    {
         $validated = $request->validate([
-            'etat_id' => 'required|exists:etats,id',
-            'local_id' => 'required|exists:locals,id',
+            'numero_inventaire.*' => 'nullable|integer|unique:affectations,numero_inventaire',
+            'etat_id.*' => 'required|exists:etats,id',
+            'local_id.*' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
         ]);
 
-        Affectation::create($request->all());
+        $commandLine = CommandLine::findOrFail($request->command_line_id);
+        $count = count($request->etat_id);
+
+        for ($i = 0; $i < $count; $i++) {
+            Affectation::create([
+                'numero_inventaire' => $request->numero_inventaire[$i] ?? null,
+                'etat_id' => $request->etat_id[$i],
+                'local_id' => $request->local_id[$i],
+                'command_line_id' => $request->command_line_id,
+            ]);
+        }
 
         return redirect()->route('affectations.index')
-            ->with('success', 'Affectation créée avec succès.');
+            ->with('success', 'Affectations créées avec succès.');
     }
 
     public function edit(Affectation $affectation)
     {
         $etats = Etat::all();
         $locals = Local::all();
-        $commandLines = CommandLine::all();
-        return view('affectations.edit', compact('affectation', 'etats', 'locals', 'commandLines'));
+        return view('affectations.edit', compact('affectation', 'etats', 'locals'));
     }
 
     public function update(Request $request, Affectation $affectation)
     {
         $validated = $request->validate([
+            'numero_inventaire' => 'nullable|integer|unique:affectations,numero_inventaire,' . $affectation->id,
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
-            'command_line_id' => 'required|exists:command_lines,id',
         ]);
 
-        $affectation->update($request->all());
+        $affectation->update($validated);
 
         return redirect()->route('affectations.index')
             ->with('success', 'Affectation mise à jour avec succès.');
