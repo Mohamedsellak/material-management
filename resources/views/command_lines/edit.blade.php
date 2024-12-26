@@ -30,6 +30,14 @@
                         </ul>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <strong class="font-bold">Erreurs!</strong>
+                        <ul>
+                            <li>{{ session('error') }}</li>
+                        </ul>
+                    </div>
+                @endif
 
                 <form action="{{ route('command_lines.update', $commandLine) }}" method="POST" class="space-y-6">
                     @csrf

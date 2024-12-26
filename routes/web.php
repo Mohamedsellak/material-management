@@ -42,9 +42,12 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     Route::resource('commands', CommandController::class);
     Route::resource('command_lines', CommandLineController::class);
     Route::resource('affectations', AffectationController::class);
+    Route::get('/casse', [AffectationController::class, 'casse'])->name('affectations.casse');
     
+    // PDF generation routes
     Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
-    
+    Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
+
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     
     Route::prefix('profile')->group(function () {

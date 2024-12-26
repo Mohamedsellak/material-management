@@ -66,7 +66,6 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Numéro d'inventaire
-                                    <span class="text-gray-400 normal-case">(optionnel)</span>
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     État
@@ -87,7 +86,8 @@
                                            type="number"
                                            name="numero_inventaire[]"
                                            value="{{ old('numero_inventaire.'.$i) }}"
-                                           placeholder="Optionnel">
+                                           placeholder="Numéro d'inventaire"
+                                           required>
                                     @error('numero_inventaire.'.$i)
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                     @enderror

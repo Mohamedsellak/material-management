@@ -6,6 +6,7 @@ use App\Models\CommandLine;
 use Illuminate\Http\Request;
 use App\Models\Material;
 use App\Models\Command;
+use PDF;
 
 class CommandLineController extends Controller
 {
@@ -41,9 +42,19 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
+        
+        $material = Material::find($request->material_id);
+
+        if ($material->quantity < $request->quantity) {
+            return back()->with('error', 'La quantité de matériel est insuffisante.')
+                ->withInput();
+        }
+
+        $material->decrement('quantity', $request->quantity);
+
         $commandLine = CommandLine::create($request->all());
 
-        return redirect()->route('commands.show', $commandLine->command)
+        return redirect()->route('command_lines.index')
             ->with('success', 'Ligne de commande créée avec succès.');
     }
 
@@ -79,8 +90,22 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
+
+        $material = Material::find($request->material_id);
+        $oldQuantity = $commandLine->quantity;
+        $newQuantity = $request->quantity;
+        
+        
+        if ($material->quantity + $oldQuantity < $request->quantity) {
+            return back()->with('error', 'La quantité de matériel est insuffisante.')
+                ->withInput();
+        }
+        
         $commandLine->update($request->all());
-        return redirect()->route('commands.show', $commandLine->command_id)
+        $material->increment('quantity', $oldQuantity);
+        $material->decrement('quantity', $newQuantity);
+
+        return redirect()->route('command_lines.index')
             ->with('success', 'Ligne de commande modifiée avec succès.');
     }
 
@@ -90,8 +115,17 @@ class CommandLineController extends Controller
     public function destroy(CommandLine $commandLine)
     {
         //
+        $material = Material::find($commandLine->material_id);
+        $material->increment('quantity', $commandLine->quantity);
+        
         $commandLine->delete();
-        return redirect()->route('commands.show', $commandLine->command_id)
+        return redirect()->route('command_lines.index')
             ->with('success', 'Ligne de commande supprimée avec succès.');
+    }
+
+    public function generatePDF(CommandLine $commandLine)
+    {
+        $pdf = PDF::loadView('command_lines.pdf', compact('commandLine'));
+        return $pdf->download('command_lines.pdf');
     }
 }

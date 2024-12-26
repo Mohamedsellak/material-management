@@ -18,6 +18,7 @@
                        type="number"
                        name="numero_inventaire"
                        value="{{ old('numero_inventaire', $affectation->numero_inventaire ?? null) }}"
+                       required
                        >
                 @error('numero_inventaire')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>

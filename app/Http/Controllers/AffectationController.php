@@ -29,9 +29,9 @@ class AffectationController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   
         $validated = $request->validate([
-            'numero_inventaire.*' => 'nullable|integer|unique:affectations,numero_inventaire',
+            'numero_inventaire.*' => 'required|integer|unique:affectations,numero_inventaire',
             'etat_id.*' => 'required|exists:etats,id',
             'local_id.*' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
@@ -42,7 +42,7 @@ class AffectationController extends Controller
 
         for ($i = 0; $i < $count; $i++) {
             Affectation::create([
-                'numero_inventaire' => $request->numero_inventaire[$i] ?? null,
+                'numero_inventaire' => $request->numero_inventaire[$i],
                 'etat_id' => $request->etat_id[$i],
                 'local_id' => $request->local_id[$i],
                 'command_line_id' => $request->command_line_id,
@@ -63,12 +63,12 @@ class AffectationController extends Controller
     public function update(Request $request, Affectation $affectation)
     {
         $validated = $request->validate([
-            'numero_inventaire' => 'nullable|integer|unique:affectations,numero_inventaire,' . $affectation->id,
+            'numero_inventaire' => 'required|integer|unique:affectations,numero_inventaire,' . $affectation->id,
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
         ]);
 
-        $affectation->update($validated);
+        $affectation->update($request->all());
 
         return redirect()->route('affectations.index')
             ->with('success', 'Affectation mise à jour avec succès.');
@@ -93,8 +93,17 @@ class AffectationController extends Controller
         return $pdf->download('affectation-' . $affectation->numero_inventaire . '.pdf');
     }
 
-    public function export() 
+
+    public function casse()
     {
-        return Excel::download(new AffectationsExport, 'affectations.xlsx');
+        // dd('ok');
+        $etat = Etat::where('name', 'Casse')->first();
+        if($etat){
+            $affectations = Affectation::where('etat_id', $etat->id)->get();
+        }else{
+            $affectations = [];
+        }
+
+        return view('affectations.casse', compact('affectations'));
     }
 }

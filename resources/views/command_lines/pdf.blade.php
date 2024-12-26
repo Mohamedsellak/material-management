@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bon de Livraison #{{ $affectation->numero_inventaire }}</title>
+    <title>Ligne de Commande #{{ $commandLine->id }}</title>
     <style>
         * {
             margin: 0;
@@ -153,8 +153,8 @@
             <span class="logo-text">LOGO</span>
         </div>
         <div class="header-info">
-            <h1 class="document-title">Bon de Livraison</h1>
-            <p class="document-number">Référence: BL-{{ str_pad($affectation->id, 5, '0', STR_PAD_LEFT) }}</p>
+            <h1 class="document-title">Ligne de Commande</h1>
+            <p class="document-number">Référence: LC-{{ str_pad($commandLine->id, 5, '0', STR_PAD_LEFT) }}</p>
         </div>
         <div class="header-date">
             <p>Date d'émission</p>
@@ -164,48 +164,64 @@
 
     <div class="meta-info">
         <div class="meta-info-item">
-            <span class="meta-info-label">Département</span>
-            <span class="meta-info-value">{{ $affectation->commandLine->command->fonctionaire->departement->name }}</span>
+            <span class="meta-info-label">Date de création</span>
+            <span class="meta-info-value">{{ $commandLine->created_at->format('d/m/Y') }}</span>
         </div>
         <div class="meta-info-item">
-            <span class="meta-info-label">Demandeur</span>
-            <span class="meta-info-value">{{ $affectation->commandLine->command->fonctionaire->nom . ' ' . $affectation->commandLine->command->fonctionaire->prenom }}</span>
+            <span class="meta-info-label">Commande N°</span>
+            <span class="meta-info-value">{{ $commandLine->command->id }}</span>
         </div>
         <div class="meta-info-item">
-            <span class="meta-info-label">Local</span>
-            <span class="meta-info-value">{{ $affectation->local->name }}</span>
+            <span class="meta-info-label">Quantité totale</span>
+            <span class="meta-info-value">{{ $commandLine->quantity }}</span>
         </div>
     </div>
 
     <div class="content">
-        <div class="section-title">Articles à Livrer</div>
-        <table>
-            <thead>
+        @if($commandLine->affectations->count() > 0)
+            <div class="section-title">Affectations ({{ $commandLine->affectations->count() }}/{{ $commandLine->quantity }})</div>
+            <table>
+                <thead>
+                    <tr>   
+                        <th style="width: 15%">N° Affectation</th>
+                        <th style="width: 25%">Article</th>
+                        <th style="width: 25%">Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($commandLine->affectations as $affectation)
+                        <tr>
+                            <td>{{ $affectation->numero_inventaire }}</td>
+                            <td>{{ $commandLine->material->name }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <div class="section-title">Détails de l'Article</div>
+            <table>
                 <tr>
-                    <th>N° inventaire</th>
-                    <th style="width: 35%">Article</th>
+                    <th style="width: 30%">Article</th>
                     <th style="width: 45%">Description</th>
-                    <th style="width: 20%">Observation</th>
+                    <th style="width: 25%">Observation</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
-                    <td>{{ $affectation->numero_inventaire }}</td>
-                    <td>{{ $affectation->commandLine->material->name }}</td>
-                    <td>{{ $affectation->commandLine->material->description }}</td>
+                    <td>{{ $commandLine->material->name }}</td>
+                    <td>{{ $commandLine->material->description }}</td>
                     <td></td>
                 </tr>
-            </tbody>
-        </table>
+            </table>
+        @endif
     </div>
 
     <div class="signature-section">
-        <div class="signature-box">Le Responsable</div>
         <div class="signature-box">Le Demandeur</div>
+        <div class="signature-box">Le Magasinier</div>
     </div>
 
     <div class="footer">
         <p>Document généré le {{ date('d/m/Y H:i') }}</p>
     </div>
 </body>
-</html> 
+</html>
