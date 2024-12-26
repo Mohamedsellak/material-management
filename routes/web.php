@@ -17,6 +17,7 @@ use App\Http\Controllers\LocalController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\CommandLineController;
 use App\Http\Controllers\AffectationController;
+use App\Http\Controllers\UserController;
 // Public routes
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +43,8 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     Route::resource('commands', CommandController::class);
     Route::resource('command_lines', CommandLineController::class);
     Route::resource('affectations', AffectationController::class);
+    Route::resource('users', UserController::class);
+
     Route::get('/casse', [AffectationController::class, 'casse'])->name('affectations.casse');
     
     // PDF generation routes
