@@ -115,8 +115,15 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{-- pagination links --}}
+                <div class="mt-4">
+                    {{ $commandLines->links() }}
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
 @endsection 

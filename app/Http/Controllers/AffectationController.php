@@ -15,8 +15,27 @@ class AffectationController extends Controller
 {
     public function index()
     {
-        $affectations = Affectation::with(['etat', 'local', 'commandLine'])->get();
-        return view('affectations.index', compact('affectations'));
+        $search = request()->search ?? null;
+        $etat = request()->etat ?? null;
+        $local = request()->local ?? null;
+
+        $query = Affectation::query();
+
+        if($search){
+            $query->where('numero_inventaire', $search);
+        }
+        if($etat){
+            $query->where('etat_id', $etat);
+        }
+        if($local){
+            $query->where('local_id', $local);
+        }
+
+        $affectations = $query->paginate(8);
+        
+        $etats = Etat::all();
+        $locals = Local::all();
+        return view('affectations.index', compact('affectations', 'etats', 'locals'));
     }
 
     public function create()

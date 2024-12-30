@@ -17,28 +17,31 @@
         }
         .header {
             margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: block;
             border-bottom: 2px solid #2563eb;
             padding-bottom: 20px;
         }
         .logo-section {
-            width: 120px;
-            height: 50px;
-            background: #f8fafc;
+            width: 100%;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .logo-section img {
+            width: 100%;
+            height: auto;
+            max-height: 120px;
+            object-fit: contain;
         }
         .logo-text {
             color: #4b5563;
             font-weight: 600;
         }
         .header-info {
-            flex-grow: 1;
             text-align: center;
+            margin: 20px 0;
         }
         .document-title {
             color: #1e40af;
@@ -150,7 +153,7 @@
 <body>
     <div class="header">
         <div class="logo-section">
-            <span class="logo-text">LOGO</span>
+            <img src="{{ public_path('images/logo.png') }}" alt="Logo">
         </div>
         <div class="header-info">
             <h1 class="document-title">Bon de Livraison</h1>
@@ -184,7 +187,6 @@
                 <tr>
                     <th>N° inventaire</th>
                     <th style="width: 35%">Article</th>
-                    <th style="width: 45%">Description</th>
                     <th style="width: 20%">Observation</th>
                 </tr>
             </thead>
@@ -192,7 +194,6 @@
                 <tr>
                     <td>{{ $affectation->numero_inventaire }}</td>
                     <td>{{ $affectation->commandLine->material->name }}</td>
-                    <td>{{ $affectation->commandLine->material->description }}</td>
                     <td></td>
                 </tr>
             </tbody>

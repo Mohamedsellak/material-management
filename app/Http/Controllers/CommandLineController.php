@@ -16,7 +16,7 @@ class CommandLineController extends Controller
     public function index()
     {
         //
-        $commandLines = CommandLine::all();
+        $commandLines = CommandLine::paginate(10);
         return view('command_lines.index', compact('commandLines'));
     }
 

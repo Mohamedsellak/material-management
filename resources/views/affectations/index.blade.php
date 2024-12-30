@@ -22,6 +22,74 @@
         </div>
     </div>
 
+    <div>
+        <form action="{{ route('affectations.index') }}" method="GET" class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search Input -->
+                <div class="relative">
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Recherche</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" 
+                               name="search" 
+                               id="search"
+                               value="{{ old('search') }}"
+                               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                               placeholder="N° Inventaire ou Matériel">
+                    </div>
+                </div>
+
+                <!-- État Select -->
+                <div>
+                    <label for="etat" class="block text-sm font-medium text-gray-700 mb-1">État</label>
+                    <select name="etat" 
+                            id="etat"
+                            class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="">Tous les états</option>
+                        @foreach($etats as $etat)
+                            <option value="{{ $etat->id }}">{{ $etat->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Local Select -->
+                <div>
+                    <label for="local" class="block text-sm font-medium text-gray-700 mb-1">Local</label>
+                    <select name="local" 
+                            id="local"
+                            class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="">Tous les locaux</option>
+                        @foreach($locals as $local)
+                            <option value="{{ $local->id }}">{{ $local->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex items-end space-x-2">
+                    <button type="submit" 
+                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                        Rechercher
+                    </button>
+                    <button type="button"
+                            onclick="window.location.href = '{{ route('affectations.index') }}'"
+                            class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                        </svg>
+                        Réinitialiser
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     @if(session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
             <div class="flex items-center justify-between">
@@ -127,6 +195,12 @@
             </tbody>
         </table>
     </div>
+
+    {{-- pagination links --}}
+    <div class="mt-4">
+        {{ $affectations->links() }}
+    </div>
+    
 </div>
 
 @push('scripts')

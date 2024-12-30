@@ -98,6 +98,12 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{-- pagination links --}}
+                <div class="mt-4">
+                    {{ $commands->links() }}
+                </div>
+
             </div>
         </div>
     </div>

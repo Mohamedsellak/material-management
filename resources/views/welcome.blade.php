@@ -54,6 +54,7 @@
         <div class="py-24 sm:py-32 lg:pb-40">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-2xl text-center">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
                     <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
                         Gestion des Matériels
                         <span class="block text-blue-600 dark:text-blue-400">FSDM Fès</span>

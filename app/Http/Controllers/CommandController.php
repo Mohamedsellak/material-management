@@ -12,7 +12,7 @@ class CommandController extends Controller
      */
     public function index()
     {
-        $commands = Command::all();
+        $commands = Command::paginate(10);
         return view('commands.index', compact('commands'));
     }
 

@@ -15,7 +15,7 @@ class LocalController extends Controller
     public function index()
     {
         //
-        $locals = Local::all();
+        $locals = Local::paginate(10);
         return view('locals.index', compact('locals'));
     }
 
