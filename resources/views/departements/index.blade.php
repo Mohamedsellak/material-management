@@ -97,6 +97,7 @@
                 <div class="mt-4">
                     {{ $departements->links() }}
                 </div>
+                
             </div>
         </div>
     </div>

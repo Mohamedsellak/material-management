@@ -121,6 +121,7 @@
                 <div class="mt-4">
                     {{ $fonctionaires->links() }}
                 </div>
+                
             </div>
         </div>
     </div>

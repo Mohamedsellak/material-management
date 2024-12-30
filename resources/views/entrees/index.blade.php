@@ -127,6 +127,7 @@
                 <div class="mt-4">
                     {{ $entrees->links() }}
                 </div>
+                
             </div>
         </div>
     </div>

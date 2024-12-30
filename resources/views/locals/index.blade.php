@@ -104,6 +104,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{-- pagination links --}}
+                <div class="mt-4">
+                    {{ $locals->links() }}
+                </div>
+    
+
             </div>
         </div>
     </div>
