@@ -23,6 +23,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function reclamations()
+    {
+        return $this->hasMany(Reclamation::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

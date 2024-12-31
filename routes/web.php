@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthMiddlewar;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\TypeLocalController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\CommandController;
 use App\Http\Controllers\CommandLineController;
 use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReclamationController;
+use App\Http\Controllers\FonctionnaireReclamationController;
 // Public routes
 Route::get('/', function () {
     return view('welcome');
@@ -30,29 +33,40 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Protected routes
 Route::middleware(AuthMiddlewar::class)->group(function () {
     
-    // Departements management
-    Route::resource('departements', DepartementController::class);
-    Route::resource('etats', EtatController::class);
-    Route::resource('type-locals', TypeLocalController::class);
-    Route::resource('type-materials', TypeMaterialController::class);
-    Route::resource('fournisseurs', FournisseurController::class);
-    Route::resource('fonctionaires', FonctionaireController::class);
-    Route::resource('materials', MaterialController::class);
-    Route::resource('entrees', EntreeController::class);
-    Route::resource('locals', LocalController::class);
-    Route::resource('commands', CommandController::class);
-    Route::resource('command_lines', CommandLineController::class);
-    Route::resource('affectations', AffectationController::class);
-    Route::resource('users', UserController::class);
+    // Route::middleware(AdminMiddleware::class)->group(function () {
+        // Departements management
+        Route::resource('departements', DepartementController::class);
+        Route::resource('etats', EtatController::class);
+        Route::resource('type-locals', TypeLocalController::class);
+        Route::resource('type-materials', TypeMaterialController::class);
+        Route::resource('fournisseurs', FournisseurController::class);
+        Route::resource('fonctionaires', FonctionaireController::class);
+        Route::resource('materials', MaterialController::class);
+        Route::resource('entrees', EntreeController::class);
+        Route::resource('locals', LocalController::class);
+        Route::resource('commands', CommandController::class);
+        Route::resource('command_lines', CommandLineController::class);
+        Route::resource('affectations', AffectationController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('reclamations', ReclamationController::class);
+        Route::get('reclamations/{reclamation}/editStatus', [ReclamationController::class, 'editStatus'])->name('reclamations.editStatus');
+        Route::put('reclamations/{reclamation}/updateStatus', [ReclamationController::class, 'updateStatus'])->name('reclamations.updateStatus');
 
-    Route::get('/casse', [AffectationController::class, 'casse'])->name('affectations.casse');
-    
-    // PDF generation routes
-    Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
-    Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
+        Route::get('/casse', [AffectationController::class, 'casse'])->name('affectations.casse');
+        
+        // PDF generation routes
+        Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
+        Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
 
-    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+    // });
     
+    // Route::middleware(FonctionnaireMiddleware::class)->group(function () {
+            Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
+    // });
+
+
+    // for all authenticated users
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('profile.editEmail');
@@ -63,6 +77,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
     
     
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 });
 
 
