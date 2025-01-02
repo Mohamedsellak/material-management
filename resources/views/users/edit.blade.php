@@ -163,6 +163,27 @@
                                         </button>
                                     </div>
                                 </div>
+
+                                <div class="col-span-6 sm:col-span-4">
+                                    <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Role <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                                            </svg>
+                                        </div>
+                                        <select name="role" id="role" required
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md">
+                                            <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
+                                            <option value="fonctionnaire" {{ old('role', $user->role) === 'fonctionnaire' ? 'selected' : '' }}>Fonctionnaire</option>
+                                        </select>
+                                    </div>
+                                    @error('role')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 text-right sm:px-6 space-x-3">

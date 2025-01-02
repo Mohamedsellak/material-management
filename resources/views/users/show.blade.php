@@ -101,6 +101,20 @@
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            Role
+                        </dt>
+                        <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                {{ $user->role === 'admin' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300' }}">
+                                <span class="w-2 h-2 rounded-full mr-2
+                                    {{ $user->role === 'admin' ? 'bg-purple-500' : 'bg-blue-500' }}">
+                                </span>
+                                {{ ucfirst($user->role) }}
+                            </span>
+                        </dd>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
                             Created at
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">

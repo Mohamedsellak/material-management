@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Middleware\AuthMiddlewar;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\FonctionnaireMiddleware;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\TypeLocalController;
@@ -21,6 +24,8 @@ use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\FonctionnaireReclamationController;
+
+
 // Public routes
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +38,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Protected routes
 Route::middleware(AuthMiddlewar::class)->group(function () {
     
-    // Route::middleware(AdminMiddleware::class)->group(function () {
+    Route::middleware(AdminMiddleware::class)->group(function () {
         // Departements management
         Route::resource('departements', DepartementController::class);
         Route::resource('etats', EtatController::class);
@@ -59,11 +64,11 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
 
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-    // });
+    });
     
-    // Route::middleware(FonctionnaireMiddleware::class)->group(function () {
+    Route::middleware(FonctionnaireMiddleware::class)->group(function () {
             Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
-    // });
+    });
 
 
     // for all authenticated users

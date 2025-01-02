@@ -28,9 +28,15 @@ class AuthController extends Controller
         }
 
         if (Hash::check($request->password, $user->password)) {
+
             session()->put('user', $user);
-            return to_route('dashboard');
-            dd('here');
+
+            if($user->role == 'admin'){
+                return to_route('dashboard');
+            }else if($user->role == 'fonctionnaire'){
+                return to_route('fonctionnaire-reclamations.index');
+            }
+
         }
         return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
     }

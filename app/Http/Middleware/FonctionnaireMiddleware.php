@@ -15,7 +15,7 @@ class FonctionnaireMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session("user")->role == "fonctionnaire") {
+        if (!session("user")->role == "fonctionaire") {
             return to_route("loginView");
         }
         return $next($request);

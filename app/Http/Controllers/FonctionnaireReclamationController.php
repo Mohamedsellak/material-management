@@ -6,52 +6,72 @@ use Illuminate\Http\Request;
 use App\Models\Reclamation;
 use App\Models\Local;
 
-
 class FonctionnaireReclamationController extends Controller
 {
-    //
     public function index()
     {
         $reclamations = Reclamation::where('user_id', session('user')->id)->get();
-        return view('fonctionnaire.reclamation.index', compact('reclamations'));
+        return view('fonctionnaire-reclamations.index', compact('reclamations'));
     }
 
     public function create()
-    {
-        return view('fonctionnaire.reclamation.create');
+    {   
+        $locals = Local::all();
+        return view('fonctionnaire-reclamations.create', compact('locals'));
     }
 
     public function store(Request $request)
     {
-        $reclamation = new Reclamation();
-        $reclamation->save();
-        return redirect()->route('fonctionnaire.reclamation.index');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'local_id' => 'required|exists:locals,id',
+        ]);
+
+        Reclamation::create([
+            'user_id' => session('user')->id,
+            'local_id' => $request->local_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'status' => 'en attente',
+        ]);
+
+        return redirect()->route('fonctionnaire-reclamations.index')
+            ->with('success', 'Réclamation créée avec succès');
     }
 
-    public function show($id)
+    public function show(Reclamation $fonctionnaire_reclamation)
     {
-        $reclamation = Reclamation::find($id);
-        return view('fonctionnaire.reclamation.show', compact('reclamation'));
+        return view('fonctionnaire-reclamations.show', ['reclamation' => $fonctionnaire_reclamation]);
     }
 
-    public function edit($id)
+    public function edit(Reclamation $fonctionnaire_reclamation)
     {
-        $reclamation = Reclamation::find($id);
-        return view('fonctionnaire.reclamation.edit', compact('reclamation'));
+        $locals = Local::all();
+        return view('fonctionnaire-reclamations.edit', [
+            'reclamation' => $fonctionnaire_reclamation,
+            'locals' => $locals
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Reclamation $fonctionnaire_reclamation)
     {
-        $reclamation = Reclamation::find($id);
-        $reclamation->update($request->all());
-        return redirect()->route('fonctionnaire.reclamation.index');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'local_id' => 'required|exists:locals,id',
+        ]);
+
+        $fonctionnaire_reclamation->update($request->only(['name', 'description', 'local_id']));
+        
+        return redirect()->route('fonctionnaire-reclamations.index')
+            ->with('success', 'Réclamation modifiée avec succès');
     }
 
-    public function destroy($id)
+    public function destroy(Reclamation $fonctionnaire_reclamation)
     {
-        $reclamation = Reclamation::find($id);
-        $reclamation->delete();
-        return redirect()->route('fonctionnaire.reclamation.index');
+        $fonctionnaire_reclamation->delete();
+        return redirect()->route('fonctionnaire-reclamations.index')
+            ->with('success', 'Réclamation supprimée avec succès');
     }
-
 }
