@@ -19,4 +19,9 @@ class Material extends Model
     {
         return $this->hasMany(Entree::class)->orderBy('created_at', 'desc');
     }
+
+    public function command_lines()
+    {
+        return $this->hasMany(CommandLine::class)->orderBy('created_at', 'desc');
+    }
 }
