@@ -46,14 +46,14 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Date de création
                             </label>
-                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->created_at->format('d/m/Y H:i') }}</p>
+                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->created_at ? $typeLocal->created_at->format('d/m/Y H:i') : 'N/A' }}</p>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Dernière modification
                             </label>
-                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->updated_at->format('d/m/Y H:i') }}</p>
+                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->updated_at ? $typeLocal->updated_at->format('d/m/Y H:i') : 'N/A' }}</p>
                         </div>
 
                         <div>
