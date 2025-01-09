@@ -58,7 +58,7 @@
                                 Dernière modification
                             </label>
                             <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">
-                                {{ $etat->updated_at->format('d/m/Y H:i') }}
+                                {{ $etat->updated_at ? updated_at->format('d/m/Y H:i') :  "N/A" }}
                             </p>
                         </div>
 

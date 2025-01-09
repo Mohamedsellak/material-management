@@ -165,7 +165,7 @@
                                                 </div>
                                                 <div class="text-right text-sm whitespace-nowrap text-gray-500">
                                                     <time datetime="{{ $affectation->updated_at->format('Y-m-d H:i') }}">
-                                                        {{ $affectation->updated_at->format('d/m/Y H:i') }}
+                                                        {{ $affectation->updated_at ? updated_at->format('d/m/Y H:i') :  "N/A" }}
                                                     </time>
                                                 </div>
                                             </div>

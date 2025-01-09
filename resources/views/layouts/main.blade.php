@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - FSDM Inventory</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @stack('styles')
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-CL3watQC.css') }}">
-    <script src="{{ asset('build/assets/app-CL3watQC.js') }}"></script> --}}
-
     
+    <!-- Preload Font Awesome fonts to prevent icons flash -->
+    <link rel="preload" href="{{ asset('build/webfonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('build/webfonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('build/assets/all.min.css') }}">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('build/assets/app-BxPl0S0X.css') }}">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/buttons.dataTables.min.css') }}">
+    
+    @stack('styles')
+
+    <!-- Core Scripts - Load jQuery first -->
+    <script src="{{ asset('build/assets/jquery-3.5.1.min.js') }}"></script>
 </head>
 <body class="font-sans antialiased bg-gradient-to-br from-gray-50 to-gray-100">
     <!-- Top Navigation -->
@@ -326,11 +333,16 @@
     </footer>
 
     @stack('scripts')
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="{{ asset('build/assets/app-Xaw6OIO1.js') }}"></script>
+    <script src="{{ asset('build/assets/alpinejs.js') }}"></script>
+    
+    <!-- DataTables and Plugins -->
+    <script src="{{ asset('build/assets/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('build/assets/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('build/assets/jszip.min.js') }}"></script>
+    <script src="{{ asset('build/assets/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('build/assets/xlsx.full.min.js') }}"></script>
 </body>
 </html>

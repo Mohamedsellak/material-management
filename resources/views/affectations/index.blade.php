@@ -205,32 +205,43 @@
 
 @push('scripts')
 <script>
-function exportToExcel() {
-    // Convert table data to array using jQuery
-    const data = [];
-    
-    // Get headers (excluding Actions column)
-    const headers = [];
-    $('#affectationsTable thead th').slice(0, -1).each(function() {
-        headers.push($(this).text().trim());
-    });
-    data.push(headers);
-    
-    // Get row data (excluding Actions column)
-    $('#affectationsTable tbody tr').each(function() {
-        const rowData = [];
-        $(this).find('td').slice(0, -1).each(function() {
-            rowData.push($(this).text().trim());
-        });
-        data.push(rowData);
-    });
-    
-    // Create and download Excel file
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    XLSX.utils.book_append_sheet(wb, ws, "Affectations");
-    XLSX.writeFile(wb, "affectations.xlsx");
-}
+// Use jQuery in noConflict mode
+jQuery(function($) {
+    // Define the export function in the global scope
+    window.exportToExcel = function() {
+        try {
+            // Convert table data to array using jQuery
+            const data = [];
+            
+            // Get headers (excluding Actions column)
+            const headers = [];
+            jQuery('#affectationsTable thead th').slice(0, -1).each(function() {
+                headers.push(jQuery(this).text().trim());
+            });
+            data.push(headers);
+            
+            // Get row data (excluding Actions column)
+            jQuery('#affectationsTable tbody tr').each(function() {
+                const rowData = [];
+                jQuery(this).find('td').slice(0, -1).each(function() {
+                    rowData.push(jQuery(this).text().trim());
+                });
+                data.push(rowData);
+            });
+            
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, 'Affectations');
+            
+            // Save the file
+            XLSX.writeFile(wb, 'affectations.xlsx');
+        } catch (error) {
+            console.error('Error in exportToExcel:', error);
+            alert('Une erreur est survenue lors de l\'exportation. Veuillez réessayer.');
+        }
+    };
+});
 </script>
 @endpush
 @endsection 

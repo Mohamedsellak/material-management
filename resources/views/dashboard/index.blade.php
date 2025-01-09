@@ -165,7 +165,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    @foreach(\App\Models\Material::with('typeMaterial')->get() as $material)
+                    @foreach(\App\Models\Material::latest()->take(3)->get() as $material)
                         <tr class="@if($material->quantity <= 3) 
                                     bg-red-50/50 dark:bg-red-900/10 
                                 @elseif($material->quantity <= 10) 
@@ -248,6 +248,15 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-4 flex justify-center">
+            <a href="{{ route('materials.index') }}" 
+               class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group">
+                View All Materials
+                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
         </div>
     </div>
 

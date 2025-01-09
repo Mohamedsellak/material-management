@@ -53,7 +53,7 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Dernière modification
                             </label>
-                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->updated_at ? $typeLocal->updated_at->format('d/m/Y H:i') : 'N/A' }}</p>
+                            <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $typeLocal->updated_at ? $typeLocal->updated_at ? updated_at->format('d/m/Y H:i') :  "N/A" : 'N/A' }}</p>
                         </div>
 
                         <div>
