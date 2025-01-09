@@ -91,4 +91,13 @@ class LocalController extends Controller
         $local->delete();
         return redirect()->route('locals.index')->with('success', 'Local supprimé avec succès');
     }
+
+    /**
+     * Get locals by department ID.
+     */
+    public function getByDepartment($departmentId)
+    {
+        $locals = Local::where('departement_id', $departmentId)->get();
+        return response()->json($locals);
+    }
 }

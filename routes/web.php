@@ -49,6 +49,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::resource('materials', MaterialController::class);
         Route::resource('entrees', EntreeController::class);
         Route::resource('locals', LocalController::class);
+        Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
         Route::resource('commands', CommandController::class);
         Route::resource('command_lines', CommandLineController::class);
         Route::resource('affectations', AffectationController::class);

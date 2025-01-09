@@ -45,17 +45,9 @@
                     
                     <div>
                         <label for="command_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Commande
+                            Commande N° {{ $command->id }}
                         </label>
-                        <select id="command_id" name="command_id" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="">Sélectionnez une commande</option>
-                            @foreach($commands as $command)
-                                <option value="{{ $command->id }}" {{ old('command_id') == $command->id ? 'selected' : '' }}>
-                                    Commande #{{ $command->id }} - {{ $command->fonctionaire->nom }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" name="command_id" id="command_id" value="{{ $command->id }}" required>
                     </div>
 
                     <div>

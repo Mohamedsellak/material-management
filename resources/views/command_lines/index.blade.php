@@ -12,7 +12,7 @@
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
                         Liste des Lignes de Commande
                     </h2>
-                    <a href="{{ route('command_lines.create') }}"
+                    <a href="{{ route('commands.index') }}"
                        class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md shadow-sm transition-colors">
                         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

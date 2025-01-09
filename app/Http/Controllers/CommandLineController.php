@@ -23,12 +23,17 @@ class CommandLineController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+        $command = Command::find($request->command_id);
+
+        if (!$command) {
+            return redirect()->route('commands.index')->with('error', 'Commande non trouvée.');
+        }
+
         $materials = Material::all();
-        $commands = Command::all();
-        return view('command_lines.create', compact('commands', 'materials'));
+        return view('command_lines.create', compact('command', 'materials'));
     }
 
     /**
@@ -72,11 +77,13 @@ class CommandLineController extends Controller
      */
     public function edit(CommandLine $commandLine)
     {
-        return view('command_lines.edit', [
-            'commandLine' => $commandLine,
-            'commands' => Command::all(),
-            'materials' => Material::all()
-        ]);
+        $command = Command::find($commandLine->command_id);
+        if (!$command) {
+            return redirect()->route('commands.index')->with('error', 'Commande non trouvée.');
+        }
+
+        $materials = Material::all();
+        return view('command_lines.edit', compact('commandLine', 'command', 'materials'));
     }
 
     /**

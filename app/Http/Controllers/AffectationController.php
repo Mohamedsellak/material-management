@@ -7,10 +7,10 @@ use App\Models\Etat;
 use App\Models\Local;
 use App\Models\CommandLine;
 use Illuminate\Http\Request;
+use App\Models\Departement;
 use PDF;
 use App\Exports\AffectationsExport;
 use Maatwebsite\Excel\Facades\Excel;
-
 class AffectationController extends Controller
 {
     public function index()
@@ -76,7 +76,8 @@ class AffectationController extends Controller
     {
         $etats = Etat::all();
         $locals = Local::all();
-        return view('affectations.edit', compact('affectation', 'etats', 'locals'));
+        $departements = Departement::all();
+        return view('affectations.edit', compact('affectation', 'etats', 'locals', 'departements'));
     }
 
     public function update(Request $request, Affectation $affectation)
