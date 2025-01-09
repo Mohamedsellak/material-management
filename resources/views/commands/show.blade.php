@@ -41,7 +41,7 @@
 
                         <div class="flex flex-col">
                             <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Dernière modification</dt>
-                            <dd class="mt-1 text-lg font-semibold text-gray-900 dark:text-white">{{ $command->updated_at ? updated_at->format('d/m/Y H:i') :  "N/A" }}</dd>
+                            <dd class="mt-1 text-lg font-semibold text-gray-900 dark:text-white">{{ $command->updated_at ? $command->updated_at->format('d/m/Y H:i') :  "N/A" }}</dd>
                         </div>
                     </dl>
                 </div>

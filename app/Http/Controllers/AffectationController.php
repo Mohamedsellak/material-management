@@ -20,6 +20,7 @@ class AffectationController extends Controller
         $local = request()->local ?? null;
 
         $query = Affectation::query();
+        // $query->where('etat_id', '!=', 3); different from casse
 
         if($search){
             $query->where('numero_inventaire', $search);

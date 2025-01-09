@@ -159,7 +159,7 @@
                                         Dernière Modification
                                     </label>
                                     <p class="mt-1 text-gray-900 dark:text-gray-100">
-                                        {{ $material->updated_at ? updated_at->format('d/m/Y H:i') :  "N/A" }}
+                                        {{ $material->updated_at ? $material->updated_at->format('d/m/Y H:i') :  "N/A" }}
                                     </p>
                                 </div>
                             </div>
