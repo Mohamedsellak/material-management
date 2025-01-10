@@ -161,24 +161,6 @@
         </div>
     </div>
 
-    <div class="meta-info">
-        <div class="meta-info-item">
-            <span class="meta-info-label">Département</span>
-            <span class="meta-info-value">{{ $affectation->commandLine->command->fonctionaire->departement->name }}</span>
-        </div>
-        <div class="meta-info-item">
-            <span class="meta-info-label">Utilisateur</span>
-            <span class="meta-info-value">{{ $affectation->commandLine->command->fonctionaire->nom . ' ' . $affectation->commandLine->command->fonctionaire->prenom }}</span>
-        </div>
-        <div class="meta-info-item">
-            <span class="meta-info-label">Local</span>
-            <span class="meta-info-value">{{ $affectation->local->name }}</span>
-        </div>
-        <div class="meta-info-item">
-            <span class="meta-info-label">État</span>
-            <span class="meta-info-value">{{ $affectation->etat->name }}</span>
-        </div>
-    </div>
 
     <div class="content">
         <div class="section-title">Détails du Matériel</div>

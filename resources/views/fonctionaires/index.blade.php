@@ -28,6 +28,32 @@
                     </div>
                 @endif
 
+                <!-- Search Section -->
+                <div class="mb-6">
+                    <form action="{{ route('fonctionaires.index') }}" method="GET" class="flex gap-4">
+                        <div class="flex-1">
+                            <input type="text" 
+                                   name="search" 
+                                   value="{{ request('search') }}"
+                                   placeholder="Rechercher par nom, prénom, email ou département..." 
+                                   class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors shadow-sm">
+                            <svg class="h-5 w-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            Rechercher
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('fonctionaires.index') }}" 
+                               class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors shadow-sm">
+                                Réinitialiser
+                            </a>
+                        @endif
+                    </form>
+                </div>
+
                 <!-- Table -->
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -126,4 +152,5 @@
         </div>
     </div>
 </div>
+
 @endsection

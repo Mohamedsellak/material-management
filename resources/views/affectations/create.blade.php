@@ -71,6 +71,9 @@
                                     État
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Département
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Local
                                 </th>
                             </tr>
@@ -108,9 +111,25 @@
                                     @enderror
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    <select class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm @error('departement_id.'.$i) border-red-500 @enderror"
+                                            name="departement_id[]"
+                                            required
+                                            onchange="updateLocals(this, {{ $i }})"
+                                            data-row="{{ $i }}">
+                                        <option value="">Sélectionnez un département</option>
+                                        @foreach($departements as $departement)
+                                            <option value="{{ $departement->id }}" {{ old('departement_id.'.$i) == $departement->id ? 'selected' : '' }}>
+                                                {{ $departement->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <select class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm @error('local_id.'.$i) border-red-500 @enderror"
                                             name="local_id[]"
-                                            required>
+                                            required
+                                            data-row="{{ $i }}">
                                         <option value="">Sélectionnez un local</option>
                                         @foreach($locals as $local)
                                             <option value="{{ $local->id }}" {{ old('local_id.'.$i) == $local->id ? 'selected' : '' }}>
@@ -144,4 +163,46 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    function updateLocals(departmentSelect, rowIndex) {
+        const departementId = departmentSelect.value;
+        const localSelect = document.querySelector(`select[name="local_id[]"][data-row="${rowIndex}"]`);
+        
+        // Clear current options
+        localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
+        
+        if (!departementId) return;
+
+        // Fetch locals for selected department
+        fetch(`/api/departments/${departementId}/locals`)
+            .then(response => response.json())
+            .then(locals => {
+                locals.forEach(local => {
+                    const option = new Option(local.name, local.id);
+                    localSelect.add(option);
+                });
+                
+                // If there's a previously selected local, try to reselect it
+                const oldLocalId = localSelect.getAttribute('data-old-value');
+                if (oldLocalId) {
+                    localSelect.value = oldLocalId;
+                }
+            })
+            .catch(error => console.error('Error fetching locals:', error));
+    }
+
+    // Initialize all rows on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const departmentSelects = document.querySelectorAll('select[name="departement_id[]"]');
+        departmentSelects.forEach(select => {
+            if (select.value) {
+                updateLocals(select, select.dataset.row);
+            }
+        });
+    });
+</script>
+@endpush
+
 @endsection 

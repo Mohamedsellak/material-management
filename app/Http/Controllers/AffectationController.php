@@ -19,9 +19,11 @@ class AffectationController extends Controller
         $etat = request()->etat ?? null;
         $local = request()->local ?? null;
 
+        $etatCasse = Etat::where('name', 'casse')->first();
+        
         $query = Affectation::query();
-        // $query->where('etat_id', '!=', 3); different from casse
-
+        $query->where('etat_id', '!=', $etatCasse->id);
+        
         if($search){
             $query->where('numero_inventaire', $search);
         }
@@ -31,12 +33,17 @@ class AffectationController extends Controller
         if($local){
             $query->where('local_id', $local);
         }
-
+        
         $affectations = $query->paginate(8);
         
         $etats = Etat::all();
         $locals = Local::all();
         return view('affectations.index', compact('affectations', 'etats', 'locals'));
+    }
+    
+    public function show(Affectation $affectation)
+    {
+        return view('affectations.show', compact('affectation'));
     }
 
     public function create()
@@ -45,7 +52,8 @@ class AffectationController extends Controller
         $commandLine = CommandLine::findOrFail($commandLine);
         $etats = Etat::all();
         $locals = Local::all();
-        return view('affectations.create', compact('commandLine', 'etats', 'locals'));
+        $departements = Departement::all();
+        return view('affectations.create', compact('commandLine', 'etats', 'locals', 'departements'));
     }
 
     public function store(Request $request)
@@ -103,9 +111,33 @@ class AffectationController extends Controller
             ->with('success', 'Affectation supprimée avec succès.');
     }
 
-    public function show(Affectation $affectation)
+    public function reaffecter(Affectation $affectation)
     {
-        return view('affectations.show', compact('affectation'));
+        $etats = Etat::all();
+        $locals = Local::all();
+        $departements = Departement::all();
+        return view('affectations.reaffecter', compact('affectation','etats', 'locals', 'departements'));
+    }
+
+    public function reaffecterStore(Request $request)
+    {
+        $validated = $request->validate([
+            'numero_inventaire' => 'required|integer',
+            'etat_id' => 'required|exists:etats,id',
+            'local_id' => 'required|exists:locals,id',
+            'command_line_id' => 'required|exists:command_lines,id',
+        ]);
+
+        Affectation::create([
+            'numero_inventaire' => $request->numero_inventaire,
+            'etat_id' => $request->etat_id,
+            'local_id' => $request->local_id,
+            'command_line_id' => $request->command_line_id,
+        ]);
+
+        return redirect()->route('affectations.index')
+            ->with('success', 'Affectations créées avec succès.');
+
     }
 
     public function generatePDF(Affectation $affectation)
@@ -114,17 +146,4 @@ class AffectationController extends Controller
         return $pdf->download('affectation-' . $affectation->numero_inventaire . '.pdf');
     }
 
-
-    public function casse()
-    {
-        // dd('ok');
-        $etat = Etat::where('name', 'Casse')->first();
-        if($etat){
-            $affectations = Affectation::where('etat_id', $etat->id)->get();
-        }else{
-            $affectations = [];
-        }
-
-        return view('affectations.casse', compact('affectations'));
-    }
 }

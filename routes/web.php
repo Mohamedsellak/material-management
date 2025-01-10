@@ -24,7 +24,7 @@ use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\FonctionnaireReclamationController;
-
+use App\Http\Controllers\CasseController;
 
 // Public routes
 Route::get('/', function () {
@@ -49,26 +49,40 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::resource('materials', MaterialController::class);
         Route::resource('entrees', EntreeController::class);
         Route::resource('locals', LocalController::class);
-        Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
         Route::resource('commands', CommandController::class);
         Route::resource('command_lines', CommandLineController::class);
+
+        // Affectations routes
         Route::resource('affectations', AffectationController::class);
+        Route::post('affectations/reaffecter', [AffectationController::class, 'reaffecterStore'])->name('affectations.reaffecterStore');
+        Route::get('affectations/{affectation}/reaffecter', [AffectationController::class, 'reaffecter'])->name('affectations.reaffecter');
+       
+        // Users routes
         Route::resource('users', UserController::class);
+
+        // Reclamations routes
         Route::resource('reclamations', ReclamationController::class);
         Route::get('reclamations/{reclamation}/editStatus', [ReclamationController::class, 'editStatus'])->name('reclamations.editStatus');
         Route::put('reclamations/{reclamation}/updateStatus', [ReclamationController::class, 'updateStatus'])->name('reclamations.updateStatus');
+        
 
-        Route::get('/casse', [AffectationController::class, 'casse'])->name('affectations.casse');
+        // Casse routes
+        Route::get('/casse', [CasseController::class, 'index'])->name('casse.index');
         
         // PDF generation routes
         Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
         Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
-
+        Route::get('/casse/{affectation}/pdf', [CasseController::class, 'cassePdf'])->name('casse.pdf');
+        
+        // Dashboard routes
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+
+        // API routes
+        Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
     });
     
     Route::middleware(FonctionnaireMiddleware::class)->group(function () {
-            Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
+        Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
     });
 
 

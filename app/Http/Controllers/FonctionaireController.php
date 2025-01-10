@@ -13,8 +13,22 @@ class FonctionaireController extends Controller
      */
     public function index()
     {
+        $query = Fonctionaire::query();
+
+        if (request('search')) {
+            $searchTerm = request('search');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nom', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('prenom', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                  ->orWhereHas('departement', function($q) use ($searchTerm) {
+                      $q->where('name', 'like', '%' . $searchTerm . '%');
+                  });
+            });
+        }
+
         return view('fonctionaires.index', [
-            'fonctionaires' => Fonctionaire::paginate(10),
+            'fonctionaires' => $query->paginate(10)->withQueryString(),
         ]);
     }
 

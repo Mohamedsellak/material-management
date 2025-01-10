@@ -234,7 +234,7 @@
     <footer class="bg-white/80 backdrop-blur-xl dark:bg-gray-800/80 border-t border-gray-100 dark:border-gray-700">
         <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
             <div class="flex justify-center space-x-6 md:order-2">
-                <a href="http://www.FSDM.ac.ma/" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400">
+                <a href="https://www.fsdm.usmba.ac.ma/" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400">
                     Site FSDM
                 </a>
             </div>

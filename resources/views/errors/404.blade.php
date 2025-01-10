@@ -6,8 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Page Non Trouvée - FSDM Inventory</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="{{ asset('build/assets/app-BxPl0S0X.css') }}">
+    <script src="{{ asset('build/assets/app-Xaw6OIO1.js') }}"></script>
+
 </head>
 <body class="font-sans antialiased min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
     <div class="min-h-screen flex flex-col items-center justify-center p-4">

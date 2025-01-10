@@ -146,7 +146,7 @@
                                     <i class="fas fa-exchange-alt mr-3 text-blue-500"></i>
                                     Affectations
                                 </a>
-                                <a href="{{ route('affectations.casse') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                                <a href="{{ route('casse.index') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200">
                                     <i class="fas fa-hammer mr-3 text-blue-500"></i>
                                     Casse
                                 </a>
@@ -293,7 +293,7 @@
                             <i class="fas fa-exchange-alt mr-3 text-blue-500"></i>
                             <span>Affectations</span>
                         </a>
-                        <a href="{{ route('affectations.casse') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                        <a href="{{ route('casse.index') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200">
                             <i class="fas fa-hammer mr-3 text-blue-500"></i>
                             <span>Casse</span>
                         </a>
