@@ -75,7 +75,7 @@
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800 dark:text-white">Lignes de commande</h3>
-                        <a href="{{ route('command_lines.create', ['command' => $command]) }}"
+                        <a href="{{ route('command_lines.create', ['command_id' => $command]) }}"
                            class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-md">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -111,6 +111,10 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ $line->material->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ $line->quantity }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                            <a href="{{ route('command_lines.show', $line) }}" 
+                                               class="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300">
+                                                Voir
+                                            </a>
                                             <a href="{{ route('command_lines.edit', $line) }}" 
                                                class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
                                                 Modifier

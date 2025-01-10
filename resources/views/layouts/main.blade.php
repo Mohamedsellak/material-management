@@ -16,6 +16,8 @@
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('build/assets/app-BxPl0S0X.css') }}">
     
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/jquery.dataTables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/buttons.dataTables.min.css') }}">

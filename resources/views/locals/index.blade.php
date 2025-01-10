@@ -28,6 +28,62 @@
                     </div>
                 @endif
 
+                <!-- Search Section -->
+                <div class="mb-6">
+                    <form action="{{ route('locals.index') }}" method="GET" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <!-- Search Bar -->
+                            <div class="md:col-span-2">
+                                <input type="text" 
+                                       name="search" 
+                                       value="{{ request('search') }}"
+                                       placeholder="Rechercher par nom..." 
+                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            </div>
+                            
+                            <!-- Type Filter -->
+                            <div>
+                                <select name="type" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="">Type de Local</option>
+                                    @foreach($typeLocals as $type)
+                                        <option value="{{ $type->id }}" {{ request('type') == $type->id ? 'selected' : '' }}>
+                                            {{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Department Filter -->
+                            <div>
+                                <select name="department" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="">Département</option>
+                                    @foreach($departements as $departement)
+                                        <option value="{{ $departement->id }}" {{ request('department') == $departement->id ? 'selected' : '' }}>
+                                            {{ $departement->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-2">
+                            <button type="submit" 
+                                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors shadow-sm">
+                                <svg class="h-5 w-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                Rechercher
+                            </button>
+                            @if(request()->anyFilled(['search', 'type', 'department']))
+                                <a href="{{ route('locals.index') }}" 
+                                   class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors shadow-sm">
+                                    Réinitialiser
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+
                 <!-- Table -->
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

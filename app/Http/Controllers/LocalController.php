@@ -14,9 +14,33 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
-        $locals = Local::paginate(10);
-        return view('locals.index', compact('locals'));
+        $query = Local::query();
+
+        // Search filter
+        if (request('search')) {
+            $searchTerm = request('search');
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Type filter
+        if (request('type')) {
+            $query->where('type_local_id', request('type'));
+        }
+
+        // Department filter
+        if (request('department')) {
+            $query->where('departement_id', request('department'));
+        }
+
+        // Get all type locals and departments for the filter dropdowns
+        $typeLocals = TypeLocal::all();
+        $departements = Departement::all();
+
+        return view('locals.index', [
+            'locals' => $query->paginate(10)->withQueryString(),
+            'typeLocals' => $typeLocals,
+            'departements' => $departements
+        ]);
     }
 
     /**

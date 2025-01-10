@@ -34,7 +34,7 @@ class AffectationController extends Controller
             $query->where('local_id', $local);
         }
         
-        $affectations = $query->paginate(8);
+        $affectations = $query->paginate(8)->withQueryString();
         
         $etats = Etat::all();
         $locals = Local::all();
