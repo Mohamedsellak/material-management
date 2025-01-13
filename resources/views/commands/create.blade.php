@@ -20,14 +20,19 @@
                         <label for="fonctionaire_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Fonctionnaire
                         </label>
-                        <select name="fonctionaire_id" id="fonctionaire_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="">Sélectionnez un fonctionnaire</option>
+                        <input type="text" 
+                               name="fonctionaire_id" 
+                               id="fonctionaire_search" 
+                               list="fonctionaire_list"
+                               placeholder="Rechercher un fonctionnaire"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <datalist id="fonctionaire_list">
                             @foreach($fonctionaires as $fonctionaire)
-                                <option value="{{ $fonctionaire->id }}" {{ old('fonctionaire_id') == $fonctionaire->id ? 'selected' : '' }}>
-                                    {{ $fonctionaire->nom . ' ' . $fonctionaire->prenom . ' - ' . $fonctionaire->departement->name }}
-                                </option>
+                                <option value="{{ $fonctionaire->nom . ' ' . $fonctionaire->prenom . ' - ' . $fonctionaire->departement->name }}" 
+                                        data-id="{{ $fonctionaire->id }}">
                             @endforeach
-                        </select>
+                        </datalist>
+                        <input type="hidden" name="fonctionaire_id" id="fonctionaire_id">
                         @error('fonctionaire_id')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -60,4 +65,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('fonctionaire_search').addEventListener('input', function(e) {
+        const datalist = document.getElementById('fonctionaire_list');
+        const options = datalist.getElementsByTagName('option');
+        
+        for(let option of options) {
+            if(option.value === this.value) {
+                document.getElementById('fonctionaire_id').value = option.dataset.id;
+                break;
+            }
+        }
+    });
+</script>
 @endsection 

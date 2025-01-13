@@ -28,7 +28,7 @@ class FonctionaireController extends Controller
         }
 
         return view('fonctionaires.index', [
-            'fonctionaires' => $query->paginate(10)->withQueryString(),
+            'fonctionaires' => $query->latest()->paginate(8)->withQueryString(),
         ]);
     }
 

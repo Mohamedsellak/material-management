@@ -112,7 +112,6 @@
                             <span class="text-sm font-medium">{{ $reclamation->local->name }}</span>
                         </div>
                     </div>
-                    
                     <div class="bg-gray-50/80 px-6 py-4 border-t border-gray-100">
                         <div class="flex justify-between items-center">
                             <div class="flex space-x-2">
@@ -155,6 +154,9 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="mt-4">
+            {{ $reclamations->links() }}
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TypeMaterial;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class TypeMaterialController extends Controller
@@ -71,5 +72,11 @@ class TypeMaterialController extends Controller
     {
         $typeMaterial->delete();
         return to_route('type-materials.index')->with('success', 'Type de matériel supprimé avec succès');
+    }
+
+    public function getByTypeMaterial($typeMaterialId)
+    {
+        $materials = Material::where('type_material_id', $typeMaterialId)->get();
+        return response()->json($materials);
     }
 }

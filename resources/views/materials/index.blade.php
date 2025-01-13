@@ -21,6 +21,40 @@
                     </a>
                 </div>
 
+                <!-- Search Form -->
+                <div class="mb-6">
+                    <form action="{{ route('materials.index') }}" method="GET" class="flex gap-4">
+                        <div class="flex-1">
+                            <input type="text" 
+                                   name="search" 
+                                   value="{{ request('search') }}" 
+                                   placeholder="Rechercher par nom..."
+                                   class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <div class="flex-1">
+                            <select name="type" 
+                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Tous les types</option>
+                                @foreach($typeMaterials as $type)
+                                    <option value="{{ $type->id }}" {{ request('type') == $type->id ? 'selected' : '' }}>
+                                        {{ $type->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                            Rechercher
+                        </button>
+                        @if(request()->anyFilled(['search','type']))
+                            <a href="{{ route('materials.index') }}" 
+                               class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">
+                                Réinitialiser
+                            </a>
+                        @endif
+                    </form>
+                </div>
+
                 @if (session('success'))
                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                         <strong class="font-bold">Succès!</strong>

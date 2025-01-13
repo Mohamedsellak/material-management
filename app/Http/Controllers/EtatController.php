@@ -12,7 +12,7 @@ class EtatController extends Controller
      */
     public function index()
     {
-        $etats = Etat::paginate(10);
+        $etats = Etat::latest()->paginate(8);
         return view('etats.index', compact('etats'));
     }
 

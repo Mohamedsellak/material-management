@@ -10,7 +10,7 @@ class FonctionnaireReclamationController extends Controller
 {
     public function index()
     {
-        $reclamations = Reclamation::where('user_id', session('user')->id)->get();
+        $reclamations = Reclamation::where('user_id', session('user')->id)->latest()->get();
         return view('fonctionnaire-reclamations.index', compact('reclamations'));
     }
 

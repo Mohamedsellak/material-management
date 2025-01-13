@@ -37,7 +37,7 @@ class LocalController extends Controller
         $departements = Departement::all();
 
         return view('locals.index', [
-            'locals' => $query->paginate(10)->withQueryString(),
+            'locals' => $query->latest()->paginate(8)->withQueryString(),
             'typeLocals' => $typeLocals,
             'departements' => $departements
         ]);

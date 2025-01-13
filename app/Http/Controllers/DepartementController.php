@@ -10,9 +10,16 @@ class DepartementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departements = Departement::paginate(10);
+        $query = Departement::query();
+        
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where('name', 'like', "%{$search}%");
+        }
+        
+        $departements = $query->latest()->paginate(8)->withQueryString();
         return view('departements.index', compact('departements'));
     }
 

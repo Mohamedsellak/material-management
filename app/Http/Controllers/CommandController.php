@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Command;
 use Illuminate\Http\Request;
 use App\Models\Fonctionaire;
+use PDF;
+
 class CommandController extends Controller
 {
     /**
@@ -12,7 +14,17 @@ class CommandController extends Controller
      */
     public function index()
     {
-        $commands = Command::paginate(10);
+        $query = Command::query();
+
+        if (request('search')) {
+            $searchTerm = strtolower(request('search'));
+            $query->whereHas('fonctionaire', function($q) use ($searchTerm) {
+                $q->whereRaw('LOWER(nom) LIKE ?', ["%{$searchTerm}%"])
+                  ->orWhereRaw('LOWER(prenom) LIKE ?', ["%{$searchTerm}%"]);
+            });
+        }
+
+        $commands = $query->latest()->paginate(10)->withQueryString();
         return view('commands.index', compact('commands'));
     }
 
@@ -81,5 +93,14 @@ class CommandController extends Controller
         //
         $command->delete();
         return redirect()->route('commands.index')->with('success', 'Commande supprimée avec succès');
+    }
+
+    /**
+     * Generate PDF for a command and its lines
+     */
+    public function generatePDF(Command $command)
+    {
+        $pdf = PDF::loadView('commands.pdf', compact('command'));
+        return $pdf->download('command-' . $command->id . '.pdf');
     }
 }

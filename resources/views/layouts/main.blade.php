@@ -11,13 +11,11 @@
     <link rel="preload" href="{{ asset('build/webfonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin>
     
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('build/assets/all.min.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-BxPl0S0X.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-0OLsnDVW.css') }}">
     
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/jquery.dataTables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/buttons.dataTables.min.css') }}">

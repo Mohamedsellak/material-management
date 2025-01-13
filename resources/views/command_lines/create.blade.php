@@ -51,17 +51,28 @@
                     </div>
 
                     <div>
+                        <label for="type_material_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Type de matériel
+                        </label>
+                        <select id="type_material_id" name="type_material_id" required
+                                onchange="updateMaterials()"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="">Sélectionnez un type de matériel</option>
+                            @foreach($typeMaterials as $typeMaterial)
+                                <option value="{{ $typeMaterial->id }}" {{ old('type_material_id') == $typeMaterial->id ? 'selected' : '' }}>
+                                    {{ $typeMaterial->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
                         <label for="material_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Matériel
                         </label>
                         <select id="material_id" name="material_id" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="">Sélectionnez un matériel</option>
-                            @foreach($materials as $material)
-                                <option value="{{ $material->id }}" {{ old('material_id') == $material->id ? 'selected' : '' }}>
-                                    {{ $material->name }}
-                                </option>
-                            @endforeach
+                            <option value="">Sélectionnez d'abord un type de matériel</option>
                         </select>
                     </div>
 
@@ -88,4 +99,42 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    function updateMaterials() {
+        const typeMaterialId = document.getElementById('type_material_id').value;
+        const materialSelect = document.getElementById('material_id');
+        
+        // Clear current options
+        materialSelect.innerHTML = '<option value="">Sélectionnez un matériel</option>';
+        
+        if (!typeMaterialId) return;
+
+        // Fetch locals for selected department
+        console.log(typeMaterialId);
+        fetch(`/api/type-materials/${typeMaterialId}/materials`)
+            .then(response => response.json())
+            .then(materials => {
+                materials.forEach(material => {
+                    const option = new Option(material.name, material.id);
+                    materialSelect.add(option);
+                });
+                
+                // If there's a previously selected local, try to reselect it
+                const oldMaterialId = "{{ old('material_id') }}";
+                if (oldMaterialId) {
+                    materialSelect.value = oldMaterialId;
+                }
+            })
+            .catch(error => console.error('Error fetching materials:', error));
+    }
+
+    // Run on page load since department should be pre-selected
+    document.addEventListener('DOMContentLoaded', function() {
+        updateMaterials();
+    });
+</script>
+@endpush
+
 @endsection 

@@ -13,7 +13,7 @@ class ReclamationController extends Controller
      */
     public function index()
     {
-        $reclamations = Reclamation::all();
+        $reclamations = Reclamation::latest()->paginate(3);
         return view("reclamations.index", compact('reclamations'));
     }
 
@@ -58,7 +58,8 @@ class ReclamationController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Reclamation $reclamation)
-    {
+    {   
+        // $departements = Departement::all();
         $locals = Local::all();
         return view("reclamations.edit", compact('reclamation', 'locals'));
     }

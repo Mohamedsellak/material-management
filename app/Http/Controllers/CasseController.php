@@ -14,7 +14,7 @@ class CasseController extends Controller
         // dd('ok');
         $etat = Etat::where('name', 'casse')->first();
         if($etat){
-            $affectations = Affectation::where('etat_id', $etat->id)->get();
+            $affectations = Affectation::where('etat_id', $etat->id)->latest()->get();
         }else{
             $affectations = [];
         }

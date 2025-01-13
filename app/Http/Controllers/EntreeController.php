@@ -14,7 +14,7 @@ class EntreeController extends Controller
      */
     public function index()
     {
-        $entrees = Entree::paginate(10);
+        $entrees = Entree::latest()->paginate(8);
         return view('entrees.index', compact('entrees'));
     }
 

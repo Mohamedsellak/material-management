@@ -6,6 +6,7 @@ use App\Models\CommandLine;
 use Illuminate\Http\Request;
 use App\Models\Material;
 use App\Models\Command;
+use App\Models\TypeMaterial;
 use PDF;
 
 class CommandLineController extends Controller
@@ -13,10 +14,29 @@ class CommandLineController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $commandLines = CommandLine::paginate(10);
+        $query = CommandLine::query();
+
+        // Filter by command ID (for redirects only)
+        if ($request->filled('command_id')) {
+            $query->where('command_id', $request->command_id);
+        }
+        
+        // Filter by fonctionnaire name
+        if ($request->filled('search')) {
+            $search = strtolower($request->get('search'));
+            $query->whereHas('command.fonctionaire', function($q) use ($search) {
+                $q->whereRaw('LOWER(nom) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(prenom) LIKE ?', ["%{$search}%"]);
+            });
+        }
+        
+        $commandLines = $query->with(['command.fonctionaire', 'material'])
+                            ->latest()
+                            ->paginate(8)
+                            ->withQueryString();
+
         return view('command_lines.index', compact('commandLines'));
     }
 
@@ -32,8 +52,9 @@ class CommandLineController extends Controller
             return redirect()->route('commands.index')->with('error', 'Commande non trouvée.');
         }
 
+        $typeMaterials = TypeMaterial::all();
         $materials = Material::all();
-        return view('command_lines.create', compact('command', 'materials'));
+        return view('command_lines.create', compact('command', 'materials', 'typeMaterials'));
     }
 
     /**
@@ -59,7 +80,7 @@ class CommandLineController extends Controller
 
         $commandLine = CommandLine::create($request->all());
 
-        return redirect()->route('command_lines.index')
+        return redirect()->route('command_lines.index',["command_id"=>$request->command_id])
             ->with('success', 'Ligne de commande créée avec succès.');
     }
 

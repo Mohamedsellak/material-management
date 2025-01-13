@@ -10,9 +10,16 @@ class TypeLocalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $typeLocals = TypeLocal::paginate(10);
+        $query = TypeLocal::query();
+        
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where('name', 'like', "%{$search}%");
+        }
+        
+        $typeLocals = $query->paginate(8)->withQueryString();
         return view('type-locals.index', compact('typeLocals'));
     }
 

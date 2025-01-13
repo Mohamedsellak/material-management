@@ -72,6 +72,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         // PDF generation routes
         Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
         Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
+        Route::get('/commands/{command}/pdf', [CommandController::class, 'generatePDF'])->name('commands.pdf');
         Route::get('/casse/{affectation}/pdf', [CasseController::class, 'cassePdf'])->name('casse.pdf');
         
         // Dashboard routes
@@ -79,7 +80,8 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
 
         // API routes
         Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
-    });
+        Route::get('/api/type-materials/{typeMaterialId}/materials', [TypeMaterialController::class, 'getByTypeMaterial'])->name('api.materials.by-type-material');
+    }); 
     
     Route::middleware(FonctionnaireMiddleware::class)->group(function () {
         Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);

@@ -11,10 +11,29 @@ class MaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materials = Material::paginate(10);
-        return view('materials.index', compact('materials'));
+        $query = Material::query();
+        
+        if ($request->filled('search')) {
+            $search = strtolower($request->get('search'));
+            $query->where(function($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
+            });
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type_material_id', $request->get('type'));
+        }
+        
+        $materials = $query->with('typeMaterial')
+                          ->latest()
+                          ->paginate(8)
+                          ->withQueryString();
+        $typeMaterials = TypeMaterial::all();
+        
+        return view('materials.index', compact('materials', 'typeMaterials'));
     }
 
     /**

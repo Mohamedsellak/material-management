@@ -45,7 +45,7 @@
                             </svg>
                             Rechercher
                         </button>
-                        @if(request('search'))
+                        @if(request()->filled('search'))
                             <a href="{{ route('fonctionaires.index') }}" 
                                class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors shadow-sm">
                                 Réinitialiser

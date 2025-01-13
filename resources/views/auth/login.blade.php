@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
     
-    <link rel="stylesheet" href="{{ asset('build/assets/app-BxPl0S0X.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-CKEO5D9b.css') }}">
     <script src="{{ asset('build/assets/app-Xaw6OIO1.js') }}"></script>
 </head>
 <body class="font-sans antialiased">
