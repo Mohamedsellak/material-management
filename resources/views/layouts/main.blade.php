@@ -11,10 +11,10 @@
     <link rel="preload" href="{{ asset('build/webfonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin>
     
     <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('build/assets/all.min.css') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-0OLsnDVW.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-CKEO5D9b.css') }}">
     
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/jquery.dataTables.css') }}">
