@@ -50,6 +50,28 @@
                             @enderror
                         </div>
 
+                        <!-- Departement Field -->
+                        <div class="group">
+                            <label for="departement_id" class="block text-sm font-semibold text-gray-700 mb-2">Département</label>
+                            <div class="relative">
+                                <select name="departement_id" id="departement_id" 
+                                    class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
+                                    onchange="updateLocals()">
+                                    <option value="">Sélectionnez un département</option>
+                                    @foreach($departements as $departement)
+                                        <option value="{{ $departement->id }}" {{ old('departement_id', $reclamation->local->departement_id) == $departement->id ? 'selected' : '' }}>
+                                            {{ $departement->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Local Field -->
                         <div class="group">
                             <label for="local_id" class="block text-sm font-semibold text-gray-700 mb-2">Local</label>
@@ -57,11 +79,6 @@
                                 <select name="local_id" id="local_id" 
                                     class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400">
                                     <option value="">Sélectionnez un local</option>
-                                    @foreach($locals as $local)
-                                        <option value="{{ $local->id }}" {{ old('local_id', $reclamation->local_id) == $local->id ? 'selected' : '' }}>
-                                            {{ $local->name }}
-                                        </option>
-                                    @endforeach
                                 </select>
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                     <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,6 +96,37 @@
                             @enderror
                         </div>
                     </div>
+
+                    @if($commandLines->isNotEmpty())
+                    <!-- Command Line Field -->
+                    <div class="group">
+                        <label for="command_line_id" class="block text-sm font-semibold text-gray-700 mb-2">Ligne de commande (Optionnel)</label>
+                        <div class="relative">
+                            <select name="command_line_id" id="command_line_id" 
+                                class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400">
+                                <option value="">Aucune ligne de commande</option>
+                                @foreach($commandLines as $commandLine)
+                                    <option value="{{ $commandLine->id }}" {{ old('command_line_id', $reclamation->command_line_id) == $commandLine->id ? 'selected' : '' }}>
+                                        {{ $commandLine->material->name }} - Quantité: {{ $commandLine->quantity }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        @error('command_line_id')
+                            <p class="mt-1 text-sm text-red-600 flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+                    @endif
 
                     <!-- Description Field -->
                     <div class="group">
@@ -160,4 +208,40 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    function updateLocals() {
+        const departementId = document.getElementById('departement_id').value;
+        const localSelect = document.getElementById('local_id');
+        
+        // Clear current options
+        localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
+        
+        if (!departementId) return;
+
+        // Fetch locals for selected department
+        fetch(`/api/departments/${departementId}/locals`)
+            .then(response => response.json())
+            .then(locals => {
+                locals.forEach(local => {
+                    const option = new Option(local.name, local.id);
+                    localSelect.add(option);
+                });
+                
+                // If there's a previously selected local, try to reselect it
+                const oldLocalId = "{{ old('local_id', $reclamation->local_id) }}";
+                if (oldLocalId) {
+                    localSelect.value = oldLocalId;
+                }
+            })
+            .catch(error => console.error('Error fetching locals:', error));
+    }
+
+    // Run on page load since department should be pre-selected
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLocals();
+    });
+</script>
+@endpush
 @endsection 

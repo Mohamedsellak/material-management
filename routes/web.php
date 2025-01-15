@@ -77,16 +77,16 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         
         // Dashboard routes
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-
-        // API routes
-        Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
-        Route::get('/api/type-materials/{typeMaterialId}/materials', [TypeMaterialController::class, 'getByTypeMaterial'])->name('api.materials.by-type-material');
+        
     }); 
     
     Route::middleware(FonctionnaireMiddleware::class)->group(function () {
         Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
     });
 
+    // API routes
+    Route::get('/api/departments/{departmentId}/locals', [LocalController::class, 'getByDepartment'])->name('api.locals.by-department');
+    Route::get('/api/type-materials/{typeMaterialId}/materials', [TypeMaterialController::class, 'getByTypeMaterial'])->name('api.materials.by-type-material');
 
     // for all authenticated users
     Route::prefix('profile')->group(function () {

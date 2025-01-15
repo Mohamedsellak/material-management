@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reclamation;
 use App\Models\Local;
+use App\Models\Departement;
 
 class FonctionnaireReclamationController extends Controller
 {
@@ -17,7 +18,8 @@ class FonctionnaireReclamationController extends Controller
     public function create()
     {   
         $locals = Local::all();
-        return view('fonctionnaire-reclamations.create', compact('locals'));
+        $departements = Departement::all();
+        return view('fonctionnaire-reclamations.create', compact('locals', 'departements'));
     }
 
     public function store(Request $request)
@@ -48,9 +50,11 @@ class FonctionnaireReclamationController extends Controller
     public function edit(Reclamation $fonctionnaire_reclamation)
     {
         $locals = Local::all();
+        $departements = Departement::all(); 
         return view('fonctionnaire-reclamations.edit', [
             'reclamation' => $fonctionnaire_reclamation,
-            'locals' => $locals
+            'locals' => $locals,
+            'departements' => $departements
         ]);
     }
 

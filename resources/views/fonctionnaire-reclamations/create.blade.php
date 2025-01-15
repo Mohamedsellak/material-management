@@ -20,28 +20,69 @@
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom de la réclamation</label>
-                            <input type="text" name="name" id="name" 
-                                   class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200" 
-                                   required>
+                        <div class="group">
+                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Nom de la réclamation</label>
+                            <div class="relative">
+                                <input type="text" name="name" id="name" value="{{ old('name') }}" 
+                                    class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
+                                    placeholder="Entrez le nom de la réclamation">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                    </svg>
+                                </div>
+                            </div>
                             @error('name')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
 
-                        <div>
-                            <label for="local_id" class="block text-sm font-medium text-gray-700 mb-2">Local</label>
-                            <select name="local_id" id="local_id" 
-                                    class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200" 
-                                    required>
-                                <option value="">Sélectionnez un local</option>
-                                @foreach($locals as $local)
-                                    <option value="{{ $local->id }}">{{ $local->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="group">
+                            <label for="departement_id" class="block text-sm font-semibold text-gray-700 mb-2">Département</label>
+                            <div class="relative">
+                                <select id="departement_id" 
+                                    class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
+                                    onchange="updateLocals()">
+                                    <option value="">Sélectionnez un département</option>
+                                    @foreach($departements as $departement)
+                                        <option value="{{ $departement->id }}" {{ old('departement_id') == $departement->id ? 'selected' : '' }}>
+                                            {{ $departement->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group">
+                            <label for="local_id" class="block text-sm font-semibold text-gray-700 mb-2">Local</label>
+                            <div class="relative">
+                                <select name="local_id" id="local_id" 
+                                    class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400">
+                                    <option value="">Sélectionnez un local</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    </svg>
+                                </div>
+                            </div>
                             @error('local_id')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
                     </div>
@@ -70,4 +111,43 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    function updateLocals() {
+        const departementId = document.getElementById('departement_id').value;
+        const localSelect = document.getElementById('local_id');
+        
+        // Clear current options
+        localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
+        
+        if (!departementId) return;
+
+        // Fetch locals for selected department
+        fetch(`/api/departments/${departementId}/locals`)
+            .then(response => response.json())
+            .then(locals => {
+                locals.forEach(local => {
+                    const option = new Option(local.name, local.id);
+                    localSelect.add(option);
+                });
+                
+                // If there's a previously selected local, try to reselect it
+                const oldLocalId = "{{ old('local_id') }}";
+                if (oldLocalId) {
+                    localSelect.value = oldLocalId;
+                }
+            })
+            .catch(error => console.error('Error fetching locals:', error));
+    }
+
+    // Run on page load if department is pre-selected
+    document.addEventListener('DOMContentLoaded', function() {
+        const departementId = document.getElementById('departement_id').value;
+        if (departementId) {
+            updateLocals();
+        }
+    });
+</script>
+@endpush
+
 @endsection 

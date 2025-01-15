@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reclamation extends Model
 {
-    protected $fillable = ["name", "description", "status", "commentaire", "local_id", "user_id"];
+    protected $fillable = ["name", "description", "status", "commentaire", "local_id", "user_id", "command_line_id"];
 
     public function local()
     {
@@ -16,5 +16,10 @@ class Reclamation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function commandLine()
+    {
+        return $this->belongsTo(CommandLine::class);
     }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Reclamation;
 use Illuminate\Http\Request;
 use App\Models\Local;
+use App\Models\CommandLine;
+use App\Models\Departement;
+
 
 class ReclamationController extends Controller
 {
@@ -22,8 +25,10 @@ class ReclamationController extends Controller
      */
     public function create()
     {   
+        $departements = Departement::all();
         $locals = Local::all();
-        return view("reclamations.create", compact('locals'));
+        $commandLines = CommandLine::latest()->get();
+        return view("reclamations.create", compact('departements', 'locals', 'commandLines'));
     }
 
     /**
@@ -36,7 +41,8 @@ class ReclamationController extends Controller
             'description' => 'required',
             'local_id' => 'required',
             'status' => 'required',
-            'commentaire' => 'nullable'
+            'commentaire' => 'nullable',
+            'command_line_id' => 'nullable|exists:command_lines,id'
         ]);
 
         $validated['user_id'] = session('user')->id;
@@ -59,9 +65,10 @@ class ReclamationController extends Controller
      */
     public function edit(Reclamation $reclamation)
     {   
-        // $departements = Departement::all();
+        $departements = Departement::all();
         $locals = Local::all();
-        return view("reclamations.edit", compact('reclamation', 'locals'));
+        $commandLines = CommandLine::latest()->get();
+        return view("reclamations.edit", compact('reclamation', 'departements', 'locals', 'commandLines'));
     }
 
     /**
@@ -74,7 +81,8 @@ class ReclamationController extends Controller
             'description' => 'required',
             'local_id' => 'required|exists:locals,id',
             'status' => 'required|in:en attente,en cours,resolue',
-            'commentaire' => 'nullable'
+            'commentaire' => 'nullable',
+            'command_line_id' => 'nullable|exists:command_lines,id'
         ]);
 
         $validated['user_id'] = session('user')->id;
