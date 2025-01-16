@@ -52,6 +52,56 @@
             @csrf
             <input type="hidden" name="command_line_id" value="{{ $commandLine->id }}">
 
+            <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-700">Paramètres d'Affectation en Masse</h2>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Numéro d'inventaire de départ</label>
+                        <input type="number" 
+                               id="start_inventory_number" 
+                               class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm"
+                               placeholder="Numéro de départ">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">État</label>
+                        <select id="bulk_etat" 
+                                class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm">
+                            <option value="">Sélectionnez un état</option>
+                            @foreach($etats as $etat)
+                                <option value="{{ $etat->id }}">{{ $etat->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Département</label>
+                        <select id="bulk_departement" 
+                                class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm"
+                                onchange="updateBulkLocals(this.value)">
+                            <option value="">Sélectionnez un département</option>
+                            @foreach($departements as $departement)
+                                <option value="{{ $departement->id }}">{{ $departement->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Local</label>
+                        <select id="bulk_local" 
+                                class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm">
+                            <option value="">Sélectionnez un local</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-4">
+                        <button type="button" 
+                                onclick="applyBulkAssignment()"
+                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Appliquer à tous les éléments
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h2 class="text-lg font-semibold text-gray-700">Liste des Affectations</h2>
@@ -149,7 +199,7 @@
 
                 <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
                     <div class="flex justify-end space-x-3">
-                        <a href="{{ route('affectations.index') }}"
+                        <a href="{{ route('command_lines.index') }}"
                            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             Annuler
                         </a>
@@ -191,6 +241,63 @@
                 }
             })
             .catch(error => console.error('Error fetching locals:', error));
+    }
+
+    function updateBulkLocals(departementId) {
+        const bulkLocalSelect = document.getElementById('bulk_local');
+        
+        // Clear current options
+        bulkLocalSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
+        
+        if (!departementId) return;
+
+        // Fetch locals for selected department
+        fetch(`/api/departments/${departementId}/locals`)
+            .then(response => response.json())
+            .then(locals => {
+                locals.forEach(local => {
+                    const option = new Option(local.name, local.id);
+                    bulkLocalSelect.add(option);
+                });
+            })
+            .catch(error => console.error('Error fetching locals:', error));
+    }
+
+    function applyBulkAssignment() {
+        const startInventoryNumber = parseInt(document.getElementById('start_inventory_number').value) || 0;
+        const bulkEtat = document.getElementById('bulk_etat').value;
+        const bulkDepartement = document.getElementById('bulk_departement').value;
+        const bulkLocal = document.getElementById('bulk_local').value;
+        const bulkLocalSelect = document.getElementById('bulk_local');
+
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach((row, index) => {
+            if (startInventoryNumber) {
+                const inventoryInput = row.querySelector('input[name="numero_inventaire[]"]');
+                inventoryInput.value = startInventoryNumber + index;
+            }
+            
+            if (bulkEtat) {
+                const etatSelect = row.querySelector('select[name="etat_id[]"]');
+                etatSelect.value = bulkEtat;
+            }
+            
+            if (bulkDepartement) {
+                const departementSelect = row.querySelector('select[name="departement_id[]"]');
+                const localSelect = row.querySelector('select[name="local_id[]"]');
+                
+                departementSelect.value = bulkDepartement;
+                
+                // Copy options from bulk local select
+                localSelect.innerHTML = bulkLocalSelect.innerHTML;
+                
+                // Set the selected local if provided
+                if (bulkLocal) {
+                    localSelect.value = bulkLocal;
+                }
+            }
+        });
     }
 
     // Initialize all rows on page load

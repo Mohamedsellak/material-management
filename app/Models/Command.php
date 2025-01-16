@@ -18,4 +18,9 @@ class Command extends Model
     {
         return $this->hasMany(CommandLine::class);
     }
+
+    public function reclamations()
+    {
+        return $this->hasMany(Reclamation::class);
+    }
 }

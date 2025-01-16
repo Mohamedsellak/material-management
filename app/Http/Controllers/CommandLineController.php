@@ -19,9 +19,9 @@ class CommandLineController extends Controller
         $query = CommandLine::query();
 
         // Filter by command ID (for redirects only)
-        if ($request->filled('command_id')) {
-            $query->where('command_id', $request->command_id);
-        }
+        // if ($request->filled('command_id')) {
+        //     $query->where('command_id', $request->command_id);
+        // }
         
         // Filter by fonctionnaire name
         if ($request->filled('search')) {
@@ -52,9 +52,10 @@ class CommandLineController extends Controller
             return redirect()->route('commands.index')->with('error', 'Commande non trouvée.');
         }
 
-        $typeMaterials = TypeMaterial::all();
-        $materials = Material::all();
-        return view('command_lines.create', compact('command', 'materials', 'typeMaterials'));
+        $commandLines = CommandLine::where('command_id', $command->id)->get();
+        $typeMaterials = TypeMaterial::latest()->get();
+        $materials = Material::latest()->get();
+        return view('command_lines.create', compact('command', 'materials', 'typeMaterials', 'commandLines'));
     }
 
     /**
@@ -80,7 +81,7 @@ class CommandLineController extends Controller
 
         $commandLine = CommandLine::create($request->all());
 
-        return redirect()->route('command_lines.index',["command_id"=>$request->command_id])
+        return redirect()->route('command_lines.create',["command_id"=>$request->command_id])
             ->with('success', 'Ligne de commande créée avec succès.');
     }
 
@@ -147,6 +148,12 @@ class CommandLineController extends Controller
         $material->increment('quantity', $commandLine->quantity);
         
         $commandLine->delete();
+
+        if (request('redirect_to') === 'create') {
+            return redirect()->route('command_lines.create', ['command_id' => request('command_id')])
+                ->with('success', 'Ligne de commande supprimée avec succès.');
+        }
+
         return redirect()->route('command_lines.index')
             ->with('success', 'Ligne de commande supprimée avec succès.');
     }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("commentaire")->nullable();
             $table->foreignId("local_id")->constrained("locals");
             $table->foreignId("user_id")->constrained("users");
-            $table->foreignId('command_line_id')->nullable()->constrained('command_lines')->nullOnDelete();
+            $table->foreignId('command_id')->nullable()->constrained('commands')->nullOnDelete();
             $table->timestamps();
         });
     }

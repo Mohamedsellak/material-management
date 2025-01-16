@@ -112,14 +112,14 @@
                             <span class="text-sm font-medium">{{ $reclamation->local->name }}</span>
                         </div>
 
-                        @if($reclamation->commandLine)
+                        @if($reclamation->command)
                         <div class="flex items-center text-gray-500 mb-4 bg-gray-50 rounded-xl p-3">
                             <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
                             <span class="text-sm font-medium">
-                                Matériel: {{ $reclamation->commandLine->material->name }} - 
-                                Quantité: {{ $reclamation->commandLine->quantity }}
+                                Commande #{{ $reclamation->command->id }} - 
+                                {{ $reclamation->command->fonctionaire->nom }} {{ $reclamation->command->fonctionaire->prenom }}
                             </span>
                         </div>
                         @endif

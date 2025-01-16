@@ -23,8 +23,4 @@ class CommandLine extends Model
         return $this->hasMany(Affectation::class);
     }
 
-    public function reclamations()
-    {
-        return $this->hasMany(Reclamation::class);
-    }
 }
