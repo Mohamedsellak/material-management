@@ -190,7 +190,7 @@
             <table>
                 <thead>
                     <tr>   
-                        <th style="width: 15%">N° Affectation</th>
+                        <th style="width: 15%">N° Inventaire</th>
                         <th style="width: 25%">Article</th>
                         <th style="width: 25%">Observation</th>
                     </tr>

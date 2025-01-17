@@ -53,7 +53,7 @@ class MaterialController extends Controller
         $request->validate([
             'name' => 'required|string|min:2|max:255',
             'description' => 'required|string|min:2|max:255',
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => 'required|numeric|min:0',
             'type_material_id' => 'required|exists:type_materials,id',
         ]);
 
@@ -88,7 +88,7 @@ class MaterialController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'description' => 'required|string|min:3|max:255',
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => 'required|numeric|min:0',
             'type_material_id' => 'required|exists:type_materials,id',
         ]);
 

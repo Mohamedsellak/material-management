@@ -156,7 +156,7 @@
             <img src="{{ public_path('images/logo.png') }}" alt="Logo">
         </div>
         <div class="header-info">
-            <h1 class="document-title">Bon de Commande</h1>
+            <h1 class="document-title">Bon de sortie</h1>
             <p class="document-number">Référence: CMD-{{ str_pad($command->id, 5, '0', STR_PAD_LEFT) }}</p>
         </div>
         <div class="header-date">

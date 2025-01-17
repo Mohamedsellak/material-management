@@ -14,7 +14,8 @@ use Maatwebsite\Excel\Facades\Excel;
 class AffectationController extends Controller
 {
     public function index()
-    {
+    {   
+        $affectation = request()->affectation_id ?? null;
         $search = request()->search ?? null;
         $etat = request()->etat ?? null;
         $local = request()->local ?? null;
@@ -24,6 +25,9 @@ class AffectationController extends Controller
         $query = Affectation::query();
         $query->where('etat_id', '!=', $etatCasse->id);
         
+        if($affectation){
+            $query->where('id', $affectation);
+        }
         if($search){
             $query->where('numero_inventaire', $search);
         }
@@ -34,7 +38,7 @@ class AffectationController extends Controller
             $query->where('local_id', $local);
         }
         
-        $affectations = $query->paginate(8)->withQueryString();
+        $affectations = $query->latest()->paginate(8)->withQueryString();
         
         $etats = Etat::all();
         $locals = Local::all();
@@ -77,7 +81,7 @@ class AffectationController extends Controller
             ]);
         }
 
-        return redirect()->route('affectations.index')
+        return redirect()->route('affectations.index', ['affectation_id' => $affectation->id])
             ->with('success', 'Affectations créées avec succès.');
     }
 
