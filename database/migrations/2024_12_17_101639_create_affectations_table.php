@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('affectations', function (Blueprint $table) {
             $table->id();
-            $table->integer('numero_inventaire')->nullable();
+            $table->string('numero_inventaire')->nullable();
             $table->foreignId('etat_id')->constrained('etats');
             $table->foreignId('local_id')->constrained('locals');
             $table->foreignId('command_line_id')->constrained('command_lines');

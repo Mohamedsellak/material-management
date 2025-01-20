@@ -63,7 +63,7 @@ class AffectationController extends Controller
     public function store(Request $request)
     {   
         $validated = $request->validate([
-            'numero_inventaire.*' => 'required|integer|unique:affectations,numero_inventaire',
+            'numero_inventaire.*' => 'required|unique:affectations,numero_inventaire',
             'etat_id.*' => 'required|exists:etats,id',
             'local_id.*' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
@@ -81,7 +81,7 @@ class AffectationController extends Controller
             ]);
         }
 
-        return redirect()->route('affectations.index', ['affectation_id' => $affectation->id])
+        return redirect()->route('affectations.index')
             ->with('success', 'Affectations créées avec succès.');
     }
 
@@ -96,7 +96,7 @@ class AffectationController extends Controller
     public function update(Request $request, Affectation $affectation)
     {
         $validated = $request->validate([
-            'numero_inventaire' => 'required|integer|unique:affectations,numero_inventaire,' . $affectation->id,
+            'numero_inventaire' => 'required|unique:affectations,numero_inventaire,' . $affectation->id,
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
         ]);
@@ -126,7 +126,7 @@ class AffectationController extends Controller
     public function reaffecterStore(Request $request)
     {
         $validated = $request->validate([
-            'numero_inventaire' => 'required|integer',
+            'numero_inventaire' => 'required',
             'etat_id' => 'required|exists:etats,id',
             'local_id' => 'required|exists:locals,id',
             'command_line_id' => 'required|exists:command_lines,id',
