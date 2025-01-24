@@ -20,15 +20,19 @@ class FonctionaireController extends Controller
             $query->where(function($q) use ($searchTerm) {
                 $q->where('nom', 'like', '%' . $searchTerm . '%')
                   ->orWhere('prenom', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('email', 'like', '%' . $searchTerm . '%')
-                  ->orWhereHas('departement', function($q) use ($searchTerm) {
-                      $q->where('name', 'like', '%' . $searchTerm . '%');
-                  });
+                  ->orWhere('email', 'like', '%' . $searchTerm . '%');
             });
         }
 
+        if (request('department')) {
+            $query->where('departement_id', request('department'));
+        }
+
+        $departements = Departement::all();
+
         return view('fonctionaires.index', [
             'fonctionaires' => $query->latest()->paginate(8)->withQueryString(),
+            'departements' => $departements,
         ]);
     }
 

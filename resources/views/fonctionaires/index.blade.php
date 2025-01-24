@@ -35,8 +35,19 @@
                             <input type="text" 
                                    name="search" 
                                    value="{{ request('search') }}"
-                                   placeholder="Rechercher par nom, prénom, email ou département..." 
+                                   placeholder="Rechercher par nom, prénom ou email..." 
                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <div class="w-64">
+                            <select name="department" 
+                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Tous les départements</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{ $departement->id }}" {{ request('department') == $departement->id ? 'selected' : '' }}>
+                                        {{ $departement->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" 
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors shadow-sm">
@@ -45,7 +56,7 @@
                             </svg>
                             Rechercher
                         </button>
-                        @if(request()->filled('search'))
+                        @if(request()->anyFilled(['search', 'department']))
                             <a href="{{ route('fonctionaires.index') }}" 
                                class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors shadow-sm">
                                 Réinitialiser
