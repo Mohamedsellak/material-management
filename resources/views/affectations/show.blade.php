@@ -21,22 +21,22 @@
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <a href="{{ route('affectations.pdf', $affectation) }}" 
+                        <a href="{{ route('affectations.pdf', $affectation) }}"
                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             Exporter PDF
                         </a>
-                        <a href="{{ route('affectations.edit', $affectation) }}" 
+                        <a href="{{ route('affectations.edit', $affectation) }}"
                            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                             Modifier
                         </a>
-                        <a href="{{ route('affectations.index') }}" 
+                        <a href="{{ route('affectations.index') }}"
                            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -57,23 +57,36 @@
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">État</label>
                                     <div class="mt-1">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            {{ $affectation->etat->name === 'Neuf' ? 'bg-green-100 text-green-800' : 
-                                               ($affectation->etat->name === 'Bon' ? 'bg-blue-100 text-blue-800' : 
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                            {{ $affectation->etat && $affectation->etat->name === 'new' ? 'bg-green-100 text-green-800' :
+                                               ($affectation->etat && $affectation->etat->name === 'old' ? 'bg-blue-100 text-blue-800' :
                                                'bg-yellow-100 text-yellow-800') }}">
-                                            {{ $affectation->etat->name }}
+                                            {{ $affectation->etat->name ?? 'État non défini' }}
                                         </span>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">Local</label>
                                     <div class="mt-1">
-                                        <a href="{{ route('locals.show', $affectation->local) }}" 
+                                        <a href="{{ $affectation->local ? route('locals.show', $affectation->local) : '#' }}"
                                            class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                             </svg>
-                                            {{ $affectation->local->name }}
+                                            {{ $affectation->local->name ?? 'Local non défini' }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500">Département</label>
+                                    <div class="mt-1">
+                                        <a href="{{$affectation->local ? route('departements.show', $affectation->local->departement) : $affectation->commandLine->command->fonctionaire->departement }}"
+                                           {{ $affectation->local ? '' : 'disabled' }}
+                                           class="text-indigo-600 hover:text-indigo-900 flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                            </svg>
+                                            {{ $affectation->local->name ?? $affectation->commandLine->command->fonctionaire->departement->name ?? 'Département non défini' }}
                                         </a>
                                     </div>
                                 </div>
@@ -88,30 +101,38 @@
                             <div class="space-y-3">
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">Ligne de commande</label>
-                                    <p class="mt-1 text-sm text-gray-900">#{{ $affectation->commandLine->id }}</p>
+                                    <p class="mt-1 text-sm text-gray-900">#{{ $affectation->commandLine->id ?? 'N/A' }}</p>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">Matériel</label>
                                     <div class="mt-1">
-                                        <a href="{{ route('materials.show', $affectation->commandLine->material) }}" 
+                                        @if($affectation->commandLine && $affectation->commandLine->material)
+                                        <a href="{{ route('materials.show', $affectation->commandLine->material) }}"
                                            class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                                             </svg>
                                             {{ $affectation->commandLine->material->name }}
                                         </a>
+                                        @else
+                                        <span class="text-gray-500">Matériel non défini</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">Commande</label>
                                     <div class="mt-1">
-                                        <a href="{{ route('commands.show', $affectation->commandLine->command) }}" 
+                                        @if($affectation->commandLine && $affectation->commandLine->command)
+                                        <a href="{{ route('commands.show', $affectation->commandLine->command) }}"
                                            class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                             </svg>
                                             #{{ $affectation->commandLine->command->id }}
                                         </a>
+                                        @else
+                                        <span class="text-gray-500">Commande non définie</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -180,13 +201,13 @@
                 <!-- Actions Section -->
                 <div class="mt-6 border-t border-gray-200 pt-4">
                     <div class="flex justify-between items-center">
-                        <form action="{{ route('affectations.destroy', $affectation) }}" 
-                              method="POST" 
+                        <form action="{{ route('affectations.destroy', $affectation) }}"
+                              method="POST"
                               onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette affectation ?');"
                               class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" 
+                            <button type="submit"
                                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -200,4 +221,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

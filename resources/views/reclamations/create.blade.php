@@ -218,7 +218,7 @@
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {

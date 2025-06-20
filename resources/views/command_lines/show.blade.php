@@ -213,7 +213,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2.5 py-1 text-sm font-medium rounded-full 
+                                        <span class="px-2.5 py-1 text-sm font-medium rounded-full
                                             @if($affectation->etat->name === 'Bon') bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100
                                             @elseif($affectation->etat->name === 'Moyen') bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100
                                             @else bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100
@@ -222,16 +222,16 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                        {{ $affectation->local->name }}
+                                        {{ $affectation->local->name ?? 'Local non défini' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                        {{ $affectation->local->typeLocal->name }}
+                                        {{ $affectation->local->typeLocal->name ?? 'Type non défini' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                        {{ $affectation->local->departement->name }}
+                                        {{ $affectation->local->departement->name ?? $affectation->commandLine->command->fonctionaire->departement->name ?? 'Département non défini' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                        <a href="{{ route('affectations.show', $affectation) }}" 
+                                        <a href="{{ route('affectations.show', $affectation) }}"
                                            class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
                                             Voir
                                         </a>
@@ -258,4 +258,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

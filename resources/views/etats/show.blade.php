@@ -5,10 +5,10 @@
 @section('content')
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                    <h2 class="text-2xl font-bold text-gray-800">
                         Détails de l'État
                     </h2>
                     <div class="flex space-x-3">
@@ -33,40 +33,40 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+                <div class="bg-gray-50 rounded-lg p-6 mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label class="block text-sm font-medium text-gray-700">
                                 Nom
                             </label>
-                            <p class="mt-1 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            <p class="mt-1 text-lg font-semibold text-gray-900">
                                 {{ $etat->name }}
                             </p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label class="block text-sm font-medium text-gray-700">
                                 Date de création
                             </label>
-                            <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">
+                            <p class="mt-1 text-lg text-gray-900">
                                 {{ $etat->created_at->format('d/m/Y H:i') }}
                             </p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label class="block text-sm font-medium text-gray-700">
                                 Dernière modification
                             </label>
-                            <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">
+                            <p class="mt-1 text-lg text-gray-900">
                                 {{ $etat->updated_at ? $etat->updated_at->format('d/m/Y H:i') :  "N/A" }}
                             </p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label class="block text-sm font-medium text-gray-700">
                                 Nombre d'affectations
                             </label>
-                            <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">
+                            <p class="mt-1 text-lg text-gray-900">
                                 {{ $etat->affectations_count ?? $etat->affectations()->count() }}
                             </p>
                         </div>
@@ -75,55 +75,55 @@
 
                 @if($etat->affectations()->count() > 0)
                     <div class="mt-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">
                             Affectations dans cet état
                         </h3>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                <thead class="bg-gray-50 dark:bg-gray-700">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             ID
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Numéro d'Inventaire
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Local
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Commande Line ID
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Date d'affectation
                                         </th>
-                                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Actions
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                                <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($etat->affectations as $affectation)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $affectation->id ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $affectation->numero_inventaire ?? 'N/A' }}
                                             </td>
 
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $affectation->local->name ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $affectation->command_line_id ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $affectation->created_at->format('d/m/Y') }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="{{ route('affectations.show', $affectation) }}" 
-                                                   class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                                <a href="{{ route('affectations.show', $affectation) }}"
+                                                   class="text-blue-600 hover:text-blue-900">
                                                     Voir
                                                 </a>
                                             </td>
@@ -137,7 +137,7 @@
 
                 <div class="flex justify-end mt-6">
                     <a href="{{ route('etats.index') }}"
-                       class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-md transition-colors duration-150 ease-in-out">
+                       class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md transition-colors duration-150 ease-in-out">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>

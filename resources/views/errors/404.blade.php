@@ -7,12 +7,12 @@
     <title>Page Non Trouvée - FSDM Inventory</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
-    
-    <link rel="stylesheet" href="{{ asset('build/assets/app-CKEO5D9b.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('build/assets/app-Do5munxH.css') }}">
     <script src="{{ asset('build/assets/app-Xaw6OIO1.js') }}"></script>
 
 </head>
-<body class="font-sans antialiased min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+<body class="font-sans antialiased min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
     <div class="min-h-screen flex flex-col items-center justify-center p-4">
         <!-- Logo -->
         <div class="mb-8">
@@ -23,29 +23,29 @@
                     </svg>
                 </div>
                 <div class="flex flex-col items-center">
-                    <span class="mt-4 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                    <span class="mt-4 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                         FSDM Inventory
                     </span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">La Faculté des Sciences Dhar El Mahraz</span>
+                    <span class="text-sm text-gray-500">La Faculté des Sciences Dhar El Mahraz</span>
                 </div>
             </a>
         </div>
 
         <!-- Error Content -->
-        <div class="w-full max-w-2xl px-8 py-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl shadow-xl rounded-2xl">
+        <div class="w-full max-w-2xl px-8 py-8 bg-white/80 backdrop-blur-xl shadow-xl rounded-2xl">
             <div class="text-center">
                 <!-- Error Code -->
                 <h1 class="relative pt-8">
-                    <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-gray-100 dark:text-gray-700/50 select-none">
+                    <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-gray-100 select-none">
                         404
                     </span>
-                    <span class="relative text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                    <span class="relative text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent">
                         Page Non Trouvée
                     </span>
                 </h1>
 
                 <!-- Error Message -->
-                <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">
+                <p class="mt-6 text-lg text-gray-600">
                     Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
                 </p>
 
@@ -69,7 +69,7 @@
                         Retour à l'accueil
                     </a>
                     <button onclick="window.history.back()"
-                            class="inline-flex items-center px-6 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200">
+                            class="inline-flex items-center px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-all duration-200">
                         Page précédente
                     </button>
                 </div>
@@ -78,7 +78,7 @@
 
         <!-- Help Text -->
         <div class="mt-8 text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">
+            <p class="text-sm text-gray-500">
                 Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur.
             </p>
         </div>

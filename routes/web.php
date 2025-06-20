@@ -97,7 +97,6 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     });
     
-    
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });

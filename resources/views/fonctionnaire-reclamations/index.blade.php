@@ -14,7 +14,7 @@
                 <p class="text-gray-600 mt-1">Gérez vos réclamations et suivez leur état</p>
             </div>
         </div>
-        <a href="{{ route('fonctionnaire-reclamations.create') }}" 
+        <a href="{{ route('fonctionnaire-reclamations.create') }}"
            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-200 ease-in-out transform hover:scale-105 flex items-center gap-2 shadow-lg hover:shadow-xl">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -81,15 +81,15 @@
                             </span>
                         </span>
                     </div>
-                    
+
                     <div class="space-y-3">
                         <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0h8v12H6V4z" clip-rule="evenodd" />
                             </svg>
-                            <span class="text-sm font-medium">{{ $reclamation->local->name }}</span>
+                            <span class="text-sm font-medium">{{ $reclamation->local->name ?? 'Local non défini' }}</span>
                         </div>
-                        
+
                         <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="mt-6 flex items-center justify-end space-x-3 border-t pt-4">
-                        <a href="{{ route('fonctionnaire-reclamations.show', $reclamation) }}" 
+                        <a href="{{ route('fonctionnaire-reclamations.show', $reclamation) }}"
                            class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm transition duration-200">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -108,7 +108,7 @@
                             Détails
                         </a>
                         @if($reclamation->status === 'en attente')
-                            <a href="{{ route('fonctionnaire-reclamations.edit', $reclamation) }}" 
+                            <a href="{{ route('fonctionnaire-reclamations.edit', $reclamation) }}"
                                class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 font-medium text-sm transition duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -118,7 +118,7 @@
                             <form action="{{ route('fonctionnaire-reclamations.destroy', $reclamation) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" 
+                                <button type="submit"
                                         class="inline-flex items-center gap-1 text-rose-600 hover:text-rose-800 font-medium text-sm transition duration-200"
                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réclamation?')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -141,7 +141,7 @@
                     </div>
                     <h3 class="text-gray-800 font-semibold text-xl mb-2">Aucune réclamation</h3>
                     <p class="text-gray-500">Vous n'avez pas encore créé de réclamation</p>
-                    <a href="{{ route('fonctionnaire-reclamations.create') }}" 
+                    <a href="{{ route('fonctionnaire-reclamations.create') }}"
                        class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700 transition duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -153,4 +153,4 @@
         @endforelse
     </div>
 </div>
-@endsection 
+@endsection

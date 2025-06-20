@@ -14,7 +14,7 @@
             </div>
             <div class="flex space-x-3">
                 @if($reclamation->status === 'en attente')
-                    <a href="{{ route('fonctionnaire-reclamations.edit', $reclamation) }}" 
+                    <a href="{{ route('fonctionnaire-reclamations.edit', $reclamation) }}"
                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2 shadow-md hover:shadow-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -22,7 +22,7 @@
                         Modifier
                     </a>
                 @endif
-                <a href="{{ route('fonctionnaire-reclamations.index') }}" 
+                <a href="{{ route('fonctionnaire-reclamations.index') }}"
                    class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2 shadow-md hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -78,7 +78,7 @@
                             </svg>
                             Local
                         </h3>
-                        <p class="text-gray-600 font-medium">{{ $reclamation->local->name }}</p>
+                        <p class="text-gray-600 font-medium">{{ $reclamation->local->name ?? 'Local non défini' }}</p>
                     </div>
                 </div>
 
@@ -111,4 +111,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

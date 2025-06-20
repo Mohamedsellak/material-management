@@ -5,14 +5,14 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Liste des Affectations</h1>
         <div class="flex space-x-4">
-            <button onclick="exportToExcel()" 
+            <button onclick="exportToExcel()"
                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
                 Exporter Excel
             </button>
-            {{-- <a href="{{ route('command_lines.index') }}" 
+            {{-- <a href="{{ route('command_lines.index') }}"
                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -34,8 +34,8 @@
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" 
-                               name="search" 
+                        <input type="text"
+                               name="search"
                                id="search"
                                value="{{ old('search') }}"
                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -46,7 +46,7 @@
                 <!-- État Select -->
                 <div>
                     <label for="etat" class="block text-sm font-medium text-gray-700 mb-1">État</label>
-                    <select name="etat" 
+                    <select name="etat"
                             id="etat"
                             class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
                         <option value="">Tous les états</option>
@@ -59,7 +59,7 @@
                 <!-- Local Select -->
                 <div>
                     <label for="local" class="block text-sm font-medium text-gray-700 mb-1">Local</label>
-                    <select name="local" 
+                    <select name="local"
                             id="local"
                             class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
                         <option value="">Tous les locaux</option>
@@ -71,7 +71,7 @@
 
                 <!-- Buttons -->
                 <div class="flex items-end space-x-2">
-                    <button type="submit" 
+                    <button type="submit"
                             class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -122,6 +122,9 @@
                         État
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Departement
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Local
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -145,21 +148,23 @@
                         {{ $affectation->etat->name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $affectation->local->name }}
+                        {{ $affectation->local->name ?? $affectation->commandLine->command->fonctionaire->departement->name }}
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ $affectation->local->name ?? 'N/A' }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $affectation->commandLine->id }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <div class="flex items-center space-x-3">
-                            <a href="{{ route('affectations.reaffecter', $affectation) }}" 
+                            <a href="{{ route('affectations.reaffecter', $affectation) }}"
                                 class="text-blue-600 hover:text-blue-900 inline-flex items-center gap-1 hover:bg-blue-50 px-2 py-1 rounded-md transition-all duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>
                             </a>
-                            <a href="{{ route('affectations.show', $affectation) }}" 
+                            <a href="{{ route('affectations.show', $affectation) }}"
                                class="text-blue-600 hover:text-blue-900 inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -167,14 +172,14 @@
                                 </svg>
                             </a>
 
-                            <a href="{{ route('affectations.edit', $affectation) }}" 
+                            <a href="{{ route('affectations.edit', $affectation) }}"
                                class="text-indigo-600 hover:text-indigo-900 inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                 </svg>
                             </a>
 
-                            <a href="{{ route('affectations.pdf', $affectation) }}" 
+                            <a href="{{ route('affectations.pdf', $affectation) }}"
                                class="text-green-600 hover:text-green-900 inline-flex items-center"
                                title="Télécharger PDF">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -182,18 +187,18 @@
                                 </svg>
                             </a>
 
-                            <form action="{{ route('affectations.destroy', $affectation) }}" 
-                                  method="POST" 
+                            <form action="{{ route('affectations.destroy', $affectation) }}"
+                                  method="POST"
                                   class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" 
+                                <button type="submit"
                                         class="text-red-600 hover:text-red-900"
                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette affectation?')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                     </svg>
-                                </button>  
+                                </button>
                             </form>
                         </div>
                     </td>
@@ -207,7 +212,7 @@
     <div class="mt-4">
         {{ $affectations->links() }}
     </div>
-    
+
 </div>
 
 @push('scripts')
@@ -219,14 +224,14 @@ jQuery(function($) {
         try {
             // Convert table data to array using jQuery
             const data = [];
-            
+
             // Get headers (excluding Actions column)
             const headers = [];
             jQuery('#affectationsTable thead th').slice(0, -1).each(function() {
                 headers.push(jQuery(this).text().trim());
             });
             data.push(headers);
-            
+
             // Get row data (excluding Actions column)
             jQuery('#affectationsTable tbody tr').each(function() {
                 const rowData = [];
@@ -235,12 +240,12 @@ jQuery(function($) {
                 });
                 data.push(rowData);
             });
-            
+
             // Create a workbook
             const wb = XLSX.utils.book_new();
             const ws = XLSX.utils.aoa_to_sheet(data);
             XLSX.utils.book_append_sheet(wb, ws, 'Affectations');
-            
+
             // Save the file
             XLSX.writeFile(wb, 'affectations.xlsx');
         } catch (error) {
@@ -251,4 +256,4 @@ jQuery(function($) {
 });
 </script>
 @endpush
-@endsection 
+@endsection

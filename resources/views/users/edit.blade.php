@@ -7,10 +7,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="flex mb-8" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('users.index') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
-                        <div class="mr-2 p-1 rounded-md bg-gray-100 dark:bg-gray-800">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">                <li class="inline-flex items-center">
+                    <a href="{{ route('users.index') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                        <div class="mr-2 p-1 rounded-md bg-gray-100">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
@@ -23,7 +22,7 @@
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                         </svg>
-                        <a href="{{ route('users.show', $user->id) }}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">{{ $user->name }}</a>
+                        <a href="{{ route('users.show', $user->id) }}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200">{{ $user->name }}</a>
                     </div>
                 </li>
                 <li aria-current="page">
@@ -31,16 +30,15 @@
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">Edit</span>
+                        <span class="ml-1 text-sm font-medium text-gray-500">Edit</span>
                     </div>
                 </li>
             </ol>
         </nav>
 
-        <div class="md:grid md:grid-cols-3 md:gap-6">
-            <div class="md:col-span-1">
+        <div class="md:grid md:grid-cols-3 md:gap-6">            <div class="md:col-span-1">
                 <div class="px-4 sm:px-0">
-                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                    <div class="p-4 bg-white rounded-lg shadow-sm">
                         <div class="p-3 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg inline-block">
                             <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -52,13 +50,13 @@
                                     <span class="text-xl font-bold text-white">{{ substr($user->name, 0, 1) }}</span>
                                 </div>
                                 <div class="ml-4">
-                                    <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">Edit User</h3>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ $user->email }}</p>
+                                    <h3 class="text-lg font-medium leading-6 text-gray-900">Edit User</h3>
+                                    <p class="text-sm text-gray-500">{{ $user->email }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-6 prose prose-blue dark:prose-invert">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <div class="mt-6 prose prose-blue">
+                            <p class="text-sm text-gray-600">
                                 Update user's information. Leave the password field empty if you don't want to change it.
                             </p>
                             <ul class="text-sm space-y-2 mt-4">
@@ -74,12 +72,11 @@
             <div class="mt-5 md:mt-0 md:col-span-2">
                 <form action="{{ route('users.update', $user->id) }}" method="POST">
                     @csrf
-                    @method('PUT')
-                    <div class="shadow overflow-hidden sm:rounded-lg">
-                        <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 space-y-6">
+                    @method('PUT')                    <div class="shadow overflow-hidden sm:rounded-lg">
+                        <div class="px-4 py-5 bg-white sm:p-6 space-y-6">
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <label for="name" class="block text-sm font-medium text-gray-700">
                                         Name <span class="text-red-500">*</span>
                                     </label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
@@ -89,16 +86,14 @@
                                             </svg>
                                         </div>
                                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
-                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md"
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                             placeholder="Enter user's full name">
                                     </div>
                                     @error('name')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
-                                </div>
-
-                                <div class="col-span-6 sm:col-span-4">
-                                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                </div>                                <div class="col-span-6 sm:col-span-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-700">
                                         Email Address <span class="text-red-500">*</span>
                                     </label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
@@ -108,18 +103,18 @@
                                             </svg>
                                         </div>
                                         <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
-                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md"
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                             placeholder="user@example.com">
                                     </div>
                                     @error('email')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <label for="password" class="block text-sm font-medium text-gray-700">
                                         New Password
-                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-normal">(leave blank to keep current password)</span>
+                                        <span class="text-sm text-gray-500 font-normal">(leave blank to keep current password)</span>
                                     </label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -128,7 +123,7 @@
                                             </svg>
                                         </div>
                                         <input type="password" name="password" id="password"
-                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md pr-10"
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md pr-10"
                                             placeholder="••••••••">
                                         <button type="button" onclick="togglePassword('password')" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                             <svg class="h-5 w-5 text-gray-400 password-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -138,12 +133,12 @@
                                         </button>
                                     </div>
                                     @error('password')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
                                         Confirm New Password
                                     </label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
@@ -153,7 +148,7 @@
                                             </svg>
                                         </div>
                                         <input type="password" name="password_confirmation" id="password_confirmation"
-                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md pr-10"
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md pr-10"
                                             placeholder="••••••••">
                                         <button type="button" onclick="togglePassword('password_confirmation')" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                             <svg class="h-5 w-5 text-gray-400 password-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -165,7 +160,7 @@
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <label for="role" class="block text-sm font-medium text-gray-700">
                                         Role <span class="text-red-500">*</span>
                                     </label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
@@ -175,20 +170,20 @@
                                             </svg>
                                         </div>
                                         <select name="role" id="role" required
-                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md">
+                                            class="pl-10 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
                                             <option value="fonctionnaire" {{ old('role', $user->role) === 'fonctionnaire' ? 'selected' : '' }}>Fonctionnaire</option>
                                         </select>
                                     </div>
                                     @error('role')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 text-right sm:px-6 space-x-3">
-                            <a href="{{ route('users.index') }}" 
-                                class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200">
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-3">
+                            <a href="{{ route('users.index') }}"
+                                class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200">
                                 <svg class="h-5 w-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                                 </svg>
@@ -215,7 +210,7 @@
         const input = document.getElementById(inputId);
         const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
         input.setAttribute('type', type);
-        
+
         // Toggle icon
         const button = input.nextElementSibling;
         const svg = button.querySelector('svg');
@@ -232,4 +227,4 @@
     }
 </script>
 @endpush
-@endsection 
+@endsection

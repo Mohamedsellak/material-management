@@ -6,7 +6,7 @@
         <!-- Header Section -->
         <div class="bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-8 mb-8 border border-white/20">
             <div class="flex items-center gap-4">
-                <a href="{{ route('reclamations.index') }}" 
+                <a href="{{ route('reclamations.index') }}"
                    class="text-gray-600 hover:text-blue-600 transition-colors duration-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -31,7 +31,7 @@
                         <div class="group">
                             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Nom de la réclamation</label>
                             <div class="relative">
-                                <input type="text" name="name" id="name" value="{{ old('name', $reclamation->name) }}" 
+                                <input type="text" name="name" id="name" value="{{ old('name', $reclamation->name) }}"
                                     class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
                                     placeholder="Entrez le nom de la réclamation">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -54,12 +54,12 @@
                         <div class="group">
                             <label for="departement_id" class="block text-sm font-semibold text-gray-700 mb-2">Département</label>
                             <div class="relative">
-                                <select name="departement_id" id="departement_id" 
+                                <select name="departement_id" id="departement_id"
                                     class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
                                     onchange="updateLocals()">
                                     <option value="">Sélectionnez un département</option>
                                     @foreach($departements as $departement)
-                                        <option value="{{ $departement->id }}" {{ old('departement_id', $reclamation->local->departement_id) == $departement->id ? 'selected' : '' }}>
+                                        <option value="{{ $departement->id }}" {{ old('departement_id', $reclamation->local ? $reclamation->local->departement_id : null) == $departement->id ? 'selected' : '' }}>
                                             {{ $departement->name }}
                                         </option>
                                     @endforeach
@@ -76,7 +76,7 @@
                         <div class="group">
                             <label for="local_id" class="block text-sm font-semibold text-gray-700 mb-2">Local</label>
                             <div class="relative">
-                                <select name="local_id" id="local_id" 
+                                <select name="local_id" id="local_id"
                                     class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400">
                                     <option value="">Sélectionnez un local</option>
                                 </select>
@@ -129,7 +129,7 @@
                     <!-- Description Field -->
                     <div class="group">
                         <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description détaillée</label>
-                        <textarea name="description" id="description" rows="4" 
+                        <textarea name="description" id="description" rows="4"
                             class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
                             placeholder="Décrivez la réclamation en détail...">{{ old('description', $reclamation->description) }}</textarea>
                         @error('description')
@@ -146,7 +146,7 @@
                     <div class="group">
                         <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">Statut</label>
                         <div class="relative">
-                            <select name="status" id="status" 
+                            <select name="status" id="status"
                                 class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400">
                                 <option value="en attente" {{ old('status', $reclamation->status) == 'en attente' ? 'selected' : '' }}>En attente</option>
                                 <option value="en cours" {{ old('status', $reclamation->status) == 'en cours' ? 'selected' : '' }}>En cours</option>
@@ -171,7 +171,7 @@
                     <!-- Commentaire Field -->
                     <div class="group">
                         <label for="commentaire" class="block text-sm font-semibold text-gray-700 mb-2">Commentaire additionnel</label>
-                        <textarea name="commentaire" id="commentaire" rows="3" 
+                        <textarea name="commentaire" id="commentaire" rows="3"
                             class="mt-1 block w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 group-hover:border-blue-400"
                             placeholder="Ajoutez des informations supplémentaires...">{{ old('commentaire', $reclamation->commentaire) }}</textarea>
                         @error('commentaire')
@@ -186,14 +186,14 @@
 
                     <!-- Form Actions -->
                     <div class="flex justify-end space-x-4 pt-6 border-t border-gray-100">
-                        <a href="{{ route('reclamations.index') }}" 
+                        <a href="{{ route('reclamations.index') }}"
                             class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200 flex items-center gap-2 font-medium group">
                             <svg class="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                             Annuler
                         </a>
-                        <button type="submit" 
+                        <button type="submit"
                             class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -212,21 +212,21 @@
     function updateLocals() {
         const departementId = document.getElementById('departement_id').value;
         const localSelect = document.getElementById('local_id');
-        
+
         // Clear current options
         localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
-        
+
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {
                     const option = new Option(local.name, local.id);
                     localSelect.add(option);
                 });
-                
+
                 // If there's a previously selected local, try to reselect it
                 const oldLocalId = "{{ old('local_id', $reclamation->local_id) }}";
                 if (oldLocalId) {
@@ -242,4 +242,4 @@
     });
 </script>
 @endpush
-@endsection 
+@endsection

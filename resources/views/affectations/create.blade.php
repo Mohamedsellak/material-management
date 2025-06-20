@@ -59,14 +59,14 @@
                 <div class="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Numéro d'inventaire de départ</label>
-                        <input type="number" 
-                               id="start_inventory_number" 
+                        <input type="number"
+                               id="start_inventory_number"
                                class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm"
                                placeholder="Numéro de départ">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">État</label>
-                        <select id="bulk_etat" 
+                        <select id="bulk_etat"
                                 class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm">
                             <option value="">Sélectionnez un état</option>
                             @foreach($etats as $etat)
@@ -76,7 +76,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Département</label>
-                        <select id="bulk_departement" 
+                        <select id="bulk_departement"
                                 class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm"
                                 onchange="updateBulkLocals(this.value)">
                             <option value="">Sélectionnez un département</option>
@@ -87,13 +87,13 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Local</label>
-                        <select id="bulk_local" 
+                        <select id="bulk_local"
                                 class="shadow-sm border-gray-300 rounded-md w-full py-2 px-3 text-sm">
                             <option value="">Sélectionnez un local</option>
                         </select>
                     </div>
                     <div class="md:col-span-4">
-                        <button type="button" 
+                        <button type="button"
                                 onclick="applyBulkAssignment()"
                                 class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             Appliquer à tous les éléments
@@ -106,7 +106,7 @@
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h2 class="text-lg font-semibold text-gray-700">Liste des Affectations</h2>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -219,21 +219,21 @@
     function updateLocals(departmentSelect, rowIndex) {
         const departementId = departmentSelect.value;
         const localSelect = document.querySelector(`select[name="local_id[]"][data-row="${rowIndex}"]`);
-        
+
         // Clear current options
         localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
-        
+
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {
                     const option = new Option(local.name, local.id);
                     localSelect.add(option);
                 });
-                
+
                 // If there's a previously selected local, try to reselect it
                 const oldLocalId = localSelect.getAttribute('data-old-value');
                 if (oldLocalId) {
@@ -245,14 +245,14 @@
 
     function updateBulkLocals(departementId) {
         const bulkLocalSelect = document.getElementById('bulk_local');
-        
+
         // Clear current options
         bulkLocalSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
-        
+
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {
@@ -271,27 +271,27 @@
         const bulkLocalSelect = document.getElementById('bulk_local');
 
         const rows = document.querySelectorAll('tbody tr');
-        
+
         rows.forEach((row, index) => {
             if (startInventoryNumber) {
                 const inventoryInput = row.querySelector('input[name="numero_inventaire[]"]');
                 inventoryInput.value = startInventoryNumber + index;
             }
-            
+
             if (bulkEtat) {
                 const etatSelect = row.querySelector('select[name="etat_id[]"]');
                 etatSelect.value = bulkEtat;
             }
-            
+
             if (bulkDepartement) {
                 const departementSelect = row.querySelector('select[name="departement_id[]"]');
                 const localSelect = row.querySelector('select[name="local_id[]"]');
-                
+
                 departementSelect.value = bulkDepartement;
-                
+
                 // Copy options from bulk local select
                 localSelect.innerHTML = bulkLocalSelect.innerHTML;
-                
+
                 // Set the selected local if provided
                 if (bulkLocal) {
                     localSelect.value = bulkLocal;
@@ -312,4 +312,4 @@
 </script>
 @endpush
 
-@endsection 
+@endsection

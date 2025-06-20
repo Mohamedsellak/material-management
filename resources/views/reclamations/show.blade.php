@@ -7,7 +7,7 @@
         <div class="bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-8 mb-8 border border-white/20">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div class="flex items-center gap-4">
-                    <a href="{{ route('reclamations.index') }}" 
+                    <a href="{{ route('reclamations.index') }}"
                        class="text-gray-600 hover:text-blue-600 transition-colors duration-200">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -18,14 +18,14 @@
                     </h1>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('reclamations.edit', $reclamation) }}" 
+                    <a href="{{ route('reclamations.edit', $reclamation) }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                         Modifier
                     </a>
-                    <a href="{{ route('reclamations.editStatus', $reclamation) }}" 
+                    <a href="{{ route('reclamations.editStatus', $reclamation) }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -55,7 +55,7 @@
                                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 </svg>
-                                <p class="text-xl font-semibold text-gray-900">{{ $reclamation->local->name }}</p>
+                                <p class="text-xl font-semibold text-gray-900">{{ $reclamation->local->name ?? 'Local non défini' }}</p>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
                             <span class="text-sm font-medium">
-                                Commande #{{ $reclamation->command->id }} - 
+                                Commande #{{ $reclamation->command->id }} -
                                 {{ $reclamation->command->fonctionaire->nom }} {{ $reclamation->command->fonctionaire->prenom }}
                             </span>
                         </div>
@@ -117,7 +117,7 @@
 
                 <!-- Back Button -->
                 <div class="mt-8 flex justify-end">
-                    <a href="{{ route('reclamations.index') }}" 
+                    <a href="{{ route('reclamations.index') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200 font-medium group">
                         <svg class="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -129,4 +129,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

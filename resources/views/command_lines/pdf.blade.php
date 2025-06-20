@@ -159,27 +159,27 @@
             <h1 class="document-title">Bon de sortie</h1>
             <p class="document-number">Référence: LC-{{ str_pad($commandLine->id, 5, '0', STR_PAD_LEFT) }}</p>
         </div>
-        <div class="header-date">
+        {{-- <div class="header-date">
             <p>Date d'émission</p>
             <strong>{{ date('d/m/Y') }}</strong>
-        </div>
+        </div> --}}
     </div>
 
     <div class="meta-info">
-        <div class="meta-info-item">
+        {{-- <div class="meta-info-item">
             <span class="meta-info-label">Date de création</span>
             <span class="meta-info-value">{{ $commandLine->created_at->format('d/m/Y') }}</span>
-        </div>
+        </div> --}}
         <div class="meta-info-item">
             <span class="meta-info-label">Commande N°</span>
             <span class="meta-info-value">{{ $commandLine->command->id }}</span>
         </div>
-        <div class="meta-info-item">
+        {{-- <div class="meta-info-item">
             <span class="meta-info-label">Quantité totale</span>
             <span class="meta-info-value">{{ $commandLine->quantity }}</span>
-        </div>
+        </div> --}}
         <div class="meta-info-item">
-            <span class="meta-info-label">Demandeur</span>
+            <span class="meta-info-label">Demandeur :</span>
             <span class="meta-info-value">{{ $commandLine->command->fonctionaire->nom . ' ' . $commandLine->command->fonctionaire->prenom }}</span>
         </div>
     </div>
@@ -189,7 +189,7 @@
             <div class="section-title">Affectations ({{ $commandLine->affectations->count() }}/{{ $commandLine->quantity }})</div>
             <table>
                 <thead>
-                    <tr>   
+                    <tr>
                         <th style="width: 15%">N° Inventaire</th>
                         <th style="width: 25%">Article</th>
                         <th style="width: 25%">Observation</th>
@@ -223,12 +223,12 @@
     </div>
 
     <div class="signature-section">
-        <div class="signature-box">Le Demandeur</div>
-        <div class="signature-box">Le Magasinier</div>
+        <div class="signature-box">Signature du résponsable</div>
+        <div class="signature-box">FES, le {{ $commandLine->created_at->format('d/m/Y') }}</div>
     </div>
 
-    <div class="footer">
+    {{-- <div class="footer">
         <p>Document généré le {{ date('d/m/Y H:i') }}</p>
-    </div>
+    </div> --}}
 </body>
 </html>

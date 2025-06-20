@@ -14,17 +14,17 @@ use Maatwebsite\Excel\Facades\Excel;
 class AffectationController extends Controller
 {
     public function index()
-    {   
+    {
         $affectation = request()->affectation_id ?? null;
         $search = request()->search ?? null;
         $etat = request()->etat ?? null;
         $local = request()->local ?? null;
 
         $etatCasse = Etat::where('name', 'casse')->first();
-        
+
         $query = Affectation::query();
         $query->where('etat_id', '!=', $etatCasse->id);
-        
+
         if($affectation){
             $query->where('id', $affectation);
         }
@@ -37,14 +37,14 @@ class AffectationController extends Controller
         if($local){
             $query->where('local_id', $local);
         }
-        
+
         $affectations = $query->latest()->paginate(8)->withQueryString();
-        
+
         $etats = Etat::all();
         $locals = Local::all();
         return view('affectations.index', compact('affectations', 'etats', 'locals'));
     }
-    
+
     public function show(Affectation $affectation)
     {
         return view('affectations.show', compact('affectation'));
@@ -61,7 +61,7 @@ class AffectationController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $validated = $request->validate([
             'numero_inventaire.*' => 'required|unique:affectations,numero_inventaire',
             'etat_id.*' => 'required|exists:etats,id',

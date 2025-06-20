@@ -182,7 +182,7 @@
 
         // Fetch locals for selected department
         console.log(typeMaterialId);
-        fetch(`/api/type-materials/${typeMaterialId}/materials`)
+        fetch(`/material_management/public/api/type-materials/${typeMaterialId}/materials`)
             .then(response => response.json())
             .then(materials => {
                 materials.forEach(material => {

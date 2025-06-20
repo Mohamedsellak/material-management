@@ -5,27 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - FSDM Inventory</title>
-    
+
     <!-- Preload Font Awesome fonts to prevent icons flash -->
     <link rel="preload" href="{{ asset('build/webfonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('build/webfonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin>
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('build/assets/all.min.css') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-CKEO5D9b.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('build/assets/app-Do5munxH.css') }}">
+
     <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/jquery.dataTables.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/buttons.dataTables.min.css') }}">
-    
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.dataTables.min.css') }}">
+
     @stack('styles')
 
     <!-- Core Scripts - Load jQuery first -->
-    <script src="{{ asset('build/assets/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
 </head>
-<body class="font-sans antialiased bg-gradient-to-br from-gray-50 to-gray-100">
+<body class="font-sans antialiased bg-gray-50">
     <!-- Top Navigation -->
     <nav class="bg-white/90 backdrop-blur-xl border-b border-gray-100 fixed w-full z-40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,12 +34,12 @@
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{ session('user')->role == 'admin' ? route('dashboard') : route('fonctionnaire-reclamations.index') }}" class="group flex items-center space-x-3 transition-all duration-300 hover:scale-105">
-                            <div class="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg p-2 shadow-md">
+                            <div class="bg-blue-600 rounded-lg p-2 shadow-md">
                                 <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                                 </svg>
                             </div>
-                            <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hidden sm:block">
+                            <span class="text-xl font-bold text-gray-800 hidden sm:block">
                                 FSDM Inventory
                             </span>
                         </a>
@@ -192,7 +192,7 @@
     </nav>
 
     <!-- Mobile Sidebar -->
-    <div x-show="isSidebarOpen" 
+    <div x-show="isSidebarOpen"
          x-transition:enter="transition-opacity ease-out duration-300"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
@@ -221,7 +221,7 @@
                     </svg>
                 </button>
             </div>
-            
+
             @if (session('user')->role == "admin")
                 <!-- Gestion Section -->
                 <div class="mb-6">
@@ -333,16 +333,16 @@
     </footer>
 
     @stack('scripts')
-    
+
     <!-- Application Scripts -->
     <script src="{{ asset('build/assets/app-Xaw6OIO1.js') }}"></script>
-    <script src="{{ asset('build/assets/alpinejs.js') }}"></script>
-    
+    <script src="{{ asset('js/alpinejs.js') }}"></script>
+
     <!-- DataTables and Plugins -->
-    <script src="{{ asset('build/assets/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('build/assets/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('build/assets/jszip.min.js') }}"></script>
-    <script src="{{ asset('build/assets/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('build/assets/xlsx.full.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/xlsx.full.min.js') }}"></script>
 </body>
 </html>

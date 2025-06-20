@@ -18,7 +18,7 @@
         .header {
             margin-bottom: 40px;
             display: block;
-            border-bottom: 2px solid #2563eb;
+            border-bottom: 2px solid #e5e7eb;
             padding-bottom: 20px;
         }
         .logo-section {
@@ -74,7 +74,7 @@
             margin: 15px 0;
         }
         th, td {
-            border: 1px solid #e5e7eb;
+            border: 1px solid black;
             padding: 12px;
             text-align: left;
         }
@@ -102,7 +102,7 @@
             margin: 20px 0;
             padding: 20px;
             background: #f8fafc;
-            border: 1px solid #e5e7eb;
+            border: 1px solid black;
         }
         .meta-info-item {
             flex: 1;
@@ -159,29 +159,29 @@
             <h1 class="document-title">Bon de sortie</h1>
             <p class="document-number">Référence: CMD-{{ str_pad($command->id, 5, '0', STR_PAD_LEFT) }}</p>
         </div>
-        <div class="header-date">
+        {{-- <div class="header-date">
             <p>Date d'émission</p>
             <strong>{{ date('d/m/Y') }}</strong>
-        </div>
+        </div> --}}
     </div>
 
     <div class="meta-info">
-        <div class="meta-info-item">
+        {{-- <div class="meta-info-item">
             <span class="meta-info-label">Date de commande</span>
             <span class="meta-info-value">{{ $command->date_commande }}</span>
-        </div>
+        </div> --}}
         <div class="meta-info-item">
-            <span class="meta-info-label">Département</span>
+            <span class="meta-info-label">Département / Service</span>
             <span class="meta-info-value">{{ $command->fonctionaire->departement->name }}</span>
         </div>
         <div class="meta-info-item">
-            <span class="meta-info-label">Demandeur</span>
+            <span class="meta-info-label">Demandeur : </span>
             <span class="meta-info-value">{{ $command->fonctionaire->nom . ' ' . $command->fonctionaire->prenom }}</span>
         </div>
-        <div class="meta-info-item">
+        {{-- <div class="meta-info-item">
             <span class="meta-info-label">Nombre d'articles</span>
             <span class="meta-info-value">{{ $command->commandLines->sum('quantity') }}</span>
-        </div>
+        </div> --}}
     </div>
 
     <div class="content">
@@ -209,12 +209,12 @@
     </div>
 
     <div class="signature-section">
-        <div class="signature-box">Le Demandeur</div>
-        <div class="signature-box">L'Administrateur</div>
+        <div class="signature-box">Signature du résponsable</div>
+        <div class="signature-box">FES, le {{ date('d/m/Y', strtotime($command->date_commande)) }}</div>
     </div>
 
-    <div class="footer">
+    {{-- <div class="footer">
         <p>Document généré le {{ date('d/m/Y H:i') }}</p>
-    </div>
+    </div> --}}
 </body>
-</html> 
+</html>

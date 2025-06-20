@@ -3,23 +3,23 @@
 @section('title','Dashboard')
 
 @section('content')
-<div class="container mx-auto px-4 py-6 bg-white dark:bg-gray-900 min-h-screen">
+<div class="container mx-auto px-4 py-6 bg-white min-h-screen">
     <!-- Header Section - Enhanced typography and colors -->
     <div class="flex justify-between items-center mb-8">
         <div>
             <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 tracking-tight">Dashboard</h1>
-            <p class="text-gray-600 dark:text-gray-400 mt-2">Welcome back, <span class="font-semibold text-blue-600 dark:text-blue-400">{{ session('user')->name }}</span></p>
+            <p class="text-gray-600 mt-2">Welcome back, <span class="font-semibold text-blue-600">{{ session('user')->name }}</span></p>
         </div>
         <div class="flex space-x-4">
-            <a href="{{ route('commands.create') }}" 
-               class="bg-gray-900 hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center transition-all duration-200 shadow-sm">
+            <a href="{{ route('commands.create') }}"
+               class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center transition-all duration-200 shadow-sm">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
                 New Command
             </a>
-            <a href="{{ route('materials.create') }}" 
-               class="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg flex items-center transition-all duration-200 shadow-sm">
+            <a href="{{ route('materials.create') }}"
+               class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg flex items-center transition-all duration-200 shadow-sm">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
@@ -114,25 +114,25 @@
     </div>
 
     <!-- Material Inventory Table Header -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-100 dark:border-gray-700">
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 tracking-tight">Material Inventory Status</h2>
-                <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 font-medium">Monitor stock levels and material status</p>
+                <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 tracking-tight">Material Inventory Status</h2>
+                <p class="text-gray-600 text-sm mt-1 font-medium">Monitor stock levels and material status</p>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="flex items-center space-x-2">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 border border-red-200 dark:border-red-800/30">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600 border border-red-200">
                         Critical Stock
                     </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-300 border border-amber-200 dark:border-amber-800/30">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-600 border border-amber-200">
                         Low Stock
                     </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/30">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-600 border border-emerald-200">
                         In Stock
                     </span>
                 </div>
-                <a href="{{ route('materials.create') }}" 
+                <a href="{{ route('materials.create') }}"
                    class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -143,43 +143,43 @@
         </div>
 
         <!-- Table styling improvements -->
-        <div class="overflow-x-auto ring-1 ring-gray-200 dark:ring-gray-700 rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-800">
+        <div class="overflow-x-auto ring-1 ring-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                             Material Info
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Type & Status
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Quantity
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Stock Level
                         </th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Actions
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody class="bg-white divide-y divide-gray-200">
                     @foreach(\App\Models\Material::latest()->take(3)->get() as $material)
-                        <tr class="@if($material->quantity <= 3) 
-                                    bg-red-50/50 dark:bg-red-900/10 
-                                @elseif($material->quantity <= 10) 
-                                    bg-amber-50/50 dark:bg-amber-900/10 
-                                @endif 
-                                hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-all duration-200">
+                        <tr class="@if($material->quantity <= 3)
+                                    bg-red-50/50
+                                @elseif($material->quantity <= 10)
+                                    bg-amber-50/50
+                                @endif
+                                hover:bg-gray-50 transition-all duration-200">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                                        <span class="text-lg text-gray-600 dark:text-gray-300">{{ substr($material->name, 0, 2) }}</span>
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <span class="text-lg text-gray-600">{{ substr($material->name, 0, 2) }}</span>
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ $material->name }}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">ID: #{{ $material->id }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ $material->name }}</div>
+                                        <div class="text-sm text-gray-500">ID: #{{ $material->id }}</div>
                                     </div>
                                 </div>
                             </td>
@@ -191,16 +191,16 @@
                                 <div class="flex items-center">
                                     <div @class([
                                         'px-3 py-1.5 rounded-full text-sm font-medium',
-                                        'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-200' => $material->quantity <= 3,
-                                        'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-200' => $material->quantity > 3 && $material->quantity <= 10,
-                                        'bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-200' => $material->quantity > 10,
+                                        'bg-red-50 text-red-700' => $material->quantity <= 3,
+                                        'bg-amber-50 text-amber-700' => $material->quantity > 3 && $material->quantity <= 10,
+                                        'bg-teal-50 text-teal-700' => $material->quantity > 10,
                                     ])>
                                         {{ $material->quantity }} units
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="w-full bg-gray-100 rounded-full h-2.5">
                                     <div @class([
                                         'h-2.5 rounded-full transition-all duration-300',
                                         'bg-red-400' => $material->quantity <= 3,
@@ -220,7 +220,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-3">
-                                    <a href="{{ route('materials.show', $material) }}" 
+                                    <a href="{{ route('materials.show', $material) }}"
                                        class="text-gray-400 hover:text-blue-400 transition-colors"
                                        title="View Details">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,14 +228,14 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                         </svg>
                                     </a>
-                                    <a href="{{ route('materials.edit', $material) }}" 
+                                    <a href="{{ route('materials.edit', $material) }}"
                                        class="text-gray-400 hover:text-indigo-400 transition-colors"
                                        title="Edit Material">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>
                                     </a>
-                                    <button type="button" 
+                                    <button type="button"
                                             class="text-gray-400 hover:text-red-400 transition-colors"
                                             title="Delete Material">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,8 +250,8 @@
             </table>
         </div>
         <div class="mt-4 flex justify-center">
-            <a href="{{ route('materials.index') }}" 
-               class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group">
+            <a href="{{ route('materials.index') }}"
+               class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors group">
                 View All Materials
                 <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -263,24 +263,24 @@
     <!-- Recent Activities Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <!-- Recent Commands -->
-        <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow-lg p-6 border border-blue-200 dark:border-gray-700">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 border border-blue-200 ">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold text-blue-900 dark:text-white tracking-tight">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600">Recent Commands</span>
+                <h2 class="text-lg font-bold text-blue-900 tracking-tight">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">Recent Commands</span>
                 </h2>
-                <a href="{{ route('commands.index') }}" 
-                   class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors">
+                <a href="{{ route('commands.index') }}"
+                   class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
                     View All →
                 </a>
             </div>
             <div class="space-y-3">
                 @foreach(\App\Models\Command::latest()->take(5)->get() as $command)
-                    <div class="bg-white dark:bg-gray-700/50 rounded-lg p-4 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-200 group border border-blue-100 dark:border-gray-600">
+                    <div class="bg-white rounded-lg p-4 hover:bg-blue-50 transition-all duration-200 group border border-blue-100">
                         <div class="flex justify-between items-center">
-                            <span class="font-semibold text-gray-700 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <span class="font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">
                                 Command #{{ $command->id }}
                             </span>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            <span class="text-sm font-medium text-gray-500">
                                 {{ $command->created_at->diffForHumans() }}
                             </span>
                         </div>
@@ -290,21 +290,21 @@
         </div>
 
         <!-- Recent Materials -->
-        <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-gray-700">
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-lg p-6 border border-purple-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold tracking-tight">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-800 dark:from-purple-400 dark:to-purple-600">Recent Materials</span>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-800">Recent Materials</span>
                 </h2>
-                <a href="{{ route('materials.index') }}" 
-                   class="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors">
+                <a href="{{ route('materials.index') }}"
+                   class="text-purple-600 hover:text-purple-700 text-sm font-medium transition-colors">
                     View All →
                 </a>
             </div>
             <div class="space-y-4">
                 @foreach(\App\Models\Material::latest()->take(5)->get() as $material)
-                <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                <div class="bg-white rounded-lg p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-900 dark:text-gray-300">{{ $material->name }}</span>
+                        <span class="text-gray-900">{{ $material->name }}</span>
                         <span class="px-2 py-1 text-xs rounded-full {{ $material->etat == 'active' ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300' }}">
                             {{ $material->etat }}
                         </span>
@@ -315,21 +315,21 @@
         </div>
 
         <!-- Recent Locations -->
-        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow-lg p-6 border border-emerald-200 dark:border-gray-700">
+        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl shadow-lg p-6 border border-emerald-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold tracking-tight">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-800 dark:from-emerald-400 dark:to-emerald-600">Recent Locations</span>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-800">Recent Locations</span>
                 </h2>
-                <a href="{{ route('locals.index') }}" 
-                   class="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 text-sm font-medium transition-colors">
+                <a href="{{ route('locals.index') }}"
+                   class="text-emerald-600 hover:text-emerald-700 text-sm font-medium transition-colors">
                     View All →
                 </a>
             </div>
             <div class="space-y-4">
                 @foreach(\App\Models\Local::latest()->take(5)->get() as $local)
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                <div class="bg-gray-50 rounded-lg p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-900 dark:text-gray-300">{{ $local->name }}</span>
+                        <span class="text-gray-900 ">{{ $local->name }}</span>
                         <span class="text-sm text-gray-400">{{ $local->type->name ?? 'N/A' }}</span>
                     </div>
                 </div>

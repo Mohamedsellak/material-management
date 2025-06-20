@@ -55,7 +55,7 @@
                         onchange="updateLocals()">
                     <option value="">Sélectionnez un département</option>
                     @foreach($departements as $departement)
-                        <option value="{{ $departement->id }}" {{ ($affectation->local->departement_id == $departement->id) ? 'selected' : '' }}>
+                        <option value="{{ $departement->id }}" {{ ($affectation->local && $affectation->local->departement_id == $departement->id) ? 'selected' : '' }}>
                             {{ $departement->name }}
                         </option>
                     @endforeach
@@ -104,21 +104,21 @@
     function updateLocals() {
         const departementId = document.getElementById('departement_id').value;
         const localSelect = document.getElementById('local_id');
-        
+
         // Clear current options
         localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
-        
+
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {
                     const option = new Option(local.name, local.id);
                     localSelect.add(option);
                 });
-                
+
                 // If there's a previously selected local, try to reselect it
                 const oldLocalId = "{{ old('local_id', $affectation->local_id) }}";
                 if (oldLocalId) {
@@ -135,4 +135,4 @@
 </script>
 @endpush
 
-@endsection 
+@endsection

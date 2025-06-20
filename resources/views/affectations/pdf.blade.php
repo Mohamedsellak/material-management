@@ -176,7 +176,7 @@
         </div>
         <div class="meta-info-item">
             <span class="meta-info-label">Local</span>
-            <span class="meta-info-value">{{ $affectation->local->name }}</span>
+            <span class="meta-info-value">{{ $affectation->local->name ?? 'Local non défini' }}</span>
         </div>
     </div>
 
@@ -209,4 +209,4 @@
         <p>Document généré le {{ date('d/m/Y H:i') }}</p>
     </div>
 </body>
-</html> 
+</html>

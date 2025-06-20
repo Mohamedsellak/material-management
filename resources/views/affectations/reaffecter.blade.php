@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-gray-900">Nouvelles Réaffectations</h1>
-            <a href="{{ route('affectations.index') }}" 
+            <a href="{{ route('affectations.index') }}"
                class="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -19,7 +19,7 @@
             <div class="flex">
                 <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
                     <h2 class="text-xl font-semibold text-gray-800">Liste des Affectations</h2>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -91,14 +91,14 @@
                                            name="numero_inventaire"
                                            value="{{ $affectation->numero_inventaire }}"
                                            placeholder="Numéro d'inventaire"
-                        
+
                                            required>{{ $affectation->numero_inventaire }}
                                     @error('numero_inventaire')
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                     @enderror
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <select 
+                                    <select
                                         class="form-select w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                             name="etat_id"
                                             required>
@@ -115,7 +115,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                        <select 
+                                        <select
                                             class="form-select w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                                 name="departement_id"
                                                 id="departement_id"
@@ -179,21 +179,21 @@
     function updateLocals() {
         const departementId = document.getElementById('departement_id').value;
         const localSelect = document.getElementById('local_id');
-        
+
         // Clear current options
         localSelect.innerHTML = '<option value="">Sélectionnez un local</option>';
-        
+
         if (!departementId) return;
 
         // Fetch locals for selected department
-        fetch(`/api/departments/${departementId}/locals`)
+        fetch(`/material_management/public/api/departments/${departementId}/locals`)
             .then(response => response.json())
             .then(locals => {
                 locals.forEach(local => {
                     const option = new Option(local.name, local.id);
                     localSelect.add(option);
                 });
-                
+
                 // If there's a previously selected local, try to reselect it
                 const oldLocalId = "{{ old('local_id', $affectation->local_id) }}";
                 if (oldLocalId) {
@@ -209,4 +209,4 @@
     });
 </script>
 @endpush
-@endsection 
+@endsection

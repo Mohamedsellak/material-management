@@ -24,7 +24,7 @@ class ReclamationController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
+    {
         $departements = Departement::all();
         $locals = Local::all();
         $commands = Command::latest()->get();
@@ -46,7 +46,7 @@ class ReclamationController extends Controller
         ]);
 
         $validated['user_id'] = session('user')->id;
-        
+
         Reclamation::create($validated);
 
         return redirect()->route('reclamations.index')->with('success', 'Reclamation créée avec succès');
@@ -64,7 +64,7 @@ class ReclamationController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Reclamation $reclamation)
-    {   
+    {
         $departements = Departement::all();
         $locals = Local::all();
         $commands = Command::latest()->get();
@@ -85,8 +85,8 @@ class ReclamationController extends Controller
             'command_id' => 'nullable|exists:commands,id'
         ]);
 
-        $validated['user_id'] = session('user')->id;
-            
+        // $validated['user_id'] = session('user')->id;
+
         $reclamation->update($validated);
         return redirect()->route('reclamations.index')->with('success', 'Reclamation modifiée avec succès');
     }
@@ -101,7 +101,7 @@ class ReclamationController extends Controller
      * Update the status of the specified resource.
      */
     public function updateStatus(Request $request, Reclamation $reclamation)
-    {   
+    {
         $validated = $request->validate([
             'status' => 'required|in:en attente,en cours,resolue',
             'commentaire' => 'nullable',
