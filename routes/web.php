@@ -37,9 +37,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Protected routes
 Route::middleware(AuthMiddlewar::class)->group(function () {
-    
+
     Route::middleware(AdminMiddleware::class)->group(function () {
-        // Departements management
+        // management
         Route::resource('departements', DepartementController::class);
         Route::resource('etats', EtatController::class);
         Route::resource('type-locals', TypeLocalController::class);
@@ -56,7 +56,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::resource('affectations', AffectationController::class);
         Route::post('affectations/reaffecter', [AffectationController::class, 'reaffecterStore'])->name('affectations.reaffecterStore');
         Route::get('affectations/{affectation}/reaffecter', [AffectationController::class, 'reaffecter'])->name('affectations.reaffecter');
-       
+
         // Users routes
         Route::resource('users', UserController::class);
 
@@ -64,22 +64,22 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::resource('reclamations', ReclamationController::class);
         Route::get('reclamations/{reclamation}/editStatus', [ReclamationController::class, 'editStatus'])->name('reclamations.editStatus');
         Route::put('reclamations/{reclamation}/updateStatus', [ReclamationController::class, 'updateStatus'])->name('reclamations.updateStatus');
-        
+
 
         // Casse routes
         Route::get('/casse', [CasseController::class, 'index'])->name('casse.index');
-        
+
         // PDF generation routes
         Route::get('/affectations/{affectation}/pdf', [AffectationController::class, 'generatePDF'])->name('affectations.pdf');
         Route::get('/command_lines/{commandLine}/pdf', [CommandLineController::class, 'generatePDF'])->name('command_lines.pdf');
         Route::get('/commands/{command}/pdf', [CommandController::class, 'generatePDF'])->name('commands.pdf');
         Route::get('/casse/{affectation}/pdf', [CasseController::class, 'cassePdf'])->name('casse.pdf');
-        
+
         // Dashboard routes
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-        
-    }); 
-    
+
+    });
+
     Route::middleware(FonctionnaireMiddleware::class)->group(function () {
         Route::resource('fonctionnaire-reclamations', FonctionnaireReclamationController::class);
     });
@@ -96,7 +96,7 @@ Route::middleware(AuthMiddlewar::class)->group(function () {
         Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('profile.editPassword');
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     });
-    
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });

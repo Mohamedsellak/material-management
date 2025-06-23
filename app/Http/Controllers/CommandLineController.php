@@ -22,7 +22,7 @@ class CommandLineController extends Controller
         // if ($request->filled('command_id')) {
         //     $query->where('command_id', $request->command_id);
         // }
-        
+
         // Filter by fonctionnaire name
         if ($request->filled('search')) {
             $search = strtolower($request->get('search'));
@@ -31,8 +31,8 @@ class CommandLineController extends Controller
                   ->orWhereRaw('LOWER(prenom) LIKE ?', ["%{$search}%"]);
             });
         }
-        
-        $commandLines = $query->with(['command.fonctionaire', 'material'])
+
+        $commandLines = $query->with(['command.fonctionaire', 'material', 'affectations'])
                             ->latest()
                             ->paginate(8)
                             ->withQueryString();
@@ -61,7 +61,7 @@ class CommandLineController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)     
+    public function store(Request $request)
     {
         //
         $request->validate([
@@ -69,7 +69,7 @@ class CommandLineController extends Controller
             'material_id' => 'required|exists:materials,id',
             'quantity' => 'required|integer|min:1',
         ]);
-        
+
         $material = Material::find($request->material_id);
 
         if ($material->quantity < $request->quantity) {
@@ -123,13 +123,13 @@ class CommandLineController extends Controller
         $material = Material::find($request->material_id);
         $oldQuantity = $commandLine->quantity;
         $newQuantity = $request->quantity;
-        
-        
+
+
         if ($material->quantity + $oldQuantity < $request->quantity) {
             return back()->with('error', 'La quantité de matériel est insuffisante.')
                 ->withInput();
         }
-        
+
         $commandLine->update($request->all());
         $material->increment('quantity', $oldQuantity);
         $material->decrement('quantity', $newQuantity);
@@ -146,7 +146,7 @@ class CommandLineController extends Controller
         //
         $material = Material::find($commandLine->material_id);
         $material->increment('quantity', $commandLine->quantity);
-        
+
         $commandLine->delete();
 
         if (request('redirect_to') === 'create') {

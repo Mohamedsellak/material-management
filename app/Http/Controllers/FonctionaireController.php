@@ -52,10 +52,10 @@ class FonctionaireController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'nom' => 'required|alpha|min:3|max:20',
-            'prenom' => 'required|alpha|min:3|max:20',
+            'nom' => 'required|string|min:3|max:20',
+            'prenom' => 'required|string|min:3|max:20',
             'email' => 'required|email',
-            'telephone' => 'required|numeric',
+            'telephone' => 'nullable|numeric',
             'departement_id' => 'required|numeric|exists:departements,id',
         ]);
 
@@ -89,10 +89,10 @@ class FonctionaireController extends Controller
     public function update(Request $request, Fonctionaire $fonctionaire)
     {
         $request->validate([
-            'nom' => 'required|alpha|min:3|max:20',
-            'prenom' => 'required|alpha|min:3|max:20',
+            'nom' => 'required|string|min:3|max:20',
+            'prenom' => 'required|string|min:3|max:20',
             'email' => 'required|email',
-            'telephone' => 'required|numeric',
+            'telephone' => 'nullable|numeric',
             'departement_id' => 'required|numeric|exists:departements,id',
         ]);
 

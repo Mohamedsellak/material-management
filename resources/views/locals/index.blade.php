@@ -257,7 +257,7 @@
                                             </div>
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-semibold text-gray-900">{{ $local->name ?? 'N/A' }}</div>
+                                            <div class="text-sm font-semibold text-gray-900">{{ $local->name }}</div>
                                             <div class="text-sm text-gray-500">Local</div>
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@
                                             </div>
                                         </div>
                                         <span class="px-3 py-1 text-sm font-medium bg-purple-100 text-purple-800 rounded-full border border-purple-200">
-                                            {{ $local->departement->name ?? 'Département non défini' }}
+                                            {{ $local->departement->name }}
                                         </span>
                                     </div>
                                 </td>

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('build/assets/all.min.css') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="{{ asset('build/assets/css-fonts.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-Do5munxH.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-PaP-0BHV.css') }}">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.css') }}">
