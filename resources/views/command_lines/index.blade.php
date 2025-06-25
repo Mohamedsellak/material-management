@@ -200,16 +200,8 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end items-center space-x-1">
-                                            <!-- Primary Action - Smart Affectation Button -->
-                                            @if($commandLine->affectations->count() > 0)
-                                                <a href="{{ route('affectations.reaffecter', $commandLine->affectations->first()) }}"
-                                                   class="p-2 text-amber-600 hover:text-amber-900 hover:bg-amber-50 rounded-lg transition-colors shadow-sm hover:shadow-md"
-                                                   title="Réaffecter">
-                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                                    </svg>
-                                                </a>
-                                            @else
+                                            <!-- Create Affectation Button - Only show if no affectations exist -->
+                                            @if($commandLine->affectations->count() == 0)
                                                 <a href="{{ route('affectations.create', ['commandLine' => $commandLine->id]) }}"
                                                    class="p-2 text-emerald-600 hover:text-emerald-900 hover:bg-emerald-50 rounded-lg transition-colors shadow-sm hover:shadow-md"
                                                    title="Créer affectation">

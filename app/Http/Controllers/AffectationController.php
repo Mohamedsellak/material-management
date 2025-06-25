@@ -6,6 +6,7 @@ use App\Models\Affectation;
 use App\Models\Etat;
 use App\Models\Local;
 use App\Models\CommandLine;
+use App\Models\TypeMaterial;
 use Illuminate\Http\Request;
 use App\Models\Departement;
 use PDF;
@@ -15,21 +16,19 @@ class AffectationController extends Controller
 {
     public function index()
     {
-        $affectation = request()->affectation_id ?? null;
-        $search = request()->search ?? null;
+        $numero_inventaire = request()->numero_inventaire ?? null;
         $etat = request()->etat ?? null;
         $local = request()->local ?? null;
+        $fonctionnaire = request()->fonctionnaire ?? null;
+        $type_material = request()->type_material ?? null;
 
         $etatCasse = Etat::where('name', 'casse')->first();
 
-        $query = Affectation::query();
+        $query = Affectation::with(['etat', 'local.departement', 'commandLine.command.fonctionaire', 'commandLine.material']);
         $query->where('etat_id', '!=', $etatCasse->id);
 
-        if($affectation){
-            $query->where('id', $affectation);
-        }
-        if($search){
-            $query->where('numero_inventaire', $search);
+        if($numero_inventaire){
+            $query->where('numero_inventaire', 'LIKE', "%{$numero_inventaire}%");
         }
         if($etat){
             $query->where('etat_id', $etat);
@@ -37,12 +36,26 @@ class AffectationController extends Controller
         if($local){
             $query->where('local_id', $local);
         }
+        if($fonctionnaire){
+            $query->whereHas('commandLine.command.fonctionaire', function($q) use ($fonctionnaire) {
+                $q->where('nom', 'LIKE', "%{$fonctionnaire}%")
+                  ->orWhere('prenom', 'LIKE', "%{$fonctionnaire}%")
+                  ->orWhereRaw("CONCAT(prenom, ' ', nom) LIKE ?", ["%{$fonctionnaire}%"]);
+            });
+        }
+        if($type_material){
+            $query->whereHas('commandLine.material', function($q) use ($type_material) {
+                $q->where('type_material_id', $type_material);
+            });
+        }
 
-        $affectations = $query->latest()->paginate(8)->withQueryString();
+        $affectations = $query->latest()->paginate(10)->withQueryString();
 
         $etats = Etat::all();
         $locals = Local::all();
-        return view('affectations.index', compact('affectations', 'etats', 'locals'));
+        $typeMaterials = TypeMaterial::all();
+
+        return view('affectations.index', compact('affectations', 'etats', 'locals', 'typeMaterials'));
     }
 
     public function show(Affectation $affectation)

@@ -1,5 +1,10 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Source and destination paths
 const webfontsSource = path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts');
@@ -7,10 +12,14 @@ const cssSource = path.join(__dirname, 'node_modules/@fortawesome/fontawesome-fr
 const webfontsDest = path.join(__dirname, 'public/build/webfonts');
 const cssDest = path.join(__dirname, 'public/build/assets/all.min.css');
 
+// Create directories if they don't exist
+await fs.ensureDir(path.dirname(webfontsDest));
+await fs.ensureDir(path.dirname(cssDest));
+
 // Copy webfonts
-fs.copySync(webfontsSource, webfontsDest, { overwrite: true });
+await fs.copy(webfontsSource, webfontsDest, { overwrite: true });
 console.log('Webfonts copied successfully');
 
 // Copy CSS
-fs.copySync(cssSource, cssDest, { overwrite: true });
-console.log('CSS copied successfully'); 
+await fs.copy(cssSource, cssDest, { overwrite: true });
+console.log('CSS copied successfully');
