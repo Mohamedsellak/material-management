@@ -76,21 +76,13 @@
                     <!-- Colorful Action Buttons -->
                     <div class="flex flex-wrap gap-3">
                         <!-- Primary Action: Affectation -->
-                        @if($commandLine->affectations->count() > 0)
+                        @if($commandLine->affectations->count() == 0)
                             <a href="{{ route('affectations.create', ['commandLine' => $commandLine->id]) }}"
                                class="group relative inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold rounded-lg shadow-md hover:from-amber-600 hover:to-orange-600 hover:shadow-lg transform hover:scale-105 transition-all duration-200 border border-amber-400 hover:border-amber-500">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                 </svg>
-                                Réaffecter
-                            </a>
-                        @else
-                            <a href="{{ route('affectations.create', ['commandLine' => $commandLine->id]) }}"
-                               class="group relative inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-sm font-semibold rounded-lg shadow-md hover:from-emerald-600 hover:to-green-600 hover:shadow-lg transform hover:scale-105 transition-all duration-200 border border-emerald-400 hover:border-emerald-500">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                </svg>
-                                Affecter
+                               Affecter
                             </a>
                         @endif
 
@@ -218,16 +210,7 @@
                         </div>
 
                         <div class="p-6 space-y-6">
-                            @if($commandLine->affectations->count() > 0)
-                                <a href="{{ route('affectations.create', ['commandLine' => $commandLine->id]) }}"
-                                   class="group relative w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-2xl shadow-lg hover:from-orange-600 hover:to-orange-700 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 ease-out focus:outline-none focus:ring-4 focus:ring-orange-300 focus:ring-opacity-50">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                                    <svg class="w-5 h-5 mr-3 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                    </svg>
-                                    <span class="relative z-10">Réaffectation</span>
-                                </a>
-                            @else
+                            @if($commandLine->affectations->count() == 0)
                                 <a href="{{ route('affectations.create', ['commandLine' => $commandLine->id]) }}"
                                    class="group relative w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold rounded-2xl shadow-lg hover:from-emerald-600 hover:to-green-700 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 ease-out focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:ring-opacity-50">
                                     <div class="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>

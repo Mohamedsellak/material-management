@@ -5,7 +5,7 @@
     <div class="container mx-auto px-4 lg:px-8 py-8">
         <!-- Professional Header Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
-            <div class="flex flex-col lg:flex-row just                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"/>fy-between items-start lg:items-center gap-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div class="flex items-center space-x-4">
                     <div class="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg">
                         <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
